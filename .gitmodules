@@ -1,0 +1,3 @@
+[submodule "src/UmbNav-UI"]
+	path = src/UmbNav-UI
+	url = https://github.com/AaronSadlerUK/UmbNav-UI.git
