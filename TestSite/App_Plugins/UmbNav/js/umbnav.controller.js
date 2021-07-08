@@ -31,24 +31,26 @@
     };
 
     $scope.collapseAll = function () {
-        $scope.items.forEach(toggleChildrenTrue);
+        angular.forEach($scope.items,
+            function (value, key) {
+                toggleChildren(value, true);
+            });
     };
 
     $scope.expandAll = function () {
-        $scope.items.forEach(toggleChildrenFalse);
+        angular.forEach($scope.items,
+            function(value, key) {
+                toggleChildren(value, false);
+            });
     };
 
-    function toggleChildrenTrue(item) {
-        item.collapsed = true;
+    function toggleChildren(item, b) {
+        item.collapsed = b;
         if (item.children) {
-            item.children.forEach(toggleChildrenTrue);
-        }
-    }
-
-    function toggleChildrenFalse(item) {
-        item.collapsed = false;
-        if (item.children) {
-            item.children.forEach(toggleChildrenFalse);
+            angular.forEach(item.children,
+                function (value, key) {
+                    toggleChildren(value, true);
+                });
         }
     }
 
