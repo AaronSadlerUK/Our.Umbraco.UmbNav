@@ -36,7 +36,7 @@ namespace UmbNavV8.Api.Controllers.API
                     }
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK, new
+                var menuItem = new
                 {
                     id = entity.Id,
                     udi = entity.GetUdi(),
@@ -44,9 +44,12 @@ namespace UmbNavV8.Api.Controllers.API
                     icon = entity.ContentType.Icon,
                     url = entityUrl,
                     published = entity.Published,
-                    naviHide = entity.HasProperty("umbracoNaviHide") && entity.GetValue<bool>("umbracoNaviHide"),
+                    naviHide = entity.HasProperty("umbracoNaviHide") && entity.GetValue<bool>("umbracoNaviHide") ||
+                               entity.HasProperty("umbracoNavihide") && entity.GetValue<bool>("umbracoNavihide"),
                     culture = culture
-                });
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, menuItem);
             }
 
             return null;
