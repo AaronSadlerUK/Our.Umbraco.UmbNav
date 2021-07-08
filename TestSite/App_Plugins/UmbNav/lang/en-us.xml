@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language>
+	<area alias="umbnav">
+		<key alias="addItem">Add Item</key>
+		<key alias="collapseAll">Collapse All</key>
+		<key alias="expand">Expand</key>
+		<key alias="collapse">Collapse</key>
+		<key alias="expandAll">Expand All</key>
+		<key alias="editItem">Edit</key>
+		<key alias="removeItem">Remove</key>
+	</area>
+</language>

@@ -1,9 +1,16 @@
-﻿<div ng-controller="AaronSadler.UmbNav.Controller" class="umbnav-editor">
+<div ng-controller="AaronSadler.UmbNav.Controller" class="umbnav-editor">
     <div class="umbnav-editor-buttons" ng-if="showButtons()">
-        <a class="btn btn-primary" ng-click="expandAll()">Expand all</a>
-        <a class="btn btn-secondary" ng-click="collapseAll()">Collapse all</a>
-        <a class="btn btn-success" ng-click="add()">Add Item</a>
+        <a class="btn btn-primary" ng-click="expandAll()">
+            <localize key="umbnav_expandAll"></localize>
+        </a>
+        <a class="btn btn-secondary" ng-click="collapseAll()">
+            <localize key="umbnav_collapseAll"></localize>
+        </a>
+        <a class="btn btn-success" ng-click="add()">
+            <localize key="umbnav_addItem"></localize>
+        </a>
     </div>
+
     <ng-form name="umbnavEditorForm">
 
         <!-- umbnav sortable tree -->
@@ -19,7 +26,7 @@
 
         <!-- add nav items -->
         <a href="" class="umb-node-preview-add" data-nodrag ng-click="add()" prevent-default>
-            <localize key="general_add">Add</localize>
+            <localize key="umbnav_addItem"></localize>
         </a>
 
     </ng-form>
@@ -43,29 +50,27 @@
                 <div class="umb-node-preview__actions">
                     <a class="umb-node-preview__action" ng-if="item.children && item.children.length > 0" data-nodrag ng-click="editItem(item)">
                         <span ng-if="item.collapsed">
-                            Expand
+                            <localize key="umbnav_expand"></localize>
                         </span>
                         <span ng-if="!item.collapsed">
-                            Collapse
+                            <localize key="umbnav_collapse"></localize>
                         </span>
                     </a>
 
                     <a class="umb-node-preview__action"
-                       title="Edit {{name}}"
                        ng-href="{{editUrl}}"
                        data-nodrag
                        ng-click="edit(item)">
-                        <localize key="general_edit">Edit</localize>
-                        <span class="sr-only">{{name}}</span>
+                        <localize key="umbnav_editItem"></localize>
+                        <span class="sr-only">{{item.title || item.name}}</span>
                     </a>
 
                     <a class="umb-node-preview__action umb-node-preview__action--red"
-                       title="Remove {{name}}"
                        ng-href="{{removeUrl}}"
                        data-nodrag
                        ng-click="remove(item)">
-                        <localize key="general_remove">Remove</localize>
-                        <span class="sr-only">{{name}}</span>
+                        <localize key="umbnav_removeItem"></localize>
+                        <span class="sr-only">{{item.title || item.name}}</span>
                     </a>
                 </div>
 
