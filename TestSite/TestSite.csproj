@@ -323,6 +323,7 @@
     <Content Include="App_Plugins\UmbNav\js\angular-ui-tree.js" />
     <Content Include="App_Plugins\UmbNav\js\umbnav.controller.js" />
     <Content Include="App_Plugins\UmbNav\js\umbnav.resource.js" />
+    <Content Include="App_Plugins\UmbNav\lang\en-us.xml" />
     <Content Include="App_Plugins\UmbNav\views\editor.html" />
     <Content Include="App_Plugins\UmbNav\views\settings.html" />
     <Content Include="App_Plugins\uSync8\backoffice\uSync8\dashboard.html" />
@@ -426,6 +427,7 @@
       <Name>UmbNavV8.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
