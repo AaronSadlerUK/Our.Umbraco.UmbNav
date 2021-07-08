@@ -1,4 +1,4 @@
-<div ng-controller="AaronSadler.UmbNav.Controller" class="umbnav-editor">
+﻿<div ng-controller="AaronSadler.UmbNav.Controller" class="umbnav-editor">
     <div class="umbnav-editor-buttons" ng-if="showButtons()">
         <a class="btn btn-primary" ng-click="expandAll()">
             <localize key="umbnav_expandAll"></localize>
@@ -35,8 +35,7 @@
     <script type="text/ng-template" id="nav_item_template.html">
 
         <div ui-tree-handle class="umbnav-item"
-             ng-class="{'umbnav-item--unpublished': item.published === false, 'umbnav-item--navihide': isVisible(item) === false}">
-
+             ng-class="{'umbnav-item--unpublished': item.published === false, 'umbnav-item--navihide': item.naviHide === true}">
             <div class="umb-node-preview" ng-class="{'umb-node-preview--sortable': sortable, 'umb-node-preview--unpublished': published === false}">
                 <div class="flex">
                     <!-- div keeps icon and nodename from wrapping -->
