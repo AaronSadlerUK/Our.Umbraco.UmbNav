@@ -20,6 +20,8 @@ namespace UmbNavV8.Core.ValueConverters
         private readonly ILogger _logger;
 
         private bool _removeNaviHideItems;
+        private bool _removeNoopener;
+        private bool _removeNoreferrer;
 
         public UmbNavV8ValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, ILogger logger)
         {
@@ -46,6 +48,8 @@ namespace UmbNavV8.Core.ValueConverters
             if (configuration != null)
             {
                 _removeNaviHideItems = configuration.RemoveNaviHideItems;
+                _removeNoopener = configuration.HideNoopener;
+                _removeNoreferrer = configuration.HideNoreferrer;
             }
 
             try
@@ -96,6 +100,16 @@ namespace UmbNavV8.Core.ValueConverters
                         if (_removeNaviHideItems && !umbracoContent.IsVisible())
                         {
                             continue;
+                        }
+
+                        if (_removeNoopener)
+                        {
+                            item.Noopener = null;
+                        }
+
+                        if (_removeNoreferrer)
+                        {
+                            item.Noreferrer = null;
                         }
 
                         //// set content to node

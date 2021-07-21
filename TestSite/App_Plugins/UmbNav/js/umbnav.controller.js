@@ -94,6 +94,8 @@
             title: "Settings",
             view: "/App_Plugins/UmbNav/Views/settings.html",
             size: "small",
+            hideNoreferrer: $scope.model.config.hideNoreferrer,
+            hideNoopener: $scope.model.config.hideNoopener,
             currentTarget: item,
             submit: function (model) {
                 model.target.description = model.target.url + model.target.anchor;

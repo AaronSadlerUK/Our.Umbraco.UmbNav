@@ -9,5 +9,11 @@ namespace UmbNavV8.Core.PropertyEditors
 
         [ConfigurationField("removeNaviHideItems", "Remove NaviHide Items", "boolean", Description = "Remove items where umbracoNaviHide is true")]
         public bool RemoveNaviHideItems { get; set; }
+
+        [ConfigurationField("hideNoopener", "Hide noopener Toggle", "boolean", Description = "Hide the ability to toggle noopener")]
+        public bool HideNoopener { get; set; }
+
+        [ConfigurationField("hideNoreferrer", "Hide noreferrer Toggle", "boolean", Description = "Hide the ability to toggle noreferrer")]
+        public bool HideNoreferrer { get; set; }
     }
 }
