@@ -4,6 +4,11 @@
     vm.wideMode = Object.toBoolean(dialogOptions.config.hideLabel);
     vm.items = [];
 
+    if (dialogOptions.config.expandOnHoverTimeout > 0) {
+        vm.expandOnHover = dialogOptions.config.expandOnHoverTimeout;
+    } else {
+        vm.expandOnHover = dialogOptions.config.expandOnHover;
+    }
 
     if (!_.isEmpty($scope.model.value)) {
         // retreive the saved items

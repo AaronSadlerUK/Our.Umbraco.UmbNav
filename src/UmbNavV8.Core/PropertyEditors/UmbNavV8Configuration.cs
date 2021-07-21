@@ -10,6 +10,12 @@ namespace UmbNavV8.Core.PropertyEditors
         [ConfigurationField("removeNaviHideItems", "Remove NaviHide Items", "boolean", Description = "Remove items where umbracoNaviHide is true")]
         public bool RemoveNaviHideItems { get; set; }
 
+        [ConfigurationField("expandOnHover", "Allow Expand On Hover", "boolean", Description = "Expand the tree item on hover")]
+        public bool ExpandOnHover { get; set; }
+
+        [ConfigurationField("expandOnHoverTimeout", "Expand On Hover", "number", Description = "The delay to wait before the tree item expands")]
+        public int ExpandOnHoverTimeout { get; set; }
+
         [ConfigurationField("hideNoopener", "Hide noopener Toggle", "boolean", Description = "Hide the ability to toggle noopener")]
         public bool HideNoopener { get; set; }
 

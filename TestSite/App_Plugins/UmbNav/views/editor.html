@@ -18,7 +18,7 @@
 
             <ol ui-tree-nodes ng-model="vm.items" ng-class="{hidden: collapsed}">
 
-                <li ng-repeat="item in vm.items" ui-tree-node data-collapsed="{{item.collapsed}}" data-expand-on-hover="true" ng-include="'nav_item_template.html'"></li>
+                <li ng-repeat="item in vm.items" ui-tree-node data-collapsed="{{item.collapsed}}" data-expand-on-hover="{{vm.expandOnHover}}" ng-include="'nav_item_template.html'"></li>
 
             </ol>
 
@@ -79,7 +79,7 @@
 
         <ol ui-tree-nodes ng-model="item.children" ng-class="{hidden: collapsed}">
 
-            <li ng-repeat="item in item.children" ui-tree-node data-collapsed="{{item.collapsed}}" data-expand-on-hover="true" ng-include="'nav_item_template.html'"></li>
+            <li ng-repeat="item in item.children" ui-tree-node data-collapsed="{{item.collapsed}}" data-expand-on-hover="{{vm.expandOnHover}}" ng-include="'nav_item_template.html'"></li>
 
         </ol>
 
