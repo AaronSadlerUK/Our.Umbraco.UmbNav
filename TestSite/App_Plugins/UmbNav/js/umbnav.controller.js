@@ -4,6 +4,7 @@
     vm.wideMode = Object.toBoolean(dialogOptions.config.hideLabel);
     vm.items = [];
 
+
     if (!_.isEmpty($scope.model.value)) {
         // retreive the saved items
         vm.items = $scope.model.value;
@@ -27,34 +28,13 @@
         });
     };
 
-    $scope.editItem = function (item) {
-        item.collapsed = item.collapsed ? false : true;
-        angular.extend(item, buildNavItem(item));
-    };
-
     $scope.collapseAll = function () {
-        angular.forEach(vm.items,
-            function (value, key) {
-                toggleChildren(value, true);
-            });
+        $scope.$broadcast('angular-ui-tree:collapse-all');
     };
 
     $scope.expandAll = function () {
-        angular.forEach(vm.items,
-            function(value, key) {
-                toggleChildren(value, false);
-            });
+        $scope.$broadcast('angular-ui-tree:expand-all');
     };
-
-    function toggleChildren(item, b) {
-        item.collapsed = b;
-        if (item.children) {
-            angular.forEach(item.children,
-                function (value, key) {
-                    toggleChildren(value, true);
-                });
-        }
-    }
 
     $scope.showButtons = function () {
         const maxDepth = dialogOptions.config.maxDepth;
