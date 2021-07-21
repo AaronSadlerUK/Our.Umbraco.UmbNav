@@ -15,5 +15,8 @@ namespace UmbNavV8.Core.PropertyEditors
 
         [ConfigurationField("hideNoreferrer", "Hide noreferrer Toggle", "boolean", Description = "Hide the ability to toggle noreferrer")]
         public bool HideNoreferrer { get; set; }
+
+        [ConfigurationField("hideLabel", "Hide Label", "boolean", Description = "Hide the property label and let the item list span the full width of the editor window.")]
+        public bool HideLabel { get; set; }
     }
 }

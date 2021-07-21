@@ -1,6 +1,7 @@
 ﻿function UmbNav($scope, editorService, umbnavResource, $routeParams) {
     var vm = this;
     var dialogOptions = $scope.model;
+    vm.wideMode = Object.toBoolean(dialogOptions.config.hideLabel);
     vm.items = [];
 
     if (!_.isEmpty($scope.model.value)) {

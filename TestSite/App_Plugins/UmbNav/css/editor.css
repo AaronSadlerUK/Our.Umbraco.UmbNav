@@ -3,6 +3,18 @@
     max-width: 800px;
 }
 
+.umbnav-editor--wide {
+    display: block;
+}
+
+    .umbnav-editor--wide .umb-multiple-textbox .add-link, .umbnav-editor--wide .umb-node-preview, .umbnav-editor--wide .umb-node-preview-add {
+        max-width: 100%;
+    }
+
+.umbnav-item .umb-node-preview:last-of-type {
+    border-bottom: none;
+}
+
 .umbnav-item .umb-node-preview {
     padding: 8px 0;
     border-bottom: 1px solid #e9e9eb;
@@ -13,16 +25,16 @@
     opacity: .5;
 }
 
-.umbnav-item--unpublished + .angular-ui-tree-nodes,
-.umbnav-item--navihide + .angular-ui-tree-nodes {
-    opacity: .5;
-}
-/* Highlight hidden items */
-.umbnav-item--navihide,
-.umbnav-item--navihide:hover {
-    border: 1px dotted;
-    border-color: red;
-}
+    .umbnav-item--unpublished + .angular-ui-tree-nodes,
+    .umbnav-item--navihide + .angular-ui-tree-nodes {
+        opacity: .5;
+    }
+    /* Highlight hidden items */
+    .umbnav-item--navihide,
+    .umbnav-item--navihide:hover {
+        border: 1px dotted;
+        border-color: red;
+    }
 /* Angular UI Tree */
 .angular-ui-tree-nodes {
     position: relative;
@@ -31,13 +43,13 @@
     list-style: none;
 }
 
-.angular-ui-tree-nodes a:link[data-nodrag] {
-    cursor: pointer;
-}
+    .angular-ui-tree-nodes a:link[data-nodrag] {
+        cursor: pointer;
+    }
 
-.angular-ui-tree-nodes .angular-ui-tree-nodes {
-    padding-left: 20px;
-}
+    .angular-ui-tree-nodes .angular-ui-tree-nodes {
+        padding-left: 20px;
+    }
 
 .angular-ui-tree-hidden {
     display: none;

@@ -1,4 +1,4 @@
-﻿<div ng-controller="AaronSadler.UmbNav.Controller as vm" class="umbnav-editor">
+﻿<div ng-controller="AaronSadler.UmbNav.Controller as vm" class="" ng-class="{'umbnav-editor':!vm.wideMode, 'umbnav-editor--wide':vm.wideMode}">
     <div class="umbnav-editor-buttons" ng-if="showButtons()">
         <a class="btn btn-primary" ng-click="expandAll()">
             <localize key="umbnav_expandAll"></localize>
