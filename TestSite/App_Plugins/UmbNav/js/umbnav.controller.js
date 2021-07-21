@@ -53,6 +53,12 @@
         $scope.model.value = vm.items;
     });
 
+    $scope.treeOptions = {
+        toggle: function (collapsed, sourceNodeScope) {
+            sourceNodeScope.$modelValue.collapsed = collapsed;
+        }
+    }
+
     function getItemEntities(items) {
         _.each(items, function (item) {
             item.description = item.url;
