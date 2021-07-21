@@ -12,7 +12,6 @@ using Umbraco.Core.PropertyEditors;
 using Umbraco.Web;
 using Umbraco.Web.Composing;
 using Umbraco.Web.PublishedCache;
-using Umbraco.Web.Security;
 
 namespace UmbNavV8.Core.ValueConverters
 {
@@ -77,7 +76,6 @@ namespace UmbNavV8.Core.ValueConverters
             {
                 item.Level = level;
 
-                // it's likely a content item
                 if (item.Id > 0)
                 {
                     IPublishedContent umbracoContent;
@@ -96,10 +94,8 @@ namespace UmbNavV8.Core.ValueConverters
 
                     if (umbracoContent != null)
                     {
-                        // set item type
                         item.ItemType = UmbNavItemType.Content;
 
-                        // skip item if umbracoNaviHide enabled
                         if (_removeNaviHideItems && !umbracoContent.IsVisible())
                         {
                             continue;
@@ -125,28 +121,13 @@ namespace UmbNavV8.Core.ValueConverters
                             item.Noreferrer = null;
                         }
 
-                        //// set content to node
-                        //item.Content = umbracoContent;
-
-                        // set title to node name if no override is set
                         if (string.IsNullOrWhiteSpace(item.Title))
                         {
                             item.Title = umbracoContent.Name(currentCulture);
                         }
-
-                        //if (!string.IsNullOrEmpty(item.Anchor))
-                        //{
-                        //    item.Url = umbracoContent.Url(currentCulture) + $"{item.Anchor}";
-                        //}
-                        //else
-                        //{
-                        //    item.Url = umbracoContent.Url(currentCulture);
-                        //}
-                        // set url to most recent from published cache
                     }
                 }
 
-                // process child items
                 if (item.Children.Any())
                 {
                     var childLevel = item.Level + 1;
@@ -155,7 +136,6 @@ namespace UmbNavV8.Core.ValueConverters
                 }
             }
 
-            // remove unpublished content items
             items = items.Where(x => x.ItemType == UmbNavItemType.Link);
 
             return items;

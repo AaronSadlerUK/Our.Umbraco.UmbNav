@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Umbraco.Core;
-using Umbraco.Core.Logging;
-using Umbraco.Core.Models.Editors;
+﻿using Umbraco.Core.Logging;
 using Umbraco.Core.PropertyEditors;
-using Umbraco.Core.Services;
-using Umbraco.Web.PropertyEditors;
 
 namespace UmbNavV8.Core.PropertyEditors
 {
     [DataEditor(Constants.PropertyEditorAlias, Constants.PackageName, Constants.PackageFilesPath + "views/editor.html",
         ValueType = "JSON", Group = "pickers", Icon = "icon-sitemap")]
-    public class UmbNavV8PropertyEditor : DataEditor, IDataEditor
+    public class UmbNavV8PropertyEditor : DataEditor
     {
         public UmbNavV8PropertyEditor(ILogger logger)
             : base(logger)

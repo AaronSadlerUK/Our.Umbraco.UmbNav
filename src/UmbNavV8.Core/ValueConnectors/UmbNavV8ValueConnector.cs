@@ -38,7 +38,7 @@ namespace UmbNavV8.Core.ValueConnectors
             return value;
         }
 
-        public IEnumerable<string> PropertyEditorAliases => new[] { Core.Constants.PropertyEditorAlias };
+        public IEnumerable<string> PropertyEditorAliases => new[] { Constants.PropertyEditorAlias };
 
 
         private static JArray ParseLinks(JArray links, ICollection<ArtifactDependency> dependencies)
