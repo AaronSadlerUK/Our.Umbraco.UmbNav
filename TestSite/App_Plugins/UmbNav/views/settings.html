@@ -1,4 +1,4 @@
-﻿<div ng-controller="Umbraco.Editors.LinkPickerController as vm" class="umb-linkpicker">
+﻿<div ng-controller="AaronSadler.UmbNav.Settings.Controller as vm" class="umb-linkpicker">
 
     <umb-editor-view>
 
@@ -56,6 +56,18 @@
                         <umb-checkbox model="vm.openInNewWindow"
                                       on-change="vm.toggleOpenInNewWindow(model, value)"
                                       text="{{vm.labels.openInNewWindow}}">
+                        </umb-checkbox>
+                    </umb-control-group>
+
+                    <umb-control-group label="@umbnav_seo">
+                        <umb-checkbox ng-if="showNoopener" model="vm.showNoopener"
+                                      on-change="vm.toggleshowNoopener(model, value)"
+                                      text="{{vm.labels.showNoopener}}">
+                        </umb-checkbox>
+
+                        <umb-checkbox ng-if="showNoreferrer" model="vm.showNoreferrer"
+                                      on-change="vm.toggleshowNoreferrer(model, value)"
+                                      text="{{vm.labels.showNoreferrer}}">
                         </umb-checkbox>
                     </umb-control-group>
 

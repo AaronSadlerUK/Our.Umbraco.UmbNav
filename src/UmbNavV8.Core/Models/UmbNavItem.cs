@@ -14,6 +14,8 @@ namespace UmbNavV8.Core.Models
         public string Title { get; set; }
 
         public string Target { get; set; }
+        public string Noopener { get; set; }
+        public string Noreferrer { get; set; }
 
         public string Anchor { get; set; }
 

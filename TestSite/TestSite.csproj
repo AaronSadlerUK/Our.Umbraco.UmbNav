@@ -323,6 +323,7 @@
     <Content Include="App_Plugins\UmbNav\js\angular-ui-tree.js" />
     <Content Include="App_Plugins\UmbNav\js\umbnav.controller.js" />
     <Content Include="App_Plugins\UmbNav\js\umbnav.resource.js" />
+    <Content Include="App_Plugins\UmbNav\js\umbnav.settings.controller.js" />
     <Content Include="App_Plugins\UmbNav\lang\en-us.xml" />
     <Content Include="App_Plugins\UmbNav\views\editor.html" />
     <Content Include="App_Plugins\UmbNav\views\settings.html" />

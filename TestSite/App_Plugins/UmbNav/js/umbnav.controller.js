@@ -140,6 +140,8 @@
             collapsed: data.collapsed,
             title: data.title,
             target: data.target,
+            noopener: data.noopener,
+            noreferrer: data.noreferrer,
             anchor: data.anchor,
             url: url || "#",
             children: data.children || [],

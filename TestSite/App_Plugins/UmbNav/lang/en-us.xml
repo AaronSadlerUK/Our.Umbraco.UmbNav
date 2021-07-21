@@ -8,5 +8,9 @@
 		<key alias="expandAll">Expand All</key>
 		<key alias="editItem">Edit</key>
 		<key alias="removeItem">Remove</key>
+		<key alias="noopener">Add "noopener" to link</key>
+		<key alias="noreferrer">Add "noreferrer" to link</key>
+		<key alias="seo">SEO</key>
+		<key alias="removeItem">Remove</key>
 	</area>
 </language>
