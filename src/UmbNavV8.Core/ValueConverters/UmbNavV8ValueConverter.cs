@@ -54,7 +54,7 @@ namespace UmbNavV8.Core.ValueConverters
 
             try
             {
-                var items = JsonConvert.DeserializeObject<IEnumerable<UmbNavInternalItem>>(inter.ToString());
+                var items = JsonConvert.DeserializeObject<IEnumerable<UmbNavItem>>(inter.ToString());
 
                 return BuildMenu(items);
             }

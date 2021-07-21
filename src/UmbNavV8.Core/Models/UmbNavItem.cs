@@ -28,5 +28,7 @@ namespace UmbNavV8.Core.Models
         public int Level { get; set; }
 
         public string Culture { get; set; }
+
+        internal bool Collapsed { get; set; }
     }
 }
