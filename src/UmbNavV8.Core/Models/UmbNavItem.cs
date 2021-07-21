@@ -31,8 +31,10 @@ namespace UmbNavV8.Core.Models
 
         internal bool Collapsed { get; set; }
 
+        [JsonProperty("hideLoggedIn")]
         internal bool HideLoggedIn { get; set; }
-        
+
+        [JsonProperty("hideLoggedOut")]
         internal bool HideLoggedOut { get; set; }
     }
 }
