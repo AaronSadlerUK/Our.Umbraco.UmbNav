@@ -16,9 +16,9 @@
         <!-- umbnav sortable tree -->
         <div ui-tree data-max-depth="{{model.config.maxDepth}}">
 
-            <ol ui-tree-nodes ng-model="vm.items">
+            <ol ui-tree-nodes ng-model="vm.items" ng-class="{hidden: collapsed}">
 
-                <li ng-repeat="item in vm.items" ui-tree-node ng-include="'nav_item_template.html'"></li>
+                <li ng-repeat="item in vm.items" ui-tree-node data-collapsed="{{item.collapsed}}" data-expand-on-hover="true" ng-include="'nav_item_template.html'"></li>
 
             </ol>
 
@@ -47,11 +47,11 @@
                     </div>
                 </div>
                 <div class="umb-node-preview__actions">
-                    <a class="umb-node-preview__action" ng-if="item.children && item.children.length > 0" data-nodrag ng-click="editItem(item)">
-                        <span ng-if="item.collapsed">
+                    <a class="umb-node-preview__action" ng-if="item.children && item.children.length > 0" data-nodrag ng-click="toggle(item)">
+                        <span ng-if="collapsed">
                             <localize key="umbnav_expand"></localize>
                         </span>
-                        <span ng-if="!item.collapsed">
+                        <span ng-if="!collapsed">
                             <localize key="umbnav_collapse"></localize>
                         </span>
                     </a>
@@ -77,9 +77,9 @@
 
         </div>
 
-        <ol ui-tree-nodes ng-model="item.children" ng-show="!item.collapsed">
+        <ol ui-tree-nodes ng-model="item.children" ng-class="{hidden: collapsed}">
 
-            <li ng-repeat="item in item.children" ui-tree-node ng-include="'nav_item_template.html'"></li>
+            <li ng-repeat="item in item.children" ui-tree-node data-collapsed="{{item.collapsed}}" data-expand-on-hover="true" ng-include="'nav_item_template.html'"></li>
 
         </ol>
 
