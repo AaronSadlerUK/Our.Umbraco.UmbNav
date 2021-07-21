@@ -1,19 +1,20 @@
 ﻿function UmbNav($scope, editorService, umbnavResource, $routeParams) {
-
-    $scope.items = [];
+    var vm = this;
+    var dialogOptions = $scope.model;
+    vm.items = [];
 
     if (!_.isEmpty($scope.model.value)) {
         // retreive the saved items
-        $scope.items = $scope.model.value;
+        vm.items = $scope.model.value;
 
         // get updated entities for content
-        getItemEntities($scope.items);
+        getItemEntities(vm.items);
     }
 
     $scope.add = function () {
         openSettings(null, function (navItem) {
             // add item to scope
-            $scope.items.push(buildNavItem(navItem));
+            vm.items.push(buildNavItem(navItem));
         });
     };
 
@@ -31,14 +32,14 @@
     };
 
     $scope.collapseAll = function () {
-        angular.forEach($scope.items,
+        angular.forEach(vm.items,
             function (value, key) {
                 toggleChildren(value, true);
             });
     };
 
     $scope.expandAll = function () {
-        angular.forEach($scope.items,
+        angular.forEach(vm.items,
             function(value, key) {
                 toggleChildren(value, false);
             });
@@ -55,7 +56,7 @@
     }
 
     $scope.showButtons = function () {
-        const maxDepth = $scope.model.config.maxDepth;
+        const maxDepth = dialogOptions.config.maxDepth;
         if (maxDepth === 0 || maxDepth > 1) {
             return true;
         }
@@ -68,7 +69,7 @@
     };
 
     $scope.$on("formSubmitting", function (ev, args) {
-        $scope.model.value = $scope.items;
+        $scope.model.value = vm.items;
     });
 
     function getItemEntities(items) {
@@ -94,8 +95,8 @@
             title: "Settings",
             view: "/App_Plugins/UmbNav/Views/settings.html",
             size: "small",
-            hideNoreferrer: $scope.model.config.hideNoreferrer,
-            hideNoopener: $scope.model.config.hideNoopener,
+            hideNoreferrer: dialogOptions.config.hideNoreferrer,
+            hideNoopener: dialogOptions.config.hideNoopener,
             currentTarget: item,
             submit: function (model) {
                 model.target.description = model.target.url + model.target.anchor;

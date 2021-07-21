@@ -1,4 +1,4 @@
-﻿<div ng-controller="AaronSadler.UmbNav.Controller" class="umbnav-editor">
+﻿<div ng-controller="AaronSadler.UmbNav.Controller as vm" class="umbnav-editor">
     <div class="umbnav-editor-buttons" ng-if="showButtons()">
         <a class="btn btn-primary" ng-click="expandAll()">
             <localize key="umbnav_expandAll"></localize>
@@ -16,9 +16,9 @@
         <!-- umbnav sortable tree -->
         <div ui-tree data-max-depth="{{model.config.maxDepth}}">
 
-            <ol ui-tree-nodes ng-model="items">
+            <ol ui-tree-nodes ng-model="vm.items">
 
-                <li ng-repeat="item in items" ui-tree-node ng-include="'nav_item_template.html'"></li>
+                <li ng-repeat="item in vm.items" ui-tree-node ng-include="'nav_item_template.html'"></li>
 
             </ol>
 
