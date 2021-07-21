@@ -100,8 +100,8 @@
         }
         // need to translate the link target ("_blank" or "") into a boolean value for umb-checkbox
         vm.openInNewWindow = $scope.model.target.target === '_blank';
-        vm.showNoopener = $scope.model.target.noopener === 'noopener';
-        vm.showNoreferrer = $scope.model.target.noreferrer === 'noreferrer';
+        vm.showNoopener = $scope.model.target.noopener === 'noopener' && $scope.model.target.id === null || $scope.model.target.udi === null;
+        vm.showNoreferrer = $scope.model.target.noreferrer === 'noreferrer' && $scope.model.target.id === null || $scope.model.target.udi === null;
     } else if (dialogOptions.anchors) {
         $scope.anchorValues = dialogOptions.anchors;
     }
