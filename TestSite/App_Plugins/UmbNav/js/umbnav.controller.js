@@ -89,6 +89,7 @@
             size: "small",
             hideNoreferrer: dialogOptions.config.hideNoreferrer,
             hideNoopener: dialogOptions.config.hideNoopener,
+            allowDisplay: dialogOptions.config.allowDisplay,
             currentTarget: item,
             submit: function (model) {
                 model.target.description = model.target.url + model.target.anchor;
@@ -137,6 +138,8 @@
             target: data.target,
             noopener: data.noopener,
             noreferrer: data.noreferrer,
+            hideLoggedIn: data.hideLoggedIn,
+            hideLoggedOut: data.hideLoggedOut,
             anchor: data.anchor,
             url: url || "#",
             children: data.children || [],

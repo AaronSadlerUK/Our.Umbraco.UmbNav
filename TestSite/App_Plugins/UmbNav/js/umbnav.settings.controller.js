@@ -6,6 +6,8 @@
     vm.toggleOpenInNewWindow = toggleOpenInNewWindow;
     vm.toggleshowNoopener = toggleshowNoopener;
     vm.toggleshowNoreferrer = toggleshowNoreferrer;
+    vm.toggleDisplayLoggedIn = toggleDisplayLoggedIn;
+    vm.toggleDisplayLoggedOut = toggleDisplayLoggedOut;
     vm.labels = {};
     localizationService.localizeMany(['defaultdialogs_openInNewWindow']).then(function (data) {
         vm.labels.openInNewWindow = data[0];
@@ -15,6 +17,12 @@
     });
     localizationService.localizeMany(['umbnav_noreferrer']).then(function (data) {
         vm.labels.showNoreferrer = data[0];
+    });
+    localizationService.localizeMany(['umbnav_hideLoggedIn']).then(function (data) {
+        vm.labels.hideLoggedIn = data[0];
+    });
+    localizationService.localizeMany(['umbnav_hideLoggedOut']).then(function (data) {
+        vm.labels.hideLoggedOut = data[0];
     });
     if (!$scope.model.title) {
         localizationService.localize('defaultdialogs_selectLink').then(function (value) {
@@ -33,6 +41,7 @@
         selectedSearchResults: []
     };
     $scope.showTarget = $scope.model.hideTarget !== true;
+    $scope.showDisplay = $scope.model.allowDisplay === true;
     $scope.showNoopener = $scope.model.hideNoopener !== true;
     $scope.showNoreferrer = $scope.model.hideNoreferrer!== true;
     $scope.showAnchor = $scope.model.hideAnchor !== true;
@@ -100,6 +109,8 @@
         }
         // need to translate the link target ("_blank" or "") into a boolean value for umb-checkbox
         vm.openInNewWindow = $scope.model.target.target === '_blank';
+        vm.hideLoggedIn = $scope.model.target.hideLoggedIn;
+        vm.hideLoggedOut = $scope.model.target.hideLoggedOut;
         vm.showNoopener = $scope.model.target.noopener === 'noopener' && $scope.model.target.id === null || $scope.model.target.udi === null;
         vm.showNoreferrer = $scope.model.target.noreferrer === 'noreferrer' && $scope.model.target.id === null || $scope.model.target.udi === null;
     } else if (dialogOptions.anchors) {
@@ -220,6 +231,13 @@
     }
     function toggleshowNoreferrer(model, value) {
         $scope.model.target.noreferrer = model ? 'noreferrer' : '';
+    }
+
+    function toggleDisplayLoggedIn(model, value) {
+        $scope.model.target.hideLoggedIn = model ? true : false;
+    }
+    function toggleDisplayLoggedOut(model, value) {
+        $scope.model.target.hideLoggedOut = model ? true : false;
     }
     function close() {
         if ($scope.model && $scope.model.close) {

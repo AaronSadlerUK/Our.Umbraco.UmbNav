@@ -30,5 +30,9 @@ namespace UmbNavV8.Core.Models
         public string Culture { get; set; }
 
         internal bool Collapsed { get; set; }
+
+        internal bool HideLoggedIn { get; set; }
+        
+        internal bool HideLoggedOut { get; set; }
     }
 }

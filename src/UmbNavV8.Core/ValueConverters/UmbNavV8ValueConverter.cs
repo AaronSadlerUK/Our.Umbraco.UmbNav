@@ -10,7 +10,9 @@ using Umbraco.Core.Logging;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
 using Umbraco.Web;
+using Umbraco.Web.Composing;
 using Umbraco.Web.PublishedCache;
+using Umbraco.Web.Security;
 
 namespace UmbNavV8.Core.ValueConverters
 {
@@ -68,6 +70,7 @@ namespace UmbNavV8.Core.ValueConverters
 
         private IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, int level = 0)
         {
+            var isLoggedIn = Current.UmbracoHelper.MemberIsLoggedOn();
             items = items.ToList();
 
             foreach (var item in items)
@@ -98,6 +101,16 @@ namespace UmbNavV8.Core.ValueConverters
 
                         // skip item if umbracoNaviHide enabled
                         if (_removeNaviHideItems && !umbracoContent.IsVisible())
+                        {
+                            continue;
+                        }
+
+                        if (item.HideLoggedIn && isLoggedIn)
+                        {
+                            continue;
+                        }
+
+                        if (item.HideLoggedOut && !isLoggedIn)
                         {
                             continue;
                         }

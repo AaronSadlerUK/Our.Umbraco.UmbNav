@@ -12,5 +12,8 @@
 		<key alias="noreferrer">Add "noreferrer" to link</key>
 		<key alias="seo">SEO</key>
 		<key alias="removeItem">Remove</key>
+		<key alias="display">Display Item</key>
+		<key alias="hideLoggedIn">Hide if member is logged in</key>
+		<key alias="hideLoggedOut">Hide if member is logged out</key>
 	</area>
 </language>
