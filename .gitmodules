@@ -1,0 +1,3 @@
+[submodule "TestSite/App_Plugins/UmbNav"]
+	path = TestSite/App_Plugins/UmbNav
+	url = https://github.com/AaronSadlerUK/UmbNav-UI.git
