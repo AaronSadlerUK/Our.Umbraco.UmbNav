@@ -22,6 +22,9 @@ namespace UmbNavV8.Core.PropertyEditors
         [ConfigurationField("hideNoreferrer", "Hide noreferrer Toggle", "boolean", Description = "Hide the ability to toggle noreferrer")]
         public bool HideNoreferrer { get; set; }
 
+        [ConfigurationField("hideIncludeChildren", "Hide Include Child Nodes Toggle", "boolean", Description = "Hide the ability to include child nodes")]
+        public bool HideIncludeChildren { get; set; }
+
         [ConfigurationField("allowDisplay", "Allow Display", "boolean", Description = "Allow the ability to hide menu items based on member authentication status")]
         public bool AllowDisplay { get; set; }
 

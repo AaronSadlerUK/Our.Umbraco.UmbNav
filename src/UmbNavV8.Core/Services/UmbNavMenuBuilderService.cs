@@ -17,7 +17,6 @@ namespace UmbNavV8.Core.Services
     {
         private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
         private readonly ILogger _logger;
-        private int _level;
 
         public UmbNavMenuBuilderService(IPublishedSnapshotAccessor publishedSnapshotAccessor, ILogger logger)
         {
@@ -25,7 +24,8 @@ namespace UmbNavV8.Core.Services
             _logger = logger;
         }
 
-        public IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, bool removeNaviHideItems = false, bool removeNoopener = false, bool removeNoreferrer = false)
+        public IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, int level = 0, bool removeNaviHideItems = false,
+            bool removeNoopener = false, bool removeNoreferrer = false, bool removeIncludeChildNodes = false)
         {
             try
             {
@@ -38,8 +38,6 @@ namespace UmbNavV8.Core.Services
                     {
                         continue;
                     }
-
-                    item.Level = _level;
 
                     if (item.Id > 0)
                     {
@@ -80,18 +78,50 @@ namespace UmbNavV8.Core.Services
                             {
                                 item.Title = umbracoContent.Name(currentCulture);
                             }
+
+
+                            if (!removeIncludeChildNodes && item.IncludeChildNodes && umbracoContent.Children != null && umbracoContent.Children.Any())
+                            {
+                                var children = item.Children.ToList();
+                                if (removeNaviHideItems)
+                                {
+                                    children.AddRange(umbracoContent.Children.Where(x => x.IsVisible()).Select(child => new UmbNavItem
+                                    {
+                                        Title = child.Name,
+                                        Id = child.Id,
+                                        Udi = new GuidUdi("document", child.Key),
+                                        ItemType = UmbNavItemType.Content,
+                                        Level = level + 1,
+                                        Url = child.Url(currentCulture)
+                                    }));
+                                }
+                                else
+                                {
+                                    children.AddRange(umbracoContent.Children.Select(child => new UmbNavItem
+                                    {
+                                        Title = child.Name,
+                                        Id = child.Id,
+                                        Udi = new GuidUdi("document", child.Key),
+                                        ItemType = UmbNavItemType.Content,
+                                        Level = level + 1,
+                                        Url = child.Url(currentCulture)
+                                    }));
+                                }
+
+                                item.Children = children;
+                            }
                         }
                     }
 
                     if (item.Children.Any())
                     {
-                        _level = item.Level + 1;
-
-                        BuildMenu(item.Children);
+                        BuildMenu(item.Children, level + 1, true);
                     }
+
+                    item.Level = level;
                 }
 
-                items = items.Where(x => x.ItemType == UmbNavItemType.Link);
+                //items = items.Where(x => x.ItemType == UmbNavItemType.Link);
 
                 return items;
             }

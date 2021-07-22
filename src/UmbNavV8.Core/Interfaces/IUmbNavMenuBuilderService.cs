@@ -5,6 +5,7 @@ namespace UmbNavV8.Core.Interfaces
 {
     public interface IUmbNavMenuBuilderService
     {
-        IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, bool removeNaviHideItems = false, bool removeNoopener = false, bool removeNoreferrer = false);
+        IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, int level = 0, bool removeNaviHideItems = false,
+            bool removeNoopener = false, bool removeNoreferrer = false, bool removeIncludeChildNodes = false);
     }
 }

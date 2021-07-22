@@ -19,6 +19,7 @@ namespace UmbNavV8.Core.ValueConverters
         private bool _removeNaviHideItems;
         private bool _removeNoopener;
         private bool _removeNoreferrer;
+        private bool _removeIncludeChildNodes;
 
         public UmbNavV8ValueConverter(ILogger logger, IUmbNavMenuBuilderService umbNavMenuBuilderService)
         {
@@ -47,13 +48,14 @@ namespace UmbNavV8.Core.ValueConverters
                 _removeNaviHideItems = configuration.RemoveNaviHideItems;
                 _removeNoopener = configuration.HideNoopener;
                 _removeNoreferrer = configuration.HideNoreferrer;
+                _removeIncludeChildNodes = configuration.HideIncludeChildren;
             }
 
             try
             {
                 var items = JsonConvert.DeserializeObject<IEnumerable<UmbNavItem>>(inter.ToString());
 
-                return _umbNavMenuBuilderService.BuildMenu(items, _removeNaviHideItems, _removeNoopener, _removeNoreferrer);
+                return _umbNavMenuBuilderService.BuildMenu(items, 0, _removeNaviHideItems, _removeNoopener, _removeNoreferrer, _removeIncludeChildNodes);
             }
             catch (Exception ex)
             {

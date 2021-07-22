@@ -51,5 +51,8 @@ namespace UmbNavV8.Core.Models
 
         [JsonProperty("url")]
         internal string Url { get; set; }
+
+        [JsonProperty("includeChildNodes")]
+        internal bool IncludeChildNodes { get; set; }
     }
 }
