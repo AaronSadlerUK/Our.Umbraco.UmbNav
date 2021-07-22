@@ -10,50 +10,49 @@ namespace UmbNavV8.Core.Extensions
     {
         public static string Url(this UmbNavItem item, string culture = null, UrlMode mode = UrlMode.Default)
         {
-            while (true)
+            var umbracoContext = Current.UmbracoContext;
+
+            if (umbracoContext == null)
+                throw new InvalidOperationException("Cannot resolve a Url when Current.UmbracoContext is null.");
+            if (umbracoContext.UrlProvider == null)
+                throw new InvalidOperationException(
+                    "Cannot resolve a Url when Current.UmbracoContext.UrlProvider is null.");
+
+
+            if (item.Udi != null)
             {
-                var umbracoContext = Current.UmbracoContext;
+                var contentItem = GuidUdi.TryParse(item.Udi.ToString(), out var udi)
+                    ? Current.UmbracoContext.Content.GetById(item.Udi)
+                    : Current.UmbracoContext.Content.GetById(item.Id);
 
-                if (umbracoContext == null) throw new InvalidOperationException("Cannot resolve a Url when Current.UmbracoContext is null.");
-                if (umbracoContext.UrlProvider == null) throw new InvalidOperationException("Cannot resolve a Url when Current.UmbracoContext.UrlProvider is null.");
-
-
-                if (item.Udi != null)
+                if (contentItem != null)
                 {
-                    var contentItem = GuidUdi.TryParse(item.Udi.ToString(), out var udi)
-                        ? Current.UmbracoContext.Content.GetById(item.Udi)
-                        : Current.UmbracoContext.Content.GetById(item.Id);
-
-                    if (contentItem != null)
+                    switch (contentItem.ContentType.ItemType)
                     {
-                        switch (contentItem.ContentType.ItemType)
-                        {
-                            case PublishedItemType.Content:
+                        case PublishedItemType.Content:
 
-                                string url;
-                                if (!string.IsNullOrEmpty(item.Anchor))
-                                {
-                                    url = umbracoContext.UrlProvider.GetUrl(contentItem, mode, culture) + item.Anchor;
-                                }
-                                else
-                                {
-                                    url = umbracoContext.UrlProvider.GetUrl(contentItem, mode, culture);
-                                }
+                            string url;
+                            if (!string.IsNullOrEmpty(item.Anchor))
+                            {
+                                url = umbracoContext.UrlProvider.GetUrl(contentItem, mode, culture) + item.Anchor;
+                            }
+                            else
+                            {
+                                url = umbracoContext.UrlProvider.GetUrl(contentItem, mode, culture);
+                            }
 
-                                return url;
+                            return url;
 
-                            case PublishedItemType.Media:
-                                return umbracoContext.UrlProvider.GetMediaUrl(contentItem, mode, culture);
+                        case PublishedItemType.Media:
+                            return umbracoContext.UrlProvider.GetMediaUrl(contentItem, mode, culture);
 
-                            default:
-                                throw new NotSupportedException();
-                        }
+                        default:
+                            throw new NotSupportedException();
                     }
                 }
-
-                culture = null;
-                mode = UrlMode.Default;
             }
+
+            return item.Url;
         }
     }
 }
