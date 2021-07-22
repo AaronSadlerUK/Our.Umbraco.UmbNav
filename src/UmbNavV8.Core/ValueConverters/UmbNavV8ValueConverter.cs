@@ -2,32 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using UmbNavV8.Core.Enums;
+using UmbNavV8.Core.Interfaces;
 using UmbNavV8.Core.Models;
 using UmbNavV8.Core.PropertyEditors;
-using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
-using Umbraco.Web;
-using Umbraco.Web.Composing;
-using Umbraco.Web.PublishedCache;
 
 namespace UmbNavV8.Core.ValueConverters
 {
     public class UmbNavV8ValueConverter : PropertyValueConverterBase
     {
-        private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
+        private readonly IUmbNavMenuBuilderService _umbNavMenuBuilderService;
         private readonly ILogger _logger;
 
         private bool _removeNaviHideItems;
         private bool _removeNoopener;
         private bool _removeNoreferrer;
 
-        public UmbNavV8ValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, ILogger logger)
+        public UmbNavV8ValueConverter(ILogger logger, IUmbNavMenuBuilderService umbNavMenuBuilderService)
         {
-            _publishedSnapshotAccessor = publishedSnapshotAccessor;
             _logger = logger;
+            _umbNavMenuBuilderService = umbNavMenuBuilderService;
         }
 
         public override bool IsConverter(IPublishedPropertyType propertyType)
@@ -57,7 +53,7 @@ namespace UmbNavV8.Core.ValueConverters
             {
                 var items = JsonConvert.DeserializeObject<IEnumerable<UmbNavItem>>(inter.ToString());
 
-                return BuildMenu(items);
+                return _umbNavMenuBuilderService.BuildMenu(items, _removeNaviHideItems, _removeNoopener, _removeNoreferrer);
             }
             catch (Exception ex)
             {
@@ -65,80 +61,6 @@ namespace UmbNavV8.Core.ValueConverters
             }
 
             return Enumerable.Empty<UmbNavItem>();
-        }
-
-        private IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, int level = 0)
-        {
-            var isLoggedIn = Current.UmbracoHelper.MemberIsLoggedOn();
-            items = items.ToList();
-
-            foreach (var item in items)
-            {
-                item.Level = level;
-
-                if (item.Id > 0)
-                {
-                    IPublishedContent umbracoContent;
-                    string currentCulture;
-
-                    if (item.Udi != null)
-                    {
-                        currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Udi)?.GetCultureFromDomains();
-                        umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Udi);
-                    }
-                    else
-                    {
-                        currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Id)?.GetCultureFromDomains();
-                        umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Id);
-                    }
-
-                    if (umbracoContent != null)
-                    {
-                        item.ItemType = UmbNavItemType.Content;
-
-                        if (_removeNaviHideItems && !umbracoContent.IsVisible())
-                        {
-                            continue;
-                        }
-
-                        if (item.HideLoggedIn && isLoggedIn)
-                        {
-                            continue;
-                        }
-
-                        if (item.HideLoggedOut && !isLoggedIn)
-                        {
-                            continue;
-                        }
-
-                        if (_removeNoopener)
-                        {
-                            item.Noopener = null;
-                        }
-
-                        if (_removeNoreferrer)
-                        {
-                            item.Noreferrer = null;
-                        }
-
-                        if (string.IsNullOrWhiteSpace(item.Title))
-                        {
-                            item.Title = umbracoContent.Name(currentCulture);
-                        }
-                    }
-                }
-
-                if (item.Children.Any())
-                {
-                    var childLevel = item.Level + 1;
-
-                    BuildMenu(item.Children, childLevel);
-                }
-            }
-
-            items = items.Where(x => x.ItemType == UmbNavItemType.Link);
-
-            return items;
         }
     }
 }
