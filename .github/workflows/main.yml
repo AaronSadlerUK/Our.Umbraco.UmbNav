@@ -1,0 +1,50 @@
+name: Build and Package
+
+env:
+  Output: .\output
+
+# Controls when the action will run
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - "2.*"
+jobs:    
+
+  build-and-package:
+    runs-on: windows-latest
+
+    steps:
+      - name: Get tag
+        id: get_tag
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        shell: bash        
+                
+      - name: Checkout
+        uses: actions/checkout@v2        
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1.4.0
+
+      - name: install Umbraco package tool
+        run: dotnet tool install Umbraco.Tools.Packages --global
+
+      - name: Build
+        run: dotnet build .\src\UmbNav.V8.sln --configuration Release
+
+      - name: Pack Umbraco package
+        run: UmbPack pack .\src\package.xml -o ${{ env.Output }} -v ${{ steps.get_tag.outputs.VERSION }}
+          
+      - name: Pack NuGet package
+        run: dotnet pack .\src\UmbNavV8.Core
+          --configuration Release
+          --output ${{ env.Output }}
+          -p:Version=${{ steps.get_tag.outputs.VERSION }}
+          -p:PackageId=Our.Umbraco.UmbNavV8.Core
+          
+      - name: Pack NuGet package
+        run: dotnet pack .\src\UmbNavV8.Api
+          --configuration Release
+          --output ${{ env.Output }}
+          -p:Version=${{ steps.get_tag.outputs.VERSION }}
+          -p:PackageId=Our.Umbraco.UmbNavV8.Api
