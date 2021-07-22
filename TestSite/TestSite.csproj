@@ -412,6 +412,7 @@
     <Content Include="App_Plugins\uSync8\package.manifest" />
     <Content Include="App_Plugins\uSync8\addons.json" />
     <Content Include="App_Plugins\UmbNav\package.manifest" />
+    <Content Include="App_Plugins\UmbNav\.nuspec" />
     <None Include="packages.config" />
     <Content Include="Views\Blog.cshtml" />
     <Content Include="Views\Blogpost.cshtml" />
