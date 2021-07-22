@@ -8,7 +8,6 @@ using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
-using Umbraco.Web.Composing;
 using Umbraco.Web.PublishedCache;
 
 namespace UmbNavV8.Core.Services
@@ -16,12 +15,14 @@ namespace UmbNavV8.Core.Services
     public class UmbNavMenuBuilderService : IUmbNavMenuBuilderService
     {
         private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger _logger;
 
-        public UmbNavMenuBuilderService(IPublishedSnapshotAccessor publishedSnapshotAccessor, ILogger logger)
+        public UmbNavMenuBuilderService(IPublishedSnapshotAccessor publishedSnapshotAccessor, ILogger logger, IHttpContextAccessor httpContextAccessor)
         {
             _publishedSnapshotAccessor = publishedSnapshotAccessor;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, int level = 0, bool removeNaviHideItems = false,
@@ -29,7 +30,7 @@ namespace UmbNavV8.Core.Services
         {
             try
             {
-                var isLoggedIn = Current.UmbracoHelper.MemberIsLoggedOn();
+                var isLoggedIn = _httpContextAccessor.HttpContext.User != null && _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
                 items = items.ToList();
 
                 foreach (var item in items)
