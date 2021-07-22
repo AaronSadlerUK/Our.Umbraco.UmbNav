@@ -1,5 +1,10 @@
 # Umbraco UmbNav-V8
 
+[![Build status](https://dev.azure.com/TerrabitHost/UmbNav/_apis/build/status/UmbNavV8?branchName=develop)](https://dev.azure.com/TerrabitHost/UmbNav/_build/latest?definitionId=28)
+
+[![NuGet Badge](https://buildstats.info/nuget/Our.Umbraco.UmbNavV8.Web?includePreReleases=true)](https://www.nuget.org/packages/Our.Umbraco.UmbNavV8.Web)
+
+
 UmbNav-V8 adds a drag and drop menu builder to the Umbraco V8 backoffice.
 
 ## Getting started
