@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package >
+	<metadata>
+		<id>Our.Umbraco.UmbNavV8.Core</id>
+		<version>1.0.0-pre</version>
+		<title>UmbNav-V8 Core</title>
+		<authors>Aaron Sadler</authors>
+		<owners>Aaron Sadler</owners>
+		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav-V8</projectUrl>
+		<icon>UmbNav-Logo.png</icon>
+		<summary>A flexible, draggable link picker for constructing site navigation menus, big or small, in Umbraco</summary>
+		<description>A flexible, draggable link picker for constructing site navigation menus, big or small, in Umbraco</description>
+		<releaseNotes><![CDATA[Initial Release]]></releaseNotes>
+		<copyright>Copyright 2021</copyright>
+		<tags>umbraco, umbraco-cms, UmbNav, UmbNav-V8</tags>
+		<dependencies>
+			<group targetFramework=".NETFramework4.7.2">
+				<dependency id="UmbracoCms.Web" version="8.6.0" />
+				<dependency id="UmbracoCms.Core" version="8.6.0" />
+			</group>
+		</dependencies>
+		<repository type="git" url="https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav-V8.git" branch="master" />
+	</metadata>
+	<files>
+		<file src="bin\Release\UmbNavV8.Core.dll" target="lib\net472" />
+		<file src="..\UmbNav-Logo.png"/>
+	</files>
+</package>

@@ -257,6 +257,7 @@
     <Compile Include="ValueConverters\UmbNavV8ValueConverter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".nuspec" />
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
