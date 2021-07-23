@@ -66,8 +66,6 @@
     <ItemGroup>
       <ProjectReference Include="..\src\UmbNav.Api\UmbNav.Api.csproj" />
       <ProjectReference Include="..\src\UmbNav.Core\UmbNav.Core.csproj" />
-      <ProjectReference Include="..\src\UmbNavV8.Api\UmbNav.Api.csproj" />
-      <ProjectReference Include="..\src\UmbNavV8.Core\UmbNav.Core.csproj" />
     </ItemGroup>
 
     <!-- Set this to true if ModelsBuilder mode is not InMemoryAuto-->
