@@ -430,6 +430,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\UmbNav.Api\UmbNav.Api.csproj">
+      <Project>{79884af7-f284-4104-9bdd-fc30aa34cba6}</Project>
+      <Name>UmbNav.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\UmbNav.Core\UmbNav.Core.csproj">
+      <Project>{5d4d5468-b24f-4844-b3fd-3d98337229ca}</Project>
+      <Name>UmbNav.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
