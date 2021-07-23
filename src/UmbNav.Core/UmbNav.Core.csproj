@@ -9,6 +9,16 @@
 		<Title>UmbNav Core</Title>
 		<Description>A flexible, draggable link picker for constructing site navigation menus, big or small, in Umbraco</Description>
 		<PackageTags>umbraco, umbraco-cms, UmbNav, UmbNav-V8</PackageTags>
+		<RepositoryUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</RepositoryUrl>
+		<RepositoryType>Git</RepositoryType>
+		<PackageIcon>UmbNav-Logo.png</PackageIcon>
+		<PackageIconUrl />
+		<PackageProjectUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</PackageProjectUrl>
+		<Authors>Aaron Sadler</Authors>
+		<Company>UmbHost Limited</Company>
+		<Copyright>2021 UmbHost Limited</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 
 	</PropertyGroup>
 
@@ -20,6 +30,13 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'net50'">
 		<PackageReference Include="Umbraco.Cms.Web.Website" version="9.0.0-rc001" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="9.0.0-rc001" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\UmbNav-Logo.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
