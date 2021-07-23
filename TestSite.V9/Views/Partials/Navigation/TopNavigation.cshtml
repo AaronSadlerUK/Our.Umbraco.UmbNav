@@ -1,0 +1,12 @@
+﻿@using UmbNav.Core.Models
+@using UmbNav.Core.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    var site = Model.Root();
+    var umbNav = site.FirstChildOfType("umbNav").Value<IEnumerable<UmbNavItem>>("umbNavPE");
+}
+
+@foreach (var item in umbNav)
+{
+    <a class="nav-link " href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">@item.Title</a>
+}
