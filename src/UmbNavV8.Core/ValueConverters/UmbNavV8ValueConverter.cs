@@ -5,9 +5,16 @@ using Newtonsoft.Json;
 using UmbNavV8.Core.Interfaces;
 using UmbNavV8.Core.Models;
 using UmbNavV8.Core.PropertyEditors;
+#if NETCOREAPP
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Serilog;
+
+#else
 using Umbraco.Core.Logging;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
+#endif
 
 namespace UmbNavV8.Core.ValueConverters
 {
@@ -59,7 +66,11 @@ namespace UmbNavV8.Core.ValueConverters
             }
             catch (Exception ex)
             {
+#if NETCOREAPP
+                _logger.Error("Failed to convert UmbNav {ex}", ex);
+#else
                 _logger.Error<UmbNavV8ValueConverter>("Failed to convert UmbNav {ex}", ex);
+#endif
             }
 
             return Enumerable.Empty<UmbNavItem>();

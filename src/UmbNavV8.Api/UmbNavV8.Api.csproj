@@ -1,70 +1,33 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data.Linq" />
-    <Reference Include="System.IO" />
-    <Reference Include="System.Linq.Expressions" />
-    <Reference Include="System.Runtime" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Threading.Tasks" />
-    <Reference Include="System.Transactions" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UmbNavV8.Core\UmbNavV8.Core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="ClientDependency" Version="1.9.9" />
-    <PackageReference Include="ClientDependency-Mvc5" Version="1.9.3" />
-    <PackageReference Include="CSharpTest.Net.Collections" Version="14.906.1403.1082" />
-    <PackageReference Include="Examine" Version="1.2.0" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.8.14" />
-    <PackageReference Include="ImageProcessor" Version="2.7.0.100" />
-    <PackageReference Include="LightInject" Version="5.4.0" />
-    <PackageReference Include="LightInject.Annotation" Version="1.1.0" />
-    <PackageReference Include="LightInject.Mvc" Version="2.0.0" />
-    <PackageReference Include="LightInject.Web" Version="2.0.0" />
-    <PackageReference Include="LightInject.WebApi" Version="2.0.0" />
-    <PackageReference Include="Lucene.Net" Version="3.0.3" />
-    <PackageReference Include="Markdown" Version="2.2.1" />
-    <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.0" />
-    <PackageReference Include="Microsoft.AspNet.WebApi" Version="5.2.7" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
-    <PackageReference Include="MiniProfiler" Version="4.0.138" />
-    <PackageReference Include="MiniProfiler.Shared" Version="4.0.138" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="NPoco" Version="3.9.4" />
-    <PackageReference Include="Semver" Version="2.0.4" />
-    <PackageReference Include="Serilog" Version="2.8.0" />
-    <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.1" />
-    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.0.0" />
-    <PackageReference Include="Serilog.Filters.Expressions" Version="2.0.0" />
-    <PackageReference Include="Serilog.Formatting.Compact" Version="1.0.0" />
-    <PackageReference Include="Serilog.Formatting.Compact.Reader" Version="1.0.3" />
-    <PackageReference Include="Serilog.Settings.AppSettings" Version="2.2.2" />
-    <PackageReference Include="Serilog.Sinks.Async" Version="1.3.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
-    <PackageReference Include="Serilog.Sinks.Map" Version="1.0.0" />
-    <PackageReference Include="SharpZipLib" Version="0.86.0" />
-    <PackageReference Include="Superpower" Version="2.0.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.4.1" />
-    <PackageReference Include="System.Runtime.Caching" Version="5.0.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />
-    <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.9.0" />
-    <PackageReference Include="Umbraco.SqlServerCE" Version="4.0.0.1" />
-    <PackageReference Include="UmbracoCms.Core" Version="8.14.1" />
-    <PackageReference Include="UmbracoCms.Web" Version="8.14.1" />
-  </ItemGroup>
-  <Import Project="..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net50;net472</TargetFrameworks>
+		<ContentTargetFolders>content</ContentTargetFolders>
+
+		<Product>Our.Umbraco.UmbNav.Api</Product>
+		<PackageId>Our.Umbraco.UmbNav.Api</PackageId>
+		<Title>UmbNav Api</Title>
+		<Description>A flexible, draggable link picker for constructing site navigation menus, big or small, in Umbraco</Description>
+		<PackageTags>umbraco, umbraco-cms, UmbNav, UmbNav-V8</PackageTags>
+
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+		<PackageReference Include="UmbracoCms.Core" version="8.7.0" />
+		<PackageReference Include="UmbracoCms.Web" version="8.7.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net50'">
+		<PackageReference Include="Umbraco.Cms.Web.Website" version="9.0.0-rc001" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="9.0.0-rc001" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\UmbNavV8.Core\UmbNavV8.Core.csproj" />
+	</ItemGroup>
+
 </Project>

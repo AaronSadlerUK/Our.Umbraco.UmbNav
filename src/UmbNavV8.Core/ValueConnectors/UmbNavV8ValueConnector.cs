@@ -1,9 +1,17 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+#if NETCOREAPP
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Deploy;
+using Umbraco.Cms.Core.Models;
+using Umbraco.Extensions;
+
+#else
 using Umbraco.Core;
 using Umbraco.Core.Deploy;
 using Umbraco.Core.Models;
+#endif
 
 namespace UmbNavV8.Core.ValueConnectors
 {
@@ -14,7 +22,11 @@ namespace UmbNavV8.Core.ValueConnectors
     public class UmbNavV8ValueConnector : IValueConnector
     {
 
+#if NETCOREAPP
+        public string ToArtifact(object value, IPropertyType propertyType, ICollection<ArtifactDependency> dependencies)
+#else
         public string ToArtifact(object value, PropertyType propertyType, ICollection<ArtifactDependency> dependencies)
+#endif
         {
             if (AppSettingsManager.GetDisableUmbracoCloudSync())
                 return null;
@@ -30,7 +42,11 @@ namespace UmbNavV8.Core.ValueConnectors
             return rootLinks.ToString(Formatting.None);
         }
 
+#if NETCOREAPP
+        public object FromArtifact(string value, IPropertyType propertyType, object currentValue)
+#else
         public object FromArtifact(string value, PropertyType propertyType, object currentValue)
+#endif
         {
             if (AppSettingsManager.GetDisableUmbracoCloudSync())
                 return null;
@@ -47,7 +63,11 @@ namespace UmbNavV8.Core.ValueConnectors
             {
                 if (!AppSettingsManager.GetDisableUmbracoCloudDependencySync())
                 {
+#if NETCOREAPP
+                    var validUdi = UdiParser.TryParse(link.Value<string>("udi"), out var guidUdi);
+#else
                     var validUdi = GuidUdi.TryParse(link.Value<string>("udi"), out var guidUdi);
+#endif
                     if (validUdi)
                     {
                         dependencies.Add(new ArtifactDependency(guidUdi, false, ArtifactDependencyMode.Exist));

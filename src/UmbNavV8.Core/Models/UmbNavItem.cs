@@ -1,7 +1,14 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using UmbNavV8.Core.Enums;
+#if NETCOREAPP
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Models.PublishedContent;
+
+#else
 using Umbraco.Core;
+using Umbraco.Core.Models.PublishedContent;
+#endif
 
 namespace UmbNavV8.Core.Models
 {
@@ -31,6 +38,9 @@ namespace UmbNavV8.Core.Models
         [JsonProperty("children")]
         public IEnumerable<UmbNavItem> Children { get; set; }
 
+        [JsonIgnore]
+        internal IPublishedContent PublishedContentItem { get; set; }
+        
         [JsonIgnore]
         public UmbNavItemType ItemType { get; set; }
 

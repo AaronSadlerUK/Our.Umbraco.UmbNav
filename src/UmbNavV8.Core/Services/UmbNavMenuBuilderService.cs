@@ -4,12 +4,21 @@ using System.Linq;
 using UmbNavV8.Core.Enums;
 using UmbNavV8.Core.Interfaces;
 using UmbNavV8.Core.Models;
+#if NETCOREAPP
+using Microsoft.AspNetCore.Http;
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PublishedCache;
+using Umbraco.Extensions;
+using Serilog;
+
+#else
 using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.Web.PublishedCache;
-
+#endif
 namespace UmbNavV8.Core.Services
 {
     public class UmbNavMenuBuilderService : IUmbNavMenuBuilderService
@@ -128,7 +137,11 @@ namespace UmbNavV8.Core.Services
             }
             catch (Exception ex)
             {
+#if NETCOREAPP
+                _logger.Error(ex, "Failed to build UmbNav");
+#else
                 _logger.Error(typeof(UmbNavMenuBuilderService), ex, "Failed to build UmbNav");
+#endif
                 return Enumerable.Empty<UmbNavItem>();
             }
         }

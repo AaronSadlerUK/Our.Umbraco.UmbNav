@@ -1,16 +1,32 @@
-﻿using Umbraco.Core.Logging;
+﻿#if NETCOREAPP
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Core.Models;
+using Umbraco.Cms.Core.IO;
+
+#else
+using Umbraco.Core.Logging;
 using Umbraco.Core.PropertyEditors;
+#endif
 
 namespace UmbNavV8.Core.PropertyEditors
 {
     [DataEditor(Constants.PropertyEditorAlias, Constants.PackageName, Constants.PackageFilesPath + "views/editor.html",
         ValueType = "JSON", Group = "pickers", Icon = "icon-sitemap")]
-    public class UmbNavV8PropertyEditor : DataEditor
+    public class UmbNavV8PropertyEditor : DataEditor, IDataEditor
     {
+#if NETCOREAPP
+        private readonly IIOHelper _ioHelper;
+        public UmbNavV8PropertyEditor(IDataValueEditorFactory dataValueEditorFactory, IIOHelper ioHelper)
+            : base(dataValueEditorFactory)
+        {
+            _ioHelper = ioHelper;
+        }
+#else
         public UmbNavV8PropertyEditor(ILogger logger)
             : base(logger)
         {
         }
+#endif
 
         public override IDataValueEditor GetValueEditor(object configuration)
         {
@@ -26,10 +42,23 @@ namespace UmbNavV8.Core.PropertyEditors
 
         }
 
+#if NETCOREAPP
+        protected override IConfigurationEditor CreateConfigurationEditor() => new UmbNavV8ConfigurationEditor(_ioHelper);
+#else
         protected override IConfigurationEditor CreateConfigurationEditor() => new UmbNavV8ConfigurationEditor();
+#endif
 
         public class UmbNavV8ConfigurationEditor : ConfigurationEditor<UmbNavV8Configuration>
         {
+#if NETCOREAPP
+            public UmbNavV8ConfigurationEditor(IIOHelper ioHelper) : base(ioHelper)
+            {
+            }
+#else
+            public UmbNavV8ConfigurationEditor()
+            {
+            }
+#endif
         }
     }
 }

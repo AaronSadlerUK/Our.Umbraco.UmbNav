@@ -1,8 +1,12 @@
 ﻿using System;
 using UmbNavV8.Core.Models;
-using Umbraco.Core;
+#if NETCOREAPP
+using Umbraco.Cms.Core.Models.PublishedContent;
+
+#else
 using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web.Composing;
+
+#endif
 
 namespace UmbNavV8.Core.Extensions
 {
@@ -10,21 +14,9 @@ namespace UmbNavV8.Core.Extensions
     {
         public static string Url(this UmbNavItem item, string culture = null, UrlMode mode = UrlMode.Default)
         {
-            var umbracoContext = Current.UmbracoContext;
-
-            if (umbracoContext == null)
-                throw new InvalidOperationException("Cannot resolve a Url when Current.UmbracoContext is null.");
-            if (umbracoContext.UrlProvider == null)
-                throw new InvalidOperationException(
-                    "Cannot resolve a Url when Current.UmbracoContext.UrlProvider is null.");
-
-
             if (item.Udi != null)
             {
-                var contentItem = GuidUdi.TryParse(item.Udi.ToString(), out var udi)
-                    ? Current.UmbracoContext.Content.GetById(item.Udi)
-                    : Current.UmbracoContext.Content.GetById(item.Id);
-
+                var contentItem = item.PublishedContentItem;
                 if (contentItem != null)
                 {
                     switch (contentItem.ContentType.ItemType)
@@ -34,17 +26,17 @@ namespace UmbNavV8.Core.Extensions
                             string url;
                             if (!string.IsNullOrEmpty(item.Anchor))
                             {
-                                url = umbracoContext.UrlProvider.GetUrl(contentItem, mode, culture) + item.Anchor;
+                                url = item.Url(culture, mode) + item.Anchor;
                             }
                             else
                             {
-                                url = umbracoContext.UrlProvider.GetUrl(contentItem, mode, culture);
+                                url = item.Url(culture, mode);
                             }
 
                             return url;
 
                         case PublishedItemType.Media:
-                            return umbracoContext.UrlProvider.GetMediaUrl(contentItem, mode, culture);
+                            return item.Url(culture, mode);
 
                         default:
                             throw new NotSupportedException();

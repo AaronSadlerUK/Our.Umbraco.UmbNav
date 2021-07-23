@@ -1,4 +1,9 @@
-﻿using Umbraco.Core.PropertyEditors;
+﻿#if NETCOREAPP
+using Umbraco.Cms.Core.PropertyEditors;
+
+#else
+using Umbraco.Core.PropertyEditors;
+#endif
 
 namespace UmbNavV8.Core.PropertyEditors
 {
