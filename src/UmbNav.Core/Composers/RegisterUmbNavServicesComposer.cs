@@ -1,9 +1,9 @@
 ﻿using UmbNav.Core.Interfaces;
 using UmbNav.Core.Services;
+#if NETCOREAPP
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Extensions;
-#if NETCOREAPP
 #else
 using Umbraco.Core;
 using Umbraco.Core.Composing;

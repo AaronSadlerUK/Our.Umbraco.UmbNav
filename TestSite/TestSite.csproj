@@ -1,7 +1,7 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\src\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\src\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\src\packages\uSync.8.9.5\build\uSync.props" Condition="Exists('..\src\packages\uSync.8.9.5\build\uSync.props')" />
   <Import Project="..\src\packages\UmbracoCms.8.14.1\build\UmbracoCms.props" Condition="Exists('..\src\packages\UmbracoCms.8.14.1\build\UmbracoCms.props')" />
-  <Import Project="..\src\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\src\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -430,16 +430,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\src\UmbNav.Api\UmbNav.Api.csproj">
-      <Project>{79884af7-f284-4104-9bdd-fc30aa34cba6}</Project>
-      <Name>UmbNav.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\src\UmbNav.Core\UmbNav.Core.csproj">
-      <Project>{5d4d5468-b24f-4844-b3fd-3d98337229ca}</Project>
-      <Name>UmbNav.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -469,12 +459,12 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\src\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\src\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\src\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\src\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets'))" />
     <Error Condition="!Exists('..\src\packages\UmbracoCms.8.14.1\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\src\packages\UmbracoCms.8.14.1\build\UmbracoCms.props'))" />
     <Error Condition="!Exists('..\src\packages\UmbracoCms.8.14.1\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\src\packages\UmbracoCms.8.14.1\build\UmbracoCms.targets'))" />
     <Error Condition="!Exists('..\src\packages\uSync.8.9.5\build\uSync.props')" Text="$([System.String]::Format('$(ErrorText)', '..\src\packages\uSync.8.9.5\build\uSync.props'))" />
     <Error Condition="!Exists('..\src\packages\uSync.8.9.5\build\uSync.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\src\packages\uSync.8.9.5\build\uSync.targets'))" />
+    <Error Condition="!Exists('..\src\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\src\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <Import Project="..\src\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\src\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
   <Import Project="..\src\packages\UmbracoCms.8.14.1\build\UmbracoCms.targets" Condition="Exists('..\src\packages\UmbracoCms.8.14.1\build\UmbracoCms.targets')" />

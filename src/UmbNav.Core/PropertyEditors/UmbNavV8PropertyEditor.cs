@@ -1,9 +1,7 @@
-﻿
+﻿#if NETCOREAPP
+using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.Models;
-#if NETCOREAPP
-using Umbraco.Cms.Core.PropertyEditors;
-
 #else
 using Umbraco.Core.Logging;
 using Umbraco.Core.PropertyEditors;

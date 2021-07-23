@@ -1,8 +1,7 @@
 ﻿using System;
 using UmbNav.Core.Models;
-using Umbraco.Cms.Core.Models.PublishedContent;
 #if NETCOREAPP
-
+using Umbraco.Cms.Core.Models.PublishedContent;
 #else
 using Umbraco.Core.Models.PublishedContent;
 

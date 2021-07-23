@@ -1,21 +1,17 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Constants = UmbNav.Core.Constants;
+#if NETCOREAPP
+using Umbraco.Cms.Core;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
 using Umbraco.Extensions;
-using Constants = UmbNav.Core.Constants;
-#if NETCOREAPP
-using Umbraco.Cms.Core;
-
 #else
 
 using System.Net;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using Umbraco.Core;
 using Umbraco.Core.Services;

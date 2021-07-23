@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
-using Serilog;
 using UmbNav.Core.Enums;
 using UmbNav.Core.Interfaces;
 using UmbNav.Core.Models;
+#if NETCOREAPP
+using Microsoft.AspNetCore.Http;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Extensions;
-#if NETCOREAPP
-
+using Serilog;
 #else
 using Umbraco.Core;
 using Umbraco.Core.Logging;

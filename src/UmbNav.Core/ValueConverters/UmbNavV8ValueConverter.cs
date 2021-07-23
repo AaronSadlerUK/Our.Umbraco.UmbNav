@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using Serilog;
 using UmbNav.Core.Interfaces;
 using UmbNav.Core.Models;
 using UmbNav.Core.PropertyEditors;
+#if NETCOREAPP
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors;
-#if NETCOREAPP
-
+using Serilog;
 #else
 using Umbraco.Core.Logging;
 using Umbraco.Core.Models.PublishedContent;

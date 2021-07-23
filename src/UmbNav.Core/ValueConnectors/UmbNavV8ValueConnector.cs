@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+#if NETCOREAPP
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Deploy;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Extensions;
-#if NETCOREAPP
-
 #else
 using Umbraco.Core;
 using Umbraco.Core.Deploy;
