@@ -27,12 +27,12 @@ namespace UmbNav.Api.Controllers.API
     public class UmbNavEntityApiController : UmbracoAuthorizedJsonController
     {
         private readonly IContentService _contentService;
-        private readonly IPublishedSnapshot _publishedSnapshot;
+        private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
 
-        public UmbNavEntityApiController(IContentService contentService, IPublishedSnapshot publishedSnapshot)
+        public UmbNavEntityApiController(IContentService contentService, IPublishedSnapshotAccessor publishedSnapshotAccessor)
         {
             _contentService = contentService;
-            _publishedSnapshot = publishedSnapshot;
+            _publishedSnapshotAccessor = publishedSnapshotAccessor;
         }
 
 #if NETCOREAPP
@@ -57,7 +57,7 @@ namespace UmbNav.Api.Controllers.API
 
                 if (entity.Published)
                 {
-                    var publishedEntity = _publishedSnapshot.Content.GetById(entity.Key);
+                    var publishedEntity = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(entity.Key);
 
                     if (publishedEntity != null)
                     {
