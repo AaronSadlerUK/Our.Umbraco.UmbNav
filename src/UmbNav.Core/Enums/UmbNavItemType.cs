@@ -1,4 +1,4 @@
-﻿namespace UmbNavV8.Core.Enums
+﻿namespace UmbNav.Core.Enums
 {
     public enum UmbNavItemType
     {

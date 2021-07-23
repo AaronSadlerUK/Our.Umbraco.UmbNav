@@ -1,13 +1,15 @@
-﻿#if NETCOREAPP
-using Umbraco.Cms.Core;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Web.BackOffice.Controllers;
-using Umbraco.Extensions;
+﻿
 using System.Collections.Generic;
 using System.Linq;
-using Umbraco.Cms.Core.PublishedCache;
-using Umbraco.Cms.Web.Common.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Core.PublishedCache;
+using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Web.BackOffice.Controllers;
+using Umbraco.Cms.Web.Common.Attributes;
+using Umbraco.Extensions;
+using Constants = UmbNav.Core.Constants;
+#if NETCOREAPP
+using Umbraco.Cms.Core;
 
 #else
 
@@ -23,9 +25,9 @@ using Umbraco.Web.Mvc;
 using Umbraco.Web.PublishedCache;
 #endif
 
-namespace UmbNavV8.Api.Controllers.API
+namespace UmbNav.Api.Controllers.API
 {
-    [PluginController(Core.Constants.PackageName)]
+    [PluginController(Constants.PackageName)]
     public class UmbNavEntityApiController : UmbracoAuthorizedJsonController
     {
         private readonly IContentService _contentService;

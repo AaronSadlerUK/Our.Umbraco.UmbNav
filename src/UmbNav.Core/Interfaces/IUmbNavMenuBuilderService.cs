@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using UmbNavV8.Core.Models;
+using UmbNav.Core.Models;
 
-namespace UmbNavV8.Core.Interfaces
+namespace UmbNav.Core.Interfaces
 {
     public interface IUmbNavMenuBuilderService
     {

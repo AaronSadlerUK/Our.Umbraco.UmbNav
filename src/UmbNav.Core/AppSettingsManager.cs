@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace UmbNavV8.Core
+namespace UmbNav.Core
 {
     internal class AppSettingsManager
     {

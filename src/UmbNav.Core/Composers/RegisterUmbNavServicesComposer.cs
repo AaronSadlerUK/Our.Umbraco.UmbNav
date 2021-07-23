@@ -1,15 +1,15 @@
-﻿#if NETCOREAPP
+﻿using UmbNav.Core.Interfaces;
+using UmbNav.Core.Services;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Extensions;
+#if NETCOREAPP
 #else
 using Umbraco.Core;
 using Umbraco.Core.Composing;
 #endif
-using UmbNavV8.Core.Interfaces;
-using UmbNavV8.Core.Services;
 
-namespace UmbNavV8.Core.Composers
+namespace UmbNav.Core.Composers
 {
     public class RegisterUmbNavServicesComposer : IUserComposer
     {

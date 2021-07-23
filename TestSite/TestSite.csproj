@@ -431,16 +431,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\UmbNavV8.Api\UmbNavV8.Api.csproj">
-      <Project>{e8f4f18b-b06d-4a47-9da2-e31d856ecb7f}</Project>
-      <Name>UmbNavV8.Api</Name>
+    <ProjectReference Include="..\src\UmbNav.Api\UmbNav.Api.csproj">
+      <Project>{79884af7-f284-4104-9bdd-fc30aa34cba6}</Project>
+      <Name>UmbNav.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\UmbNavV8.Core\UmbNavV8.Core.csproj">
-      <Project>{1f3dc53b-1d14-478c-ab80-36744cc47ece}</Project>
-      <Name>UmbNavV8.Core</Name>
+    <ProjectReference Include="..\src\UmbNav.Core\UmbNav.Core.csproj">
+      <Project>{5d4d5468-b24f-4844-b3fd-3d98337229ca}</Project>
+      <Name>UmbNav.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

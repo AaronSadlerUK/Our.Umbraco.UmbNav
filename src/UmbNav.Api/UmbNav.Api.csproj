@@ -23,7 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\UmbNavV8.Core\UmbNavV8.Core.csproj" />
+	  <ProjectReference Include="..\UmbNavV8.Core\UmbNav.Core.csproj" />
 	</ItemGroup>
 
 </Project>

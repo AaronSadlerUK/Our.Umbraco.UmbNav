@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using UmbNavV8.Core.Enums;
-#if NETCOREAPP
+using UmbNav.Core.Enums;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models.PublishedContent;
+#if NETCOREAPP
 
 #else
 using Umbraco.Core;
 using Umbraco.Core.Models.PublishedContent;
 #endif
 
-namespace UmbNavV8.Core.Models
+namespace UmbNav.Core.Models
 {
     public class UmbNavItem
     {

@@ -1,14 +1,14 @@
 ﻿using System;
-using UmbNavV8.Core.Models;
-#if NETCOREAPP
+using UmbNav.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
+#if NETCOREAPP
 
 #else
 using Umbraco.Core.Models.PublishedContent;
 
 #endif
 
-namespace UmbNavV8.Core.Extensions
+namespace UmbNav.Core.Extensions
 {
     public static class UmbNavItemExtensions
     {

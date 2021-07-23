@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UmbNavV8.Core.Enums;
-using UmbNavV8.Core.Interfaces;
-using UmbNavV8.Core.Models;
-#if NETCOREAPP
 using Microsoft.AspNetCore.Http;
+using Serilog;
+using UmbNav.Core.Enums;
+using UmbNav.Core.Interfaces;
+using UmbNav.Core.Models;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Extensions;
-using Serilog;
+#if NETCOREAPP
 
 #else
 using Umbraco.Core;
@@ -19,7 +19,7 @@ using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.Web.PublishedCache;
 #endif
-namespace UmbNavV8.Core.Services
+namespace UmbNav.Core.Services
 {
     public class UmbNavMenuBuilderService : IUmbNavMenuBuilderService
     {

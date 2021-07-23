@@ -1,4 +1,4 @@
-﻿namespace UmbNavV8.Core
+﻿namespace UmbNav.Core
 {
     public class Constants
     {

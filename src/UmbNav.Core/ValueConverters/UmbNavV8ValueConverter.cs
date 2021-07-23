@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using UmbNavV8.Core.Interfaces;
-using UmbNavV8.Core.Models;
-using UmbNavV8.Core.PropertyEditors;
-#if NETCOREAPP
-using Umbraco.Cms.Core.PropertyEditors;
-using Umbraco.Cms.Core.Models.PublishedContent;
 using Serilog;
+using UmbNav.Core.Interfaces;
+using UmbNav.Core.Models;
+using UmbNav.Core.PropertyEditors;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PropertyEditors;
+#if NETCOREAPP
 
 #else
 using Umbraco.Core.Logging;
@@ -16,7 +16,7 @@ using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
 #endif
 
-namespace UmbNavV8.Core.ValueConverters
+namespace UmbNav.Core.ValueConverters
 {
     public class UmbNavV8ValueConverter : PropertyValueConverterBase
     {

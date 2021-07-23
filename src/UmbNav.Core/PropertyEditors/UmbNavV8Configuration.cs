@@ -5,7 +5,7 @@ using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Core.PropertyEditors;
 #endif
 
-namespace UmbNavV8.Core.PropertyEditors
+namespace UmbNav.Core.PropertyEditors
 {
     public class UmbNavV8Configuration
     {

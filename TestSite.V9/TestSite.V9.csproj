@@ -64,8 +64,10 @@
       <Content Include="App_Plugins\UmbNav\views\settings.html" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\src\UmbNavV8.Api\UmbNavV8.Api.csproj" />
-      <ProjectReference Include="..\src\UmbNavV8.Core\UmbNavV8.Core.csproj" />
+      <ProjectReference Include="..\src\UmbNav.Api\UmbNav.Api.csproj" />
+      <ProjectReference Include="..\src\UmbNav.Core\UmbNav.Core.csproj" />
+      <ProjectReference Include="..\src\UmbNavV8.Api\UmbNav.Api.csproj" />
+      <ProjectReference Include="..\src\UmbNavV8.Core\UmbNav.Core.csproj" />
     </ItemGroup>
 
     <!-- Set this to true if ModelsBuilder mode is not InMemoryAuto-->
