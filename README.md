@@ -1,11 +1,11 @@
-# Umbraco UmbNav-V8
+# Umbraco UmbNav
 
 [![Build status](https://dev.azure.com/TerrabitHost/UmbNav/_apis/build/status/UmbNavV8?branchName=develop)](https://dev.azure.com/TerrabitHost/UmbNav/_build/latest?definitionId=28)
 
 [![NuGet Badge](https://buildstats.info/nuget/Our.Umbraco.UmbNavV8.Web?includePreReleases=true)](https://www.nuget.org/packages/Our.Umbraco.UmbNavV8.Web)
 
 
-UmbNav-V8 adds a drag and drop menu builder to the Umbraco V8 backoffice.
+UmbNav adds a drag and drop menu builder to the Umbraco V8 backoffice.
 
 ## Getting started
 
@@ -13,15 +13,15 @@ This package is supported on Umbraco 8.6+.
 
 ### Installation
 
-UmbNav-V8 will be available soon.
+UmbNav will be available soon.
 
 ## Umbraco Cloud Supported
 
-UmbNav-V8 fully supports Umbraco Cloud including the content synchroniser,it has been fully tested transferring and restoring between environments.
+UmbNav fully supports Umbraco Cloud including the content synchroniser,it has been fully tested transferring and restoring between environments.
 
 ### Integration
 
-UmbNav-V8 is designed to be as clean and simple for developers as it is for content editors.
+UmbNav is designed to be as clean and simple for developers as it is for content editors.
 
 
 ### Contribution guidelines
