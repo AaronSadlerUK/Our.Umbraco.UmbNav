@@ -391,3 +391,5 @@ Builds/NuGet/NuGet.config
 TestSite.V9/umbraco/models/ood.flag
 
 TestSite.V9/umbraco/Logs/
+
+src/.idea/
