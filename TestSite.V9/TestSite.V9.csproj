@@ -39,6 +39,34 @@
         <Content Remove="umbraco\logs\**" />
         <Content Remove="umbraco\MediaCache\**" />
     </ItemGroup>
+    <ItemGroup>
+      <None Remove="App_Plugins\UmbNav\.nuspec" />
+      <None Remove="App_Plugins\UmbNav\css\editor.css" />
+      <None Remove="App_Plugins\UmbNav\js\angular-ui-tree.js" />
+      <None Remove="App_Plugins\UmbNav\js\umbnav.controller.js" />
+      <None Remove="App_Plugins\UmbNav\js\umbnav.resource.js" />
+      <None Remove="App_Plugins\UmbNav\js\umbnav.settings.controller.js" />
+      <None Remove="App_Plugins\UmbNav\lang\en-us.xml" />
+      <None Remove="App_Plugins\UmbNav\package.manifest" />
+      <None Remove="App_Plugins\UmbNav\views\editor.html" />
+      <None Remove="App_Plugins\UmbNav\views\settings.html" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="App_Plugins\UmbNav\.nuspec" />
+      <Content Include="App_Plugins\UmbNav\css\editor.css" />
+      <Content Include="App_Plugins\UmbNav\js\angular-ui-tree.js" />
+      <Content Include="App_Plugins\UmbNav\js\umbnav.controller.js" />
+      <Content Include="App_Plugins\UmbNav\js\umbnav.resource.js" />
+      <Content Include="App_Plugins\UmbNav\js\umbnav.settings.controller.js" />
+      <Content Include="App_Plugins\UmbNav\lang\en-us.xml" />
+      <Content Include="App_Plugins\UmbNav\package.manifest" />
+      <Content Include="App_Plugins\UmbNav\views\editor.html" />
+      <Content Include="App_Plugins\UmbNav\views\settings.html" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\src\UmbNavV8.Api\UmbNavV8.Api.csproj" />
+      <ProjectReference Include="..\src\UmbNavV8.Core\UmbNavV8.Core.csproj" />
+    </ItemGroup>
 
     <!-- Set this to true if ModelsBuilder mode is not InMemoryAuto-->
     <PropertyGroup>
