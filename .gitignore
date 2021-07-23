@@ -383,3 +383,8 @@ MigrationBackup/
 TestSite/App_Data/Models/
 */**/*.zip
 Builds/NuGet/NuGet.config
+
+# NEW for version 9 .Net 5 (Core)
+**/umbraco/Data/*
+**/umbraco/mediacache
+**/wwwroot/umbraco/lib
