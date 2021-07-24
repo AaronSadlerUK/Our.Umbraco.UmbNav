@@ -8,6 +8,7 @@
         <PackageReference Include="Umbraco.Cms.SqlCe" Version="9.0.0-rc001" />
         <PackageReference Include="Umbraco.SqlServerCE" Version="4.0.0.1" />
         <PackageReference Include="Umbraco.TheStarterKit" Version="9.0.0-beta001" />
+        <PackageReference Include="uSync" Version="9.0.0-rc001" />
     </ItemGroup>
 
 
