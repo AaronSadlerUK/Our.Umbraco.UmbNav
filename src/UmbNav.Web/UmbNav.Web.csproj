@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="**\*" Exclude="*.csproj;README.md;LICENSE;obj\**;bin\**;">
+		<Content Include="App_Plugins\UmbNav\**\*.*">
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 		</Content>
