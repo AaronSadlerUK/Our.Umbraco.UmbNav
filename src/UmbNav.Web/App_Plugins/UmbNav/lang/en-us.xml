@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language>
+	<area alias="umbnav">
+		<key alias="addItem">Add Item</key>
+		<key alias="collapseAll">Collapse All</key>
+		<key alias="expand">Expand</key>
+		<key alias="collapse">Collapse</key>
+		<key alias="expandAll">Expand All</key>
+		<key alias="editItem">Edit</key>
+		<key alias="removeItem">Remove</key>
+		<key alias="noopener">Add "noopener" to link</key>
+		<key alias="noreferrer">Add "noreferrer" to link</key>
+		<key alias="seo">SEO</key>
+		<key alias="removeItem">Remove</key>
+		<key alias="visibility">Visibility</key>
+		<key alias="hideLoggedIn">Hide if member is logged in</key>
+		<key alias="hideLoggedOut">Hide if member is logged out</key>
+		<key alias="includeChildren">Include children</key>
+		<key alias="includeChildNodes">Include child nodes</key>
+		<key alias="includesChildNodes">Includes Child Nodes</key>
+	</area>
+</language>

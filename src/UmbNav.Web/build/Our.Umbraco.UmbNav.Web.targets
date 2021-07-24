@@ -1,0 +1,27 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<LinkedPagesPackageContentFilesPath>$(MSBuildThisFileDirectory)..\content\App_Plugins\UmbNav\**\*.*</LinkedPagesPackageContentFilesPath>
+	</PropertyGroup>
+
+	<Target Name="CopyLinkedPagesPackageAssets" BeforeTargets="Build">
+		<ItemGroup>
+			<LinkedPagesPackageContentFiles Include="$(LinkedPagesPackageContentFilesPath)" />
+		</ItemGroup>
+		<Message Text="Copying LinkedPages Package files: $(LinkedPagesPackageContentFilesPath) - #@(LinkedPagesPackageContentFiles->Count()) files"  Importance="high" />
+		<Copy
+			SourceFiles="@(LinkedPagesPackageContentFiles)"
+			DestinationFiles="@(LinkedPagesPackageContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\UmbNav\%(RecursiveDir)%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true" />
+
+	</Target>
+
+	<Target Name="ClearLinkedPagesPackageAssets" BeforeTargets="Clean">
+		<ItemGroup>
+			<LinkedPagesPackageDir Include="$(MSBuildProjectDirectory)\App_Plugins\UmbNav\" />
+		</ItemGroup>
+		<Message Text="Clear old LinkedPages Package data"  Importance="high" />
+		<RemoveDir Directories="@(LinkedPagesPackageDir)"  />
+	</Target>
+
+</Project>

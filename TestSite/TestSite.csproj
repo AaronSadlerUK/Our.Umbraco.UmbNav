@@ -385,8 +385,6 @@
     <Content Include="App_Plugins\StarterKit\backoffice\tours\data-structure.json" />
     <Content Include="App_Plugins\StarterKit\package.manifest" />
     <Content Include="config\uSync8.config" />
-    <Content Include="App_Plugins\UmbNav\package.manifest" />
-    <Content Include="App_Plugins\UmbNav\.nuspec" />
     <Content Include="Views\Blog.cshtml" />
     <Content Include="Views\Blogpost.cshtml" />
     <Content Include="Views\contact.cshtml" />
@@ -413,6 +411,7 @@
     <Content Include="App_Plugins\uSyncHistory\package.manifest" />
     <Content Include="App_Plugins\uSync8\package.manifest" />
     <Content Include="App_Plugins\uSync8\addons.json" />
+    <Content Include="App_Plugins\UmbNav\package.manifest" />
     <None Include="packages.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
