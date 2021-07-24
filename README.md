@@ -1,27 +1,44 @@
-# Umbraco UmbNav-V8
+# Umbraco UmbNav
 
 [![Build status](https://dev.azure.com/TerrabitHost/UmbNav/_apis/build/status/UmbNavV8?branchName=develop)](https://dev.azure.com/TerrabitHost/UmbNav/_build/latest?definitionId=28)
 
-[![NuGet Badge](https://buildstats.info/nuget/Our.Umbraco.UmbNavV8.Web?includePreReleases=true)](https://www.nuget.org/packages/Our.Umbraco.UmbNavV8.Web)
+[![NuGet Badge](https://buildstats.info/nuget/Our.Umbraco.UmbNav.Web?includePreReleases=true)](https://www.nuget.org/packages/Our.Umbraco.UmbNavV8.Web)
 
 
-UmbNav-V8 adds a drag and drop menu builder to the Umbraco V8 backoffice.
+UmbNav adds a drag and drop menu builder to the Umbraco V8 backoffice.
 
 ## Getting started
 
-This package is supported on Umbraco 8.6+.
+This package is supported on Umbraco 8.7+.
 
 ### Installation
 
-UmbNav-V8 will be available soon.
+UmbNav is available from [Our Umbraco](https://our.umbraco.com/packages/backoffice-extensions/umbnav), [NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web), or as a manual download directly from GitHub.
+
+#### NuGet package repository
+To [install UI from NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web), run the following command in your instance of Visual Studio.
+
+    PM> Install-Package Our.Umbraco.UmbNav.Web
+	
+To [install Core from NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Core), run the following command in your instance of Visual Studio.
+
+    PM> Install-Package Our.Umbraco.UmbNav.Core
+
+To [install api from NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Api), run the following command in your instance of Visual Studio.
+
+    PM> Install-Package Our.Umbraco.UmbNav.Api
 
 ## Umbraco Cloud Supported
 
-UmbNav-V8 fully supports Umbraco Cloud including the content synchroniser,it has been fully tested transferring and restoring between environments.
+UmbNav fully supports Umbraco Cloud including the content synchroniser,it has been fully tested transferring and restoring between environments.
 
 ### Integration
 
-UmbNav-V8 is designed to be as clean and simple for developers as it is for content editors.
+UmbNav is designed to be as clean and simple for developers as it is for content editors.
+
+### Documentation
+
+Coming soon!
 
 
 ### Contribution guidelines
@@ -33,7 +50,7 @@ This project is maintained by [Aaron Sadler](https://aaronsadler.uk) and contrib
 
 ## License
 
-Copyright &copy; 2021 [Aaron Sadler](https://aaronsadler.uk), and other contributors
+Copyright &copy; 2021 [UmbHost Limited](https://umbhost.net), and other contributors
 
 Licensed under the MIT License.
 
