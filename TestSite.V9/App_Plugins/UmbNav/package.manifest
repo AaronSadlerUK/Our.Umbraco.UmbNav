@@ -1,0 +1,11 @@
+﻿﻿{
+  "javascript": [
+    "~/App_Plugins/UmbNav/js/umbnav.settings.controller.js",
+    "~/App_Plugins/UmbNav/js/umbnav.controller.js",
+    "~/App_Plugins/UmbNav/js/umbnav.resource.js",
+    "~/App_Plugins/UmbNav/js/angular-ui-tree.js"
+  ],
+  "css": [
+    "~/App_Plugins/UmbNav/css/editor.css"
+  ]
+}

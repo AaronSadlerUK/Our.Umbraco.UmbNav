@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
@@ -40,8 +40,6 @@
         <Content Remove="umbraco\MediaCache\**" />
     </ItemGroup>
     <ItemGroup>
-      <None Remove="App_Plugins\UmbNav\.nuspec" />
-      <None Remove="App_Plugins\UmbNav\css\editor.css" />
       <None Remove="App_Plugins\UmbNav\js\angular-ui-tree.js" />
       <None Remove="App_Plugins\UmbNav\js\umbnav.controller.js" />
       <None Remove="App_Plugins\UmbNav\js\umbnav.resource.js" />
@@ -53,15 +51,42 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="App_Plugins\UmbNav\.nuspec" />
-      <Content Include="App_Plugins\UmbNav\css\editor.css" />
-      <Content Include="App_Plugins\UmbNav\js\angular-ui-tree.js" />
-      <Content Include="App_Plugins\UmbNav\js\umbnav.controller.js" />
-      <Content Include="App_Plugins\UmbNav\js\umbnav.resource.js" />
-      <Content Include="App_Plugins\UmbNav\js\umbnav.settings.controller.js" />
-      <Content Include="App_Plugins\UmbNav\lang\en-us.xml" />
-      <Content Include="App_Plugins\UmbNav\package.manifest" />
-      <Content Include="App_Plugins\UmbNav\views\editor.html" />
-      <Content Include="App_Plugins\UmbNav\views\settings.html" />
+      <Content Include="App_Plugins\UmbNav\css\editor.css">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Include="App_Plugins\UmbNav\js\angular-ui-tree.js">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Include="App_Plugins\UmbNav\js\umbnav.controller.js">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Include="App_Plugins\UmbNav\js\umbnav.resource.js">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Include="App_Plugins\UmbNav\js\umbnav.settings.controller.js">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Include="App_Plugins\UmbNav\lang\en-us.xml">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Include="App_Plugins\UmbNav\package.manifest">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Include="App_Plugins\UmbNav\views\editor.html">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+      <Content Include="App_Plugins\UmbNav\views\settings.html">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\src\UmbNav.Api\UmbNav.Api.csproj" />
