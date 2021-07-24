@@ -1,4 +1,4 @@
-﻿#if NETCOREAPP
+#if NETCOREAPP
 using Umbraco.Cms.Core.PropertyEditors;
 
 #else
@@ -30,7 +30,7 @@ namespace UmbNav.Core.PropertyEditors
         [ConfigurationField("hideIncludeChildren", "Hide Include Child Nodes Toggle", "boolean", Description = "Hide the ability to include child nodes")]
         public bool HideIncludeChildren { get; set; }
 
-        [ConfigurationField("allowDisplay", "Allow Display", "boolean", Description = "Allow the ability to hide menu items based on member authentication status")]
+        [ConfigurationField("allowDisplay", "Allow Member Visibility", "boolean", Description = "Allow the ability to hide menu items based on member authentication status")]
         public bool AllowDisplay { get; set; }
 
         [ConfigurationField("hideLabel", "Hide Label", "boolean", Description = "Hide the property label and let the item list span the full width of the editor window.")]
