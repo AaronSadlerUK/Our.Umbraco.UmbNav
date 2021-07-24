@@ -70,13 +70,13 @@
                         <umb-checkbox ng-if="showNoopener" model="vm.showNoopener"
                                       on-change="vm.toggleshowNoopener(model, value)"
                                       text="{{vm.labels.showNoopener}}"
-                                      disabled="!model.target.id || !model.target.udi">
+                                      disabled="model.target.id || model.target.udi">
                         </umb-checkbox>
 
                         <umb-checkbox ng-if="showNoreferrer" model="vm.showNoreferrer"
                                       on-change="vm.toggleshowNoreferrer(model, value)"
                                       text="{{vm.labels.showNoreferrer}}"
-                                      disabled="!model.target.id || !model.target.udi">
+                                      disabled="model.target.id || model.target.udi">
                         </umb-checkbox>
                     </umb-control-group>
 

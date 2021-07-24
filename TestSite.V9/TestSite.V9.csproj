@@ -50,7 +50,6 @@
       <None Remove="App_Plugins\UmbNav\views\settings.html" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="App_Plugins\UmbNav\.nuspec" />
       <Content Include="App_Plugins\UmbNav\css\editor.css">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>Always</CopyToPublishDirectory>
