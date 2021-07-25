@@ -159,6 +159,24 @@ namespace UmbNav.Core.Services
                 return mediaItem != null ? mediaItem.Url() : string.Empty;
             }
 
+#if NETCOREAPP
+            if (UdiParser.TryParse(item.ImageUrl, out var imageUdi))
+#else
+            if (Udi.TryParse(item.ImageUrl, out var imageUdi))
+#endif
+            {
+                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageUdi);
+
+                return mediaItem != null ? mediaItem.Url() : string.Empty;
+            }
+
+            if (Guid.TryParse(item.ImageUrl, out var imageGuid))
+            {
+                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageGuid);
+
+                return mediaItem != null ? mediaItem.Url() : string.Empty;
+            }
+
             return item.ImageUrl;
         }
     }
