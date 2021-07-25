@@ -28,6 +28,9 @@
     localizationService.localizeMany(['umbnav_includeChildNodes']).then(function (data) {
         vm.labels.includeChildNodes = data[0];
     });
+    localizationService.localizeMany(['umbnav_CustomClasses']).then(function (data) {
+        vm.labels.customClasses = data[0];
+    });
     if (!$scope.model.title) {
         localizationService.localize('defaultdialogs_selectLink').then(function (value) {
             $scope.model.title = value;
@@ -50,6 +53,7 @@
     $scope.showNoreferrer = $scope.model.hideNoreferrer!== true;
     $scope.showAnchor = $scope.model.hideAnchor !== true;
     $scope.showIncludeChildren = $scope.model.hideIncludeChildren !== true;
+    $scope.showCustomClasses = $scope.model.allowCustomClasses === true;
     // this ensures that we only sync the tree once and only when it's ready
     var oneTimeTreeSync = {
         executed: false,

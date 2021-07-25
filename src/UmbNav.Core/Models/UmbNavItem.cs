@@ -63,5 +63,8 @@ namespace UmbNav.Core.Models
 
         [JsonProperty("includeChildNodes")]
         internal bool IncludeChildNodes { get; set; }
+
+        [JsonProperty("customClasses")]
+        public string CustomClasses { get; set; }
     }
 }

@@ -90,6 +90,7 @@
             hideNoreferrer: dialogOptions.config.hideNoreferrer,
             hideNoopener: dialogOptions.config.hideNoopener,
             allowDisplay: dialogOptions.config.allowDisplay,
+            allowCustomClasses: dialogOptions.config.allowCustomClasses,
             currentTarget: item,
             submit: function (model) {
                 model.target.description = model.target.url + model.target.anchor;
@@ -140,6 +141,7 @@
             noreferrer: data.noreferrer,
             hideLoggedIn: data.hideLoggedIn,
             hideLoggedOut: data.hideLoggedOut,
+            customClasses: data.customClasses,
             anchor: data.anchor,
             url: url || "#",
             children: data.children || [],
