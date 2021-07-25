@@ -1,4 +1,4 @@
-@using UmbNav.Core.Models
+﻿@using UmbNav.Core.Models
 @using UmbNav.Core.Extensions
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
@@ -10,4 +10,5 @@
 {
     @*<a class="nav-link " href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">@item.Title</a>*@
     <umbnavitem menu-item="item" class="nav-link" rel="test"></umbnavitem>
+    @item.GetLinkHtml(htmlAttributes: new {Class="nav-link"})
 }
