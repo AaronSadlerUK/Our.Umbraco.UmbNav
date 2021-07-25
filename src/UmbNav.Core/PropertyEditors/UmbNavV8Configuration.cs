@@ -33,10 +33,10 @@ namespace UmbNav.Core.PropertyEditors
         public bool HideIncludeChildren { get; set; }
 
         [ConfigurationField("allowDisplay", "Allow Member Visibility", "boolean", Description = "Allow the ability to hide menu items based on member authentication status")]
-        public bool AllowDisplay { get; set; }
+        public bool AllowDisplay { get; set; } = false;
 
         [ConfigurationField("allowCustomClasses", "Allow Custom Classes", "boolean", Description = "Allow the ability to set custom classes on an item")]
-        public bool AllowCustomClasses { get; set; }
+        public bool AllowCustomClasses { get; set; } = false;
 
         [ConfigurationField("hideLabel", "Hide Label", "boolean", Description = "Hide the property label and let the item list span the full width of the editor window.")]
         public bool HideLabel { get; set; }
