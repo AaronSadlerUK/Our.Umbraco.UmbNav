@@ -34,6 +34,12 @@
     localizationService.localizeMany(['umbnav_ImageIconUrl']).then(function (data) {
         vm.labels.imageIconUrl = data[0];
     });
+    localizationService.localizeMany(['umbnav_link']).then(function (data) {
+        vm.labels.link = data[0];
+    });
+    localizationService.localizeMany(['umbnav_configuration']).then(function (data) {
+        vm.labels.configuration = data[0];
+    });
     if (!$scope.model.title) {
         localizationService.localize('defaultdialogs_selectLink').then(function (value) {
             $scope.model.title = value;

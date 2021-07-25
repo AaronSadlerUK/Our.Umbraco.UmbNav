@@ -11,6 +11,7 @@
 
         <umb-editor-container class="block-form">
             <umb-box>
+                <umb-box-header ng-if="!vm.loading" title="{{vm.labels.link}}"></umb-box-header>
                 <umb-box-content>
                     <div ng-class="{'flex': showAnchor}">
 
@@ -50,46 +51,6 @@
                                class="umb-property-editor umb-textstring"
                                ng-model="model.target.title"
                                ng-required="!model.target.name" />
-                    </umb-control-group>
-
-                    <umb-control-group ng-if="showTarget" label="@content_target">
-                        <umb-checkbox model="vm.openInNewWindow"
-                                      on-change="vm.toggleOpenInNewWindow(model, value)"
-                                      text="{{vm.labels.openInNewWindow}}">
-                        </umb-checkbox>
-                    </umb-control-group>
-
-                    <umb-control-group ng-if="showIncludeChildren" label="@umbnav_includeChildren">
-                        <umb-checkbox model="vm.includeChildren"
-                                      on-change="vm.toggleChildren(model, value)"
-                                      text="{{vm.labels.includeChildNodes}}">
-                        </umb-checkbox>
-                    </umb-control-group>
-
-                    <umb-control-group ng-if="showNoopener || showNoreferrer" label="@umbnav_seo">
-                        <umb-checkbox ng-if="showNoopener" model="vm.showNoopener"
-                                      on-change="vm.toggleshowNoopener(model, value)"
-                                      text="{{vm.labels.showNoopener}}"
-                                      disabled="model.target.id || model.target.udi">
-                        </umb-checkbox>
-
-                        <umb-checkbox ng-if="showNoreferrer" model="vm.showNoreferrer"
-                                      on-change="vm.toggleshowNoreferrer(model, value)"
-                                      text="{{vm.labels.showNoreferrer}}"
-                                      disabled="model.target.id || model.target.udi">
-                        </umb-checkbox>
-                    </umb-control-group>
-
-                    <umb-control-group ng-if="showDisplay" label="@umbnav_visibility">
-                        <umb-checkbox model="vm.hideLoggedIn"
-                                      on-change="vm.toggleDisplayLoggedIn(model, value)"
-                                      text="{{vm.labels.hideLoggedIn}}">
-                        </umb-checkbox>
-
-                        <umb-checkbox model="vm.hideLoggedOut"
-                                      on-change="vm.toggleDisplayLoggedOut(model, value)"
-                                      text="{{vm.labels.hideLoggedOut}}">
-                        </umb-checkbox>
                     </umb-control-group>
 
                     <div class="umb-control-group">
@@ -136,6 +97,51 @@
                         </umb-mini-list-view>
 
                     </div>
+
+                </umb-box-content>
+            </umb-box>
+            <umb-box>
+                <umb-box-header ng-if="!vm.loading" title="{{vm.labels.configuration}}"></umb-box-header>
+                <umb-box-content>
+                    <umb-control-group ng-if="showDisplay" label="@umbnav_visibility">
+                        <umb-checkbox model="vm.hideLoggedIn"
+                                      on-change="vm.toggleDisplayLoggedIn(model, value)"
+                                      text="{{vm.labels.hideLoggedIn}}">
+                        </umb-checkbox>
+
+                        <umb-checkbox model="vm.hideLoggedOut"
+                                      on-change="vm.toggleDisplayLoggedOut(model, value)"
+                                      text="{{vm.labels.hideLoggedOut}}">
+                        </umb-checkbox>
+                    </umb-control-group>
+
+                    <umb-control-group ng-if="showTarget" label="@content_target">
+                        <umb-checkbox model="vm.openInNewWindow"
+                                      on-change="vm.toggleOpenInNewWindow(model, value)"
+                                      text="{{vm.labels.openInNewWindow}}">
+                        </umb-checkbox>
+                    </umb-control-group>
+
+                    <umb-control-group ng-if="showIncludeChildren" label="@umbnav_includeChildren">
+                        <umb-checkbox model="vm.includeChildren"
+                                      on-change="vm.toggleChildren(model, value)"
+                                      text="{{vm.labels.includeChildNodes}}">
+                        </umb-checkbox>
+                    </umb-control-group>
+
+                    <umb-control-group ng-if="showNoopener || showNoreferrer" label="@umbnav_seo">
+                        <umb-checkbox ng-if="showNoopener" model="vm.showNoopener"
+                                      on-change="vm.toggleshowNoopener(model, value)"
+                                      text="{{vm.labels.showNoopener}}"
+                                      disabled="model.target.id || model.target.udi">
+                        </umb-checkbox>
+
+                        <umb-checkbox ng-if="showNoreferrer" model="vm.showNoreferrer"
+                                      on-change="vm.toggleshowNoreferrer(model, value)"
+                                      text="{{vm.labels.showNoreferrer}}"
+                                      disabled="model.target.id || model.target.udi">
+                        </umb-checkbox>
+                    </umb-control-group>
 
                     <umb-control-group label="@umbnav_customClasses"
                                        ng-if="showDisplay">
