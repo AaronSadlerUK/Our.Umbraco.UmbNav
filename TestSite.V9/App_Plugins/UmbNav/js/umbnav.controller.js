@@ -91,6 +91,7 @@
             hideNoopener: dialogOptions.config.hideNoopener,
             allowDisplay: dialogOptions.config.allowDisplay,
             allowCustomClasses: dialogOptions.config.allowCustomClasses,
+            allowImageIcon: dialogOptions.config.allowImageIcon,
             currentTarget: item,
             submit: function (model) {
                 model.target.description = model.target.url + model.target.anchor;
@@ -142,6 +143,7 @@
             hideLoggedIn: data.hideLoggedIn,
             hideLoggedOut: data.hideLoggedOut,
             customClasses: data.customClasses,
+            imageUrl: data.imageUrl,
             anchor: data.anchor,
             url: url || "#",
             children: data.children || [],

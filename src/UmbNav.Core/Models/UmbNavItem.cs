@@ -66,5 +66,8 @@ namespace UmbNav.Core.Models
 
         [JsonProperty("customClasses")]
         public string CustomClasses { get; set; }
+
+        [JsonProperty("imageUrl")]
+        public string ImageUrl { get; set; }
     }
 }

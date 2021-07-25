@@ -40,5 +40,8 @@ namespace UmbNav.Core.PropertyEditors
 
         [ConfigurationField("hideLabel", "Hide Label", "boolean", Description = "Hide the property label and let the item list span the full width of the editor window.")]
         public bool HideLabel { get; set; }
+
+        [ConfigurationField("allowImageIcon", "Allow Image / Icon Url", "boolean", Description = "Allow the ability to enter a image / icon url or media id")]
+        public bool AllowImageIcon { get; set; }
     }
 }

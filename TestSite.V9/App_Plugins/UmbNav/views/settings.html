@@ -142,7 +142,15 @@
                         <input type="text"
                                localize="placeholder"
                                class="umb-property-editor umb-textstring"
-                               ng-model="model.target.customClasses"/>
+                               ng-model="model.target.customClasses" />
+                    </umb-control-group>
+
+                    <umb-control-group label="@umbnav_ImageIconUrl"
+                                       ng-if="showImageIcon">
+                        <input type="text"
+                               localize="placeholder"
+                               class="umb-property-editor umb-textstring"
+                               ng-model="model.target.imageUrl" />
                     </umb-control-group>
                 </umb-box-content>
             </umb-box>
