@@ -48,6 +48,11 @@ namespace UmbNav.Core.Services
                         continue;
                     }
 
+                    if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        item.ImageUrl = GetImageUrl(item);
+                    }
+
                     if (item.Id > 0)
                     {
                         IPublishedContent umbracoContent;
@@ -143,6 +148,36 @@ namespace UmbNav.Core.Services
 #endif
                 return Enumerable.Empty<UmbNavItem>();
             }
+        }
+
+        private string GetImageUrl(UmbNavItem item)
+        {
+            if (int.TryParse(item.ImageUrl, out var imageId))
+            {
+                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageId);
+
+                return mediaItem != null ? mediaItem.Url() : string.Empty;
+            }
+
+#if NETCOREAPP
+            if (UdiParser.TryParse(item.ImageUrl, out var imageUdi))
+#else
+            if (Udi.TryParse(item.ImageUrl, out var imageUdi))
+#endif
+            {
+                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageUdi);
+
+                return mediaItem != null ? mediaItem.Url() : string.Empty;
+            }
+
+            if (Guid.TryParse(item.ImageUrl, out var imageGuid))
+            {
+                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageGuid);
+
+                return mediaItem != null ? mediaItem.Url() : string.Empty;
+            }
+
+            return item.ImageUrl;
         }
     }
 }
