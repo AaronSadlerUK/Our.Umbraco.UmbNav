@@ -17,8 +17,8 @@ This package is supported on Umbraco 8.7+ and Umbraco V9.0+
 - Hide menu items where `umbracoNaviHide` is true
 - Auto expand the backoffice menu tree on hover
 - Set the delay of the auto expand on hover (in ms)
-- Add `noopener`
-- Add `noreferrer`
+- Add `noopener` to external links by clicking a checkbox
+- Add `noreferrer` to external links by clicking a checkbox
 - Auto add child nodes when rendering on the front end
 - All menu items to be shown / hidden depending on member authentication status
 - Add custom CSS classes to each menu item in the backoffice
