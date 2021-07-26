@@ -1,0 +1,78 @@
+# Variable 'BuildVersion' was defined in the Variables tab
+variables:
+- name: BuildParameters.projects
+  value: >-
+    src/UmbNav.Api/UmbNav.Api.csproj
+
+    src/UmbNav.Core/UmbNav.Core.csproj
+trigger:
+  branches:
+    include:
+    - develop
+name: 1.0.0-alpha$(Rev:.r)
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: develop
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    name: Easyspace
+  steps:
+  - checkout: self
+    clean: true
+    submodules: recursive
+  - task: DotNetCoreCLI@2
+    displayName: dotnet restore
+    inputs:
+      command: restore
+      projects: $(BuildParameters.projects)
+      selectOrConfig: config
+      nugetConfigPath: src/NuGet.Config
+  - task: DotNetCoreCLI@2
+    displayName: dotnet pack
+    inputs:
+      command: pack
+      projects: >-
+        src/UmbNav.Api/UmbNav.Api.csproj
+
+        src/UmbNav.Core/UmbNav.Core.csproj
+      searchPatternPack: src/UmbNav.Api/UmbNav.Api.csproj;src/UmbNav.Core/UmbNav.Core.csproj;src/UmbNav.Web/UmbNav.Web.csproj;
+      versioningScheme: byEnvVar
+      versionEnvVar: BuildVersion
+  - task: DotNetCoreCLI@2
+    displayName: dotnet push
+    enabled: False
+    inputs:
+      command: push
+      nuGetFeedType: external
+      externalEndpoint: 128c05dd-fc06-44b8-a214-448b17f34506
+  - task: NuGetToolInstaller@1
+    displayName: Use NuGet 5.5.0
+    inputs:
+      versionSpec: 5.5.0
+      checkLatest: true
+  - task: NuGetCommand@2
+    displayName: NuGet pack UmbNav UI
+    enabled: False
+    inputs:
+      command: pack
+      searchPatternPack: TestSite/App_Plugins/UmbNav/.nuspec
+      versioningScheme: byEnvVar
+      versionEnvVar: BuildVersion
+  - task: NuGetCommand@2
+    displayName: NuGet push
+    inputs:
+      command: push
+      nuGetFeedType: external
+      externalEndpoint: 128c05dd-fc06-44b8-a214-448b17f34506
+  - task: NuGetCommand@2
+    displayName: NuGet push
+    enabled: False
+    inputs:
+      command: push
+      nuGetFeedType: external
+      externalEndpoint: 961d8369-124b-44e2-b2bd-5d87cce6169f
+...
