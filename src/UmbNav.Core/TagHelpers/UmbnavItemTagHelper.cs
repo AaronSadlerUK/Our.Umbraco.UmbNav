@@ -1,6 +1,7 @@
 ﻿#if NETCOREAPP
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using UmbNav.Core.Enums;
 using UmbNav.Core.Extensions;
 using UmbNav.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
@@ -15,16 +16,29 @@ namespace UmbNav.Core.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "a";
+            output.TagName = MenuItem.ItemType == UmbNavItemType.Label ? "span" : "a";
             output.Attributes.SetAttribute("href", MenuItem.Url(Culture, Mode));
             output.Content.SetContent(MenuItem.Title);
 
-            if (!string.IsNullOrEmpty(MenuItem.Target))
+            if (!string.IsNullOrEmpty(MenuItem.CustomClasses))
+            {
+                if (output.Attributes["class"] != null)
+                {
+                    var originalRelValue = output.Attributes["class"].Value;
+                    output.Attributes.SetAttribute("class", string.Format("{0} {1}", originalRelValue, string.Join(" ", MenuItem.CustomClasses)));
+                }
+                else
+                {
+                    output.Attributes.SetAttribute("rel", string.Join(" ", MenuItem.CustomClasses));
+                }
+            }
+
+            if (!string.IsNullOrEmpty(MenuItem.Target) && MenuItem.ItemType != UmbNavItemType.Label)
             {
                 output.Attributes.SetAttribute("target", MenuItem.Target);
             }
 
-            if (!string.IsNullOrEmpty(MenuItem.Noopener) || !string.IsNullOrEmpty(MenuItem.Noreferrer))
+            if ((!string.IsNullOrEmpty(MenuItem.Noopener) || !string.IsNullOrEmpty(MenuItem.Noreferrer)) && MenuItem.ItemType != UmbNavItemType.Label)
             {
                 var rel = new List<string>();
 
@@ -46,19 +60,6 @@ namespace UmbNav.Core.TagHelpers
                 else
                 {
                     output.Attributes.SetAttribute("rel", string.Join(" ", rel));
-                }
-            }
-
-            if (!string.IsNullOrEmpty(MenuItem.CustomClasses))
-            {
-                if (output.Attributes["class"] != null)
-                {
-                    var originalRelValue = output.Attributes["class"].Value;
-                    output.Attributes.SetAttribute("class", string.Format("{0} {1}", originalRelValue, string.Join(" ", MenuItem.CustomClasses)));
-                }
-                else
-                {
-                    output.Attributes.SetAttribute("rel", string.Join(" ", MenuItem.CustomClasses));
                 }
             }
 
