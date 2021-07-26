@@ -38,7 +38,7 @@ To [install Core from NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.C
 
     PM> Install-Package Our.Umbraco.UmbNav.Core
 
-To [install api from NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Api), run the following command in your instance of Visual Studio.
+To [install API from NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Api), run the following command in your instance of Visual Studio.
 
     PM> Install-Package Our.Umbraco.UmbNav.Api
 
