@@ -2,6 +2,7 @@
     var vm = this;
     var dialogOptions = $scope.model;
     vm.wideMode = Object.toBoolean(dialogOptions.config.hideLabel);
+    vm.allowChildNodes = Object.toBoolean(!dialogOptions.config.hideIncludeChildren);
     vm.items = [];
 
     if (dialogOptions.config.expandOnHoverTimeout > 0) {
@@ -83,6 +84,10 @@
 
     function openSettings(item, callback) {
 
+        if (item != null && item.itemType == null) {
+            item.itemType = 'link';
+        }
+
         var settingsEditor = {
             title: "Settings",
             view: "/App_Plugins/UmbNav/Views/settings.html",
@@ -92,6 +97,7 @@
             allowDisplay: dialogOptions.config.allowDisplay,
             allowCustomClasses: dialogOptions.config.allowCustomClasses,
             allowImageIcon: dialogOptions.config.allowImageIcon,
+            hideIncludeChildren: dialogOptions.config.hideIncludeChildren,
             currentTarget: item,
             submit: function (model) {
                 model.target.description = model.target.url + model.target.anchor;
@@ -145,13 +151,14 @@
             customClasses: data.customClasses,
             imageUrl: data.imageUrl,
             anchor: data.anchor,
-            url: url || "#",
+            url: url,
             children: data.children || [],
             icon: data.icon || "icon-link",
             published: data.published,
             naviHide: data.naviHide,
             culture: data.culture,
-            includeChildNodes: data.includeChildren
+            includeChildNodes: data.includeChildren,
+            itemType: data.itemType
         }
     }
 }

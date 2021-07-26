@@ -11,99 +11,120 @@
 
         <umb-editor-container class="block-form">
             <umb-box>
-                <umb-box-header ng-if="!vm.loading" title="{{vm.labels.link}}"></umb-box-header>
+                <umb-box-header ng-if="!vm.loading" title="{{vm.labels.menuItem}}"></umb-box-header>
                 <umb-box-content>
-                    <select ng-change="itemTypeChanged()" ng-model="model.target.itemType">
-                        <option ng-repeat="itemType in vm.labels.itemTypes" ng-value="itemType.value">{{itemType.key}}</option>
-                    </select>
-                    <div ng-class="{'flex': showAnchor}">
-
-                        <umb-control-group label="@defaultdialogs_urlLinkPicker" class="umb-linkpicker__url">
-                            <input type="text"
-                                   style="margin-right: 10px;"
-                                   localize="placeholder"
-                                   placeholder="@general_url"
-                                   class="umb-property-editor umb-textstring"
-                                   ng-model="model.target.url"
-                                   umb-auto-focus
-                                   ng-disabled="model.target.id || model.target.udi"/>
-                        </umb-control-group>
-
-                        <umb-control-group label="@defaultdialogs_anchorLinkPicker" class="umb-linkpicker__anchor" ng-if="showAnchor">
-                            <input type="text"
-                                   list="anchors"
-                                   localize="placeholder"
-                                   placeholder="@placeholders_anchor"
-                                   class="umb-property-editor umb-textstring"
-                                   ng-model="model.target.anchor"/>
-
-                            <datalist id="anchors">
-                                <option value="{{a}}" ng-repeat="a in anchorValues"></option>
-                            </datalist>
-                        </umb-control-group>
-                    </div>
-                    <umb-control-group label="@general_name"
-                                       ng-if="model.target.name">
-                        {{model.target.name}}
-                    </umb-control-group>
-
-                    <umb-control-group label="@defaultdialogs_nodeNameLinkPicker">
-                        <input type="text"
-                               localize="placeholder"
-                               placeholder="@placeholders_entername"
-                               class="umb-property-editor umb-textstring"
-                               ng-model="model.target.title"
-                               ng-required="!model.target.name"/>
-                    </umb-control-group>
-
-                    <div class="umb-control-group">
-                        <h5>
-                            <localize key="defaultdialogs_linkToPage">Link to page</localize>
-                        </h5>
-
-                        <div ng-hide="miniListView">
-                            <umb-tree-search-box hide-search-callback="hideSearch"
-                                                 search-callback="onSearchResults"
-                                                 search-from-id="{{searchInfo.searchFromId}}"
-                                                 search-from-name="{{searchInfo.searchFromName}}"
-                                                 datatype-key="{{searchInfo.dataTypeKey}}"
-                                                 show-search="{{searchInfo.showSearch}}"
-                                                 section="{{section}}">
-                            </umb-tree-search-box>
-
-                            <br/>
-
-                            <umb-tree-search-results ng-if="searchInfo.showSearch"
-                                                     results="searchInfo.results"
-                                                     select-result-callback="selectResult">
-                            </umb-tree-search-results>
-
-                            <div ng-hide="searchInfo.showSearch">
-                                <umb-tree section="content"
-                                          hideheader="true"
-                                          hideoptions="true"
-                                          api="dialogTreeApi"
-                                          on-init="onTreeInit()"
-                                          enablelistviewexpand="true"
-                                          isdialog="true"
-                                          enablecheckboxes="true"
-                                          customtreeparams="{{customTreeParams}}">
-                                </umb-tree>
+                    <umb-control-group label="@umbnav_itemType">
+                        <div class="umb-property-editor">
+                            <div class=" flex items-center">
+                                <select ng-model="model.target.itemType">
+                                    <option value="{{vm.labels.itemTypes.link.value}}">{{vm.labels.itemTypes.link.label}}</option>
+                                    <option value="{{vm.labels.itemTypes.label.value}}">{{vm.labels.itemTypes.label.label}}</option>
+                                </select>
+                                <div class="ml2">
+                                    {{vm.labels.linkTypeDescription}}
+                                </div>
                             </div>
                         </div>
+                    </umb-control-group>
+                    <div ng-if="model.target.itemType == 'link'">
+                        <div ng-class="{'flex': showAnchor}">
 
-                        <umb-mini-list-view ng-if="miniListView"
-                                            node="miniListView"
-                                            entity-type="Document"
-                                            on-select="selectListViewNode(node)"
-                                            on-close="closeMiniListView()">
-                        </umb-mini-list-view>
+                            <umb-control-group label="@defaultdialogs_urlLinkPicker" class="umb-linkpicker__url">
+                                <input type="text"
+                                       style="margin-right: 10px;"
+                                       localize="placeholder"
+                                       placeholder="@general_url"
+                                       class="umb-property-editor umb-textstring"
+                                       ng-model="model.target.url"
+                                       umb-auto-focus
+                                       ng-disabled="model.target.id || model.target.udi" />
+                            </umb-control-group>
 
+                            <umb-control-group label="@defaultdialogs_anchorLinkPicker" class="umb-linkpicker__anchor" ng-if="showAnchor">
+                                <input type="text"
+                                       list="anchors"
+                                       localize="placeholder"
+                                       placeholder="@placeholders_anchor"
+                                       class="umb-property-editor umb-textstring"
+                                       ng-model="model.target.anchor" />
+
+                                <datalist id="anchors">
+                                    <option value="{{a}}" ng-repeat="a in anchorValues"></option>
+                                </datalist>
+                            </umb-control-group>
+                        </div>
+                        <umb-control-group label="@general_name"
+                                           ng-if="model.target.name">
+                            {{model.target.name}}
+                        </umb-control-group>
+
+                        <umb-control-group label="@defaultdialogs_nodeNameLinkPicker">
+                            <input type="text"
+                                   localize="placeholder"
+                                   placeholder="@placeholders_entername"
+                                   class="umb-property-editor umb-textstring"
+                                   ng-model="model.target.title"
+                                   ng-required="!model.target.name" />
+                        </umb-control-group>
+
+                        <div class="umb-control-group">
+                            <h5>
+                                <localize key="defaultdialogs_linkToPage">Link to page</localize>
+                            </h5>
+
+                            <div ng-hide="miniListView">
+                                <umb-tree-search-box hide-search-callback="hideSearch"
+                                                     search-callback="onSearchResults"
+                                                     search-from-id="{{searchInfo.searchFromId}}"
+                                                     search-from-name="{{searchInfo.searchFromName}}"
+                                                     datatype-key="{{searchInfo.dataTypeKey}}"
+                                                     show-search="{{searchInfo.showSearch}}"
+                                                     section="{{section}}">
+                                </umb-tree-search-box>
+
+                                <br />
+
+                                <umb-tree-search-results ng-if="searchInfo.showSearch"
+                                                         results="searchInfo.results"
+                                                         select-result-callback="selectResult">
+                                </umb-tree-search-results>
+
+                                <div ng-hide="searchInfo.showSearch">
+                                    <umb-tree section="content"
+                                              hideheader="true"
+                                              hideoptions="true"
+                                              api="dialogTreeApi"
+                                              on-init="onTreeInit()"
+                                              enablelistviewexpand="true"
+                                              isdialog="true"
+                                              enablecheckboxes="true"
+                                              customtreeparams="{{customTreeParams}}">
+                                    </umb-tree>
+                                </div>
+                            </div>
+
+                            <umb-mini-list-view ng-if="miniListView"
+                                                node="miniListView"
+                                                entity-type="Document"
+                                                on-select="selectListViewNode(node)"
+                                                on-close="closeMiniListView()">
+                            </umb-mini-list-view>
+
+                        </div>
                     </div>
-
+                    <div ng-if="model.target.itemType == 'nolink'">
+                        <umb-control-group label="@umbnav_title">
+                            <input type="text"
+                                   localize="placeholder"
+                                   placeholder="@placeholders_entername"
+                                   class="umb-property-editor umb-textstring"
+                                   ng-model="model.target.title"
+                                   ng-required="!model.target.name" />
+                        </umb-control-group>
+                    </div>
                 </umb-box-content>
             </umb-box>
-            <umb-box>
+            <umb-box ng-if="model.target.itemType == 'link'">
                 <umb-box-header ng-if="!vm.loading" title="{{vm.labels.configuration}}" ng-click="vm.showAdvanced = !vm.showAdvanced" style="cursor: pointer;">
                     <i class="icon icon-navigation-up" ng-if="vm.showAdvanced" title="expand"></i>
                     <i class="icon icon-navigation-down" ng-if="!vm.showAdvanced" title="collapse"></i>
@@ -134,7 +155,6 @@
                                       text="{{vm.labels.includeChildNodes}}">
                         </umb-checkbox>
                     </umb-control-group>
-
                     <umb-control-group ng-if="showNoopener || showNoreferrer" label="@umbnav_seo">
                         <umb-checkbox ng-if="showNoopener" model="vm.showNoopener"
                                       on-change="vm.toggleshowNoopener(model, value)"

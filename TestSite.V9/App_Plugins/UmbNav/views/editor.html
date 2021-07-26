@@ -42,7 +42,7 @@
                     <i ng-if="item.icon" class="umb-node-preview__icon {{ item.icon }}" aria-hidden="true"></i>
                     <div class="umb-node-preview__content">
 
-                        <div class="umb-node-preview__name" ng-attr-title="{{item.title || item.name}}">{{ item.title || item.name }} <span ng-if="item.includeChildNodes" class="umbnav-label umbnav-label-primary"><localize key="umbnav_includesChildNodes"></localize></span></div>
+                        <div class="umb-node-preview__name" ng-attr-title="{{item.title || item.name}}">{{ item.title || item.name }} <span ng-if="item.includeChildNodes && vm.allowChildNodes" class="umbnav-label umbnav-label-primary"><localize key="umbnav_includesChildNodes"></localize></span></div>
                         <div class="umb-node-preview__description" ng-if="item.description">{{ item.description }}</div>
                     </div>
                 </div>

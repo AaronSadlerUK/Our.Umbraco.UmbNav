@@ -52,10 +52,7 @@
       <None Remove="App_Plugins\UmbNav\views\settings.html" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="App_Plugins\UmbNav\css\editor.css">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-      </Content>
+      <Content Include="App_Plugins\UmbNav\css\editor.css" />
       <Content Include="App_Plugins\UmbNav\js\angular-ui-tree.js" />
       <Content Include="App_Plugins\UmbNav\js\umbnav.controller.js" />
       <Content Include="App_Plugins\UmbNav\js\umbnav.resource.js" />

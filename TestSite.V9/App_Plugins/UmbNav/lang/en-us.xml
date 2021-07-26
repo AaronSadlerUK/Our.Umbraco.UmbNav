@@ -22,5 +22,11 @@
 		<key alias="ImageIconUrl">Image/Icon Url, id, udi or GUID</key>
 		<key alias="configuration">Advanced Configuration</key>
 		<key alias="link">Link</key>
+		<key alias="label">Label</key>
+		<key alias="menuItem">Menu Item</key>
+		<key alias="title">Title</key>
+		<key alias="itemType">Menu Item Type</key>
+		<key alias="linkTypeDescription">Select menu item type</key>
+		<key alias="linkTypeDescription">Select menu item type</key>
 	</area>
 </language>
