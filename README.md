@@ -78,4 +78,4 @@ Copyright &copy; 2021 [UmbHost Limited](https://umbhost.net), and other contribu
 
 Licensed under the MIT License.
 
-As per the spirit of the MIT Licence, feel free to fork and do what you wish with thr source code, all I ask is that if you find a bug or add a feature to PR this repository.
+As per the spirit of the MIT Licence, feel free to fork and do what you wish with the source code, all I ask is that if you find a bug or add a feature please create a to PR this repository.
