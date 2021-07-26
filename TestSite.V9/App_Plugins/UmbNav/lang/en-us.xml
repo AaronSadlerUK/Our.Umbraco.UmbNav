@@ -20,7 +20,7 @@
 		<key alias="includesChildNodes">Includes Child Nodes</key>
 		<key alias="customClasses">Custom CSS Classes</key>
 		<key alias="ImageIconUrl">Image/Icon Url, id, udi or GUID</key>
-		<key alias="configuration">Configuration</key>
+		<key alias="configuration">Advanced Configuration</key>
 		<key alias="link">Link</key>
 	</area>
 </language>

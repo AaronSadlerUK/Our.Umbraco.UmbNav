@@ -101,8 +101,11 @@
                 </umb-box-content>
             </umb-box>
             <umb-box>
-                <umb-box-header ng-if="!vm.loading" title="{{vm.labels.configuration}}"></umb-box-header>
-                <umb-box-content>
+                <umb-box-header ng-if="!vm.loading" title="{{vm.labels.configuration}}" ng-click="vm.showAdvanced = !vm.showAdvanced" style="cursor: pointer;">
+                    <i class="icon icon-navigation-up" ng-if="vm.showAdvanced" title="expand"></i>
+                    <i class="icon icon-navigation-down" ng-if="!vm.showAdvanced" title="collapse"></i>
+                </umb-box-header>
+                <umb-box-content ng-if="vm.showAdvanced">
                     <umb-control-group ng-if="showDisplay" label="@umbnav_visibility">
                         <umb-checkbox model="vm.hideLoggedIn"
                                       on-change="vm.toggleDisplayLoggedIn(model, value)"

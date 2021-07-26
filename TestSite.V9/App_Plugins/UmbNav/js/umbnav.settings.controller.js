@@ -9,6 +9,7 @@
     vm.toggleDisplayLoggedIn = toggleDisplayLoggedIn;
     vm.toggleDisplayLoggedOut = toggleDisplayLoggedOut;
     vm.toggleChildren = toggleChildren;
+    vm.showAdvanced = false;
     vm.labels = {};
     localizationService.localizeMany(['defaultdialogs_openInNewWindow']).then(function (data) {
         vm.labels.openInNewWindow = data[0];
