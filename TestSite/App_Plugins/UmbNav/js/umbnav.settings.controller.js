@@ -11,10 +11,7 @@
     vm.toggleChildren = toggleChildren;
     vm.showAdvanced = false;
     vm.labels = {};
-    vm.labels.itemTypes = [
-        { 'value': 'link', 'label': 'Link' },
-        { 'value': 'nolink', 'label': 'Label' }
-    ];
+    vm.labels.itemTypes = {};
     localizationService.localizeMany(['defaultdialogs_openInNewWindow']).then(function (data) {
         vm.labels.openInNewWindow = data[0];
     });
@@ -40,7 +37,10 @@
         vm.labels.imageIconUrl = data[0];
     });
     localizationService.localizeMany(['umbnav_link']).then(function (data) {
-        vm.labels.link = data[0];
+        vm.labels.itemTypes.link = { 'value': 'link', 'label': data[0] };
+    });
+    localizationService.localizeMany(['umbnav_label']).then(function (data) {
+        vm.labels.itemTypes.label = { 'value': 'nolink', 'label': data[0] };
     });
     localizationService.localizeMany(['umbnav_menuItem']).then(function (data) {
         vm.labels.menuItem = data[0];

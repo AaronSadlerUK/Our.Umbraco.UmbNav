@@ -15,10 +15,10 @@
                 <umb-box-content>
                     <umb-control-group label="@umbnav_itemType">
                         <div class="umb-property-editor">
-                            Item Type: {{model.target.itemType}}
                             <div class=" flex items-center">
-                                <select ng-change="itemTypeChanged()" ng-model="model.target.itemType">
-                                    <option ng-repeat="itemType in vm.labels.itemTypes" ng-value="itemType.value">{{itemType.label}}</option>
+                                <select ng-model="model.target.itemType">
+                                    <option value="{{vm.labels.itemTypes.link.value}}">{{vm.labels.itemTypes.link.label}}</option>
+                                    <option value="{{vm.labels.itemTypes.label.value}}">{{vm.labels.itemTypes.label.label}}</option>
                                 </select>
                                 <div class="ml2">
                                     {{vm.labels.linkTypeDescription}}
