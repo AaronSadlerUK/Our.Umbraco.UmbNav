@@ -11,6 +11,10 @@
     vm.toggleChildren = toggleChildren;
     vm.showAdvanced = false;
     vm.labels = {};
+    vm.labels.itemTypes = [
+        { 'value': 'link', 'label': 'Link' },
+        { 'value': 'nolink', 'label': 'Label' }
+    ];
     localizationService.localizeMany(['defaultdialogs_openInNewWindow']).then(function (data) {
         vm.labels.openInNewWindow = data[0];
     });
@@ -38,8 +42,14 @@
     localizationService.localizeMany(['umbnav_link']).then(function (data) {
         vm.labels.link = data[0];
     });
+    localizationService.localizeMany(['umbnav_menuItem']).then(function (data) {
+        vm.labels.menuItem = data[0];
+    });
     localizationService.localizeMany(['umbnav_configuration']).then(function (data) {
         vm.labels.configuration = data[0];
+    });
+    localizationService.localizeMany(['umbnav_linkTypeDescription']).then(function (data) {
+        vm.labels.linkTypeDescription = data[0];
     });
     if (!$scope.model.title) {
         localizationService.localize('defaultdialogs_selectLink').then(function (value) {
@@ -60,7 +70,7 @@
     $scope.showTarget = $scope.model.hideTarget !== true;
     $scope.showDisplay = $scope.model.allowDisplay === true;
     $scope.showNoopener = $scope.model.hideNoopener !== true;
-    $scope.showNoreferrer = $scope.model.hideNoreferrer!== true;
+    $scope.showNoreferrer = $scope.model.hideNoreferrer !== true;
     $scope.showAnchor = $scope.model.hideAnchor !== true;
     $scope.showIncludeChildren = $scope.model.hideIncludeChildren !== true;
     $scope.showCustomClasses = $scope.model.allowCustomClasses === true;

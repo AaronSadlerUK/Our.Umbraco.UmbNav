@@ -13,6 +13,9 @@
             <umb-box>
                 <umb-box-header ng-if="!vm.loading" title="{{vm.labels.link}}"></umb-box-header>
                 <umb-box-content>
+                    <select ng-change="itemTypeChanged()" ng-model="model.target.itemType">
+                        <option ng-repeat="itemType in vm.labels.itemTypes" ng-value="itemType.value">{{itemType.key}}</option>
+                    </select>
                     <div ng-class="{'flex': showAnchor}">
 
                         <umb-control-group label="@defaultdialogs_urlLinkPicker" class="umb-linkpicker__url">
@@ -23,7 +26,7 @@
                                    class="umb-property-editor umb-textstring"
                                    ng-model="model.target.url"
                                    umb-auto-focus
-                                   ng-disabled="model.target.id || model.target.udi" />
+                                   ng-disabled="model.target.id || model.target.udi"/>
                         </umb-control-group>
 
                         <umb-control-group label="@defaultdialogs_anchorLinkPicker" class="umb-linkpicker__anchor" ng-if="showAnchor">
@@ -32,7 +35,7 @@
                                    localize="placeholder"
                                    placeholder="@placeholders_anchor"
                                    class="umb-property-editor umb-textstring"
-                                   ng-model="model.target.anchor" />
+                                   ng-model="model.target.anchor"/>
 
                             <datalist id="anchors">
                                 <option value="{{a}}" ng-repeat="a in anchorValues"></option>
@@ -50,7 +53,7 @@
                                placeholder="@placeholders_entername"
                                class="umb-property-editor umb-textstring"
                                ng-model="model.target.title"
-                               ng-required="!model.target.name" />
+                               ng-required="!model.target.name"/>
                     </umb-control-group>
 
                     <div class="umb-control-group">
@@ -68,7 +71,7 @@
                                                  section="{{section}}">
                             </umb-tree-search-box>
 
-                            <br />
+                            <br/>
 
                             <umb-tree-search-results ng-if="searchInfo.showSearch"
                                                      results="searchInfo.results"

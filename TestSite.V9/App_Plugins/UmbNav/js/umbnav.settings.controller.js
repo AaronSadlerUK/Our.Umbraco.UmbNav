@@ -11,6 +11,10 @@
     vm.toggleChildren = toggleChildren;
     vm.showAdvanced = false;
     vm.labels = {};
+    vm.labels.itemTypes = [
+        { 'value': 'link', 'label': 'Link' },
+        { 'value': 'label', 'label': 'Label' }
+    ];
     localizationService.localizeMany(['defaultdialogs_openInNewWindow']).then(function (data) {
         vm.labels.openInNewWindow = data[0];
     });

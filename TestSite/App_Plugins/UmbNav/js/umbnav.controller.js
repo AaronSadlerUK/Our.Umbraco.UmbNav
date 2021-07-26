@@ -83,6 +83,10 @@
 
     function openSettings(item, callback) {
 
+        if (item != null && item.itemType == null) {
+            item.itemType = 'link';
+        }
+
         var settingsEditor = {
             title: "Settings",
             view: "/App_Plugins/UmbNav/Views/settings.html",
@@ -145,13 +149,14 @@
             customClasses: data.customClasses,
             imageUrl: data.imageUrl,
             anchor: data.anchor,
-            url: url || "#",
+            url: url,
             children: data.children || [],
             icon: data.icon || "icon-link",
             published: data.published,
             naviHide: data.naviHide,
             culture: data.culture,
-            includeChildNodes: data.includeChildren
+            includeChildNodes: data.includeChildren,
+            itemType: data.itemType
         }
     }
 }
