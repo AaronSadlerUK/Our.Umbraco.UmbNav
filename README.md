@@ -11,9 +11,23 @@ UmbNav adds a drag and drop menu builder to the Umbraco V8 backoffice.
 
 This package is supported on Umbraco 8.7+.
 
+### Features
+
+- Set maximum child levels
+- Hide menu items where `umbracoNaviHide` is true
+- Auto expand the backoffice menu tree on hover
+- Set the delay of the auto expand on hover (in ms)
+- Add `noopener`
+- Add `noreferrer`
+- Auto add child nodes when rendering on the front end
+- All menu items to be shown / hidden depending on member authentication status
+- Add custom CSS classes to each menu item in the backoffice
+- Display the property editor as full width in the back office (Hide the label)
+- Enter an image url, id, guid or udi for each menu item this will be converted to the relevant url on render
+
 ### Installation
 
-UmbNav is available from [Our Umbraco](https://our.umbraco.com/packages/backoffice-extensions/umbnav), [NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web), or as a manual download directly from GitHub.
+UmbNav is available from [Our Umbraco (V8 only)](https://our.umbraco.com/packages/backoffice-extensions/umbnav), [NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web), or as a manual download directly from GitHub.
 
 #### NuGet package repository
 To [install UI from NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web), run the following command in your instance of Visual Studio.
@@ -38,7 +52,21 @@ UmbNav is designed to be as clean and simple for developers as it is for content
 
 ### Documentation
 
-Coming soon!
+After installing the package, you will have a new property editor called UmbNav in the Umbraco backoffice.
+
+Check out the integration guide[integration guide](docs/integration-guide.md) to learn how to embed the package in your site.
+
+### Screenshots
+
+![](https://raw.githubusercontent.com/AaronSadlerUK/Our.Umbraco.UmbNav/develop/Screenshots/UmbNav.1.jpeg)
+
+![](https://raw.githubusercontent.com/AaronSadlerUK/Our.Umbraco.UmbNav/develop/Screenshots/UmbNav.2.jpeg)
+
+![](https://raw.githubusercontent.com/AaronSadlerUK/Our.Umbraco.UmbNav/develop/Screenshots/UmbNav.3.jpeg)
+
+![](https://raw.githubusercontent.com/AaronSadlerUK/Our.Umbraco.UmbNav/develop/Screenshots/UmbNav.4.jpeg)
+
+![](https://raw.githubusercontent.com/AaronSadlerUK/Our.Umbraco.UmbNav/develop/Screenshots/UmbNav.5.jpeg)
 
 
 ### Contribution guidelines
