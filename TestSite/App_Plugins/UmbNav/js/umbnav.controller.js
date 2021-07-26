@@ -2,6 +2,7 @@
     var vm = this;
     var dialogOptions = $scope.model;
     vm.wideMode = Object.toBoolean(dialogOptions.config.hideLabel);
+    vm.allowChildNodes = Object.toBoolean(!dialogOptions.config.hideIncludeChildren);
     vm.items = [];
 
     if (dialogOptions.config.expandOnHoverTimeout > 0) {
@@ -96,6 +97,7 @@
             allowDisplay: dialogOptions.config.allowDisplay,
             allowCustomClasses: dialogOptions.config.allowCustomClasses,
             allowImageIcon: dialogOptions.config.allowImageIcon,
+            hideIncludeChildren: dialogOptions.config.hideIncludeChildren,
             currentTarget: item,
             submit: function (model) {
                 model.target.description = model.target.url + model.target.anchor;
