@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UmbNav.Core.Enums;
 using UmbNav.Core.Models;
 #if NETCOREAPP
 using Umbraco.Cms.Core.Models.PublishedContent;
@@ -24,14 +25,42 @@ namespace UmbNav.Core.Extensions
 #endif
         {
             var htmlAttributesConverted = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
-            var tagBuilder = new TagBuilder("a");
-            tagBuilder.Attributes.Add("href", item.Url(culture, mode));
+            var tagBuilder = item.ItemType == UmbNavItemType.Label
+                ? new TagBuilder("span")
+                : new TagBuilder("a");
 
 #if NETCOREAPP
             tagBuilder.InnerHtml.Append(item.Title);
 #else
             tagBuilder.InnerHtml = item.Title;
 #endif
+
+            if (!string.IsNullOrEmpty(item.CustomClasses))
+            {
+                if (htmlAttributesConverted.ContainsKey("class"))
+                {
+                    var originalRelValue = htmlAttributesConverted["class"] as string;
+                    htmlAttributesConverted["class"] = string.Format("{0} {1}", originalRelValue, string.Join(" ", item.CustomClasses));
+                }
+                else
+                {
+                    htmlAttributesConverted.Add("rel", string.Join(" ", item.CustomClasses));
+                }
+            }
+
+            tagBuilder.MergeAttributes(htmlAttributesConverted);
+
+            if (item.ItemType == UmbNavItemType.Label)
+            {
+#if NETCOREAPP
+                return tagBuilder;
+#else
+            return MvcHtmlString.Create(tagBuilder.ToString());
+#endif
+            }
+
+            tagBuilder.Attributes.Add("href", item.Url(culture, mode));
+
 
             if (!string.IsNullOrEmpty(item.Target))
             {
@@ -62,21 +91,6 @@ namespace UmbNav.Core.Extensions
                     htmlAttributesConverted.Add("rel", string.Join(" ", rel));
                 }
             }
-
-            if (!string.IsNullOrEmpty(item.CustomClasses))
-            {
-                if (htmlAttributesConverted.ContainsKey("class"))
-                {
-                    var originalRelValue = htmlAttributesConverted["class"] as string;
-                    htmlAttributesConverted["class"] = string.Format("{0} {1}", originalRelValue, string.Join(" ", item.CustomClasses));
-                }
-                else
-                {
-                    htmlAttributesConverted.Add("rel", string.Join(" ", item.CustomClasses));
-                }
-            }
-
-            tagBuilder.MergeAttributes(htmlAttributesConverted);
 
 #if NETCOREAPP
             return tagBuilder;

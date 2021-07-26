@@ -79,7 +79,6 @@ namespace UmbNav.Api.Controllers.API
                     culture = culture
                 };
 
-
 #if NETCOREAPP
                 return Ok(menuItem);
 #else
