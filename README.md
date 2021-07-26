@@ -2,7 +2,7 @@
 
 [![Build status](https://dev.azure.com/TerrabitHost/UmbNav/_apis/build/status/UmbNavV8?branchName=develop)](https://dev.azure.com/TerrabitHost/UmbNav/_build/latest?definitionId=28)
 
-[![NuGet Badge](https://buildstats.info/nuget/Our.Umbraco.UmbNav.Web?includePreReleases=true)](https://www.nuget.org/packages/Our.Umbraco.UmbNavV8.Web)
+[![NuGet Badge](https://buildstats.info/nuget/Our.Umbraco.UmbNav.Web?includePreReleases=true)](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web)
 
 
 UmbNav adds a drag and drop menu builder to the Umbraco V8 backoffice.
@@ -24,6 +24,8 @@ This package is supported on Umbraco 8.7+ and Umbraco V9.0+
 - Add custom CSS classes to each menu item in the backoffice
 - Display the property editor as full width in the back office (Hide the label)
 - Enter an image url, id, guid or udi for each menu item this will be converted to the relevant url on render
+- TagHelper for Umbraco V9
+- GetLinkHtml extension for Umbraco V8 and V9
 
 ### Installation
 
