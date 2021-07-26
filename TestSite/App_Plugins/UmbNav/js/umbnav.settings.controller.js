@@ -141,7 +141,7 @@
         vm.openInNewWindow = $scope.model.target.target === '_blank';
         vm.hideLoggedIn = $scope.model.target.hideLoggedIn;
         vm.hideLoggedOut = $scope.model.target.hideLoggedOut;
-        vm.includeChildren = $scope.model.target.includeChildren;
+        vm.includeChildren = $scope.model.target.includeChildNodes;
         vm.showNoopener = $scope.model.target.noopener === 'noopener' && $scope.model.target.id === null || $scope.model.target.udi === null;
         vm.showNoreferrer = $scope.model.target.noreferrer === 'noreferrer' && $scope.model.target.id === null || $scope.model.target.udi === null;
     } else if (dialogOptions.anchors) {
