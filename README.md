@@ -9,7 +9,7 @@ UmbNav adds a drag and drop menu builder to the Umbraco V8 backoffice.
 
 ## Getting started
 
-This package is supported on Umbraco 8.7+. and Umbraco V9.0+
+This package is supported on Umbraco 8.7+ and Umbraco V9.0+
 
 ### Features
 
