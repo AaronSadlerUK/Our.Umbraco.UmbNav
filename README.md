@@ -46,10 +46,6 @@ To [install API from NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Ap
 
 UmbNav fully supports Umbraco Cloud including the content synchroniser,it has been fully tested transferring and restoring between environments.
 
-### Integration
-
-UmbNav is designed to be as clean and simple for developers as it is for content editors.
-
 ### Documentation
 
 After installing the package, you will have a new property editor called UmbNav in the Umbraco backoffice.
