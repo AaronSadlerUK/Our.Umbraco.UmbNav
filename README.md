@@ -44,7 +44,7 @@ To [install API from NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Ap
 
 ## Umbraco Cloud Supported
 
-UmbNav fully supports Umbraco Cloud including the content synchroniser,it has been fully tested transferring and restoring between environments.
+UmbNav fully supports Umbraco Cloud including the content synchroniser, it has been fully tested transferring and restoring between environments.
 
 ### Documentation
 
