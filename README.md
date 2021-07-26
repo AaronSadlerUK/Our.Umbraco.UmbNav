@@ -48,9 +48,9 @@ UmbNav fully supports Umbraco Cloud including the content synchroniser,it has be
 
 ### Documentation
 
-After installing the package, you will have a new property editor called UmbNav in the Umbraco backoffice.
+After installing the package, you will have a new property editor called UmbNav in the Umbraco backoffice, typically this would get added to your sites "Site Settings" or "Home" node.
 
-Check out the integration guide[integration guide](docs/integration-guide.md) to learn how to embed the package in your site.
+Check out the integration guide [integration guide](docs/integration-guide.md) to learn how to embed the package in your site.
 
 ### Screenshots
 
