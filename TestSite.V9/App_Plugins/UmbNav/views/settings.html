@@ -13,7 +13,7 @@
             <umb-box>
                 <umb-box-header ng-if="!vm.loading" title="{{vm.labels.menuItem}}"></umb-box-header>
                 <umb-box-content>
-                    <umb-control-group label="@umbnav_itemType">
+                    <umb-control-group ng-if="allowLabels" label="@umbnav_itemType">
                         <div class="umb-property-editor">
                             <div class=" flex items-center">
                                 <select ng-model="model.target.itemType">

@@ -43,5 +43,8 @@ namespace UmbNav.Core.PropertyEditors
 
         [ConfigurationField("allowImageIcon", "Allow Image / Icon Url", "boolean", Description = "Allow the ability to enter a image / icon url or media id")]
         public bool AllowImageIcon { get; set; }
+
+        [ConfigurationField("allowLabels", "Allow Labels", "boolean", Description = "Allow label menu items")]
+        public bool AllowLabels { get; set; }
     }
 }

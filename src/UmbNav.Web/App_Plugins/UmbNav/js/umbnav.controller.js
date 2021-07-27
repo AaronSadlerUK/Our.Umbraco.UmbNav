@@ -98,6 +98,7 @@
             allowCustomClasses: dialogOptions.config.allowCustomClasses,
             allowImageIcon: dialogOptions.config.allowImageIcon,
             hideIncludeChildren: dialogOptions.config.hideIncludeChildren,
+            allowLabels: dialogOptions.config.allowLabels,
             currentTarget: item,
             submit: function (model) {
                 model.target.description = model.target.url + model.target.anchor;

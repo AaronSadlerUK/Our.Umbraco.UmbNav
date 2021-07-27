@@ -75,6 +75,10 @@
     $scope.showIncludeChildren = $scope.model.hideIncludeChildren !== true;
     $scope.showCustomClasses = $scope.model.allowCustomClasses === true;
     $scope.showImageIcon = $scope.model.allowImageIcon === true;
+    $scope.allowLabels = $scope.model.allowLabels === true;
+    if (!$scope.allowLabels) {
+        $scope.model.target.itemType = 'link';
+    }
     // this ensures that we only sync the tree once and only when it's ready
     var oneTimeTreeSync = {
         executed: false,
