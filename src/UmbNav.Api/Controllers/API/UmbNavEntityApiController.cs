@@ -82,7 +82,7 @@ namespace UmbNav.Api.Controllers.API
 #if NETCOREAPP
                 return Ok(menuItem);
 #else
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return Request.CreateResponse(HttpStatusCode.OK, menuItem);
 #endif
             }
 
