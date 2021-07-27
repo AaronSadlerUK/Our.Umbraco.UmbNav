@@ -35,25 +35,22 @@ namespace UmbNav.Core.Extensions
             tagBuilder.InnerHtml = item.Title;
 #endif
 
-                if (!string.IsNullOrEmpty(cssClass) && !string.IsNullOrEmpty(item.CustomClasses))
-                {
-                    tagBuilder.Attributes.Add("class", string.Format("{0} {1}", cssClass, item.CustomClasses));
-                }
-                else if (!string.IsNullOrEmpty(cssClass))
-                {
-                    tagBuilder.Attributes.Add("class", cssClass);
-                }
-                else if(!string.IsNullOrEmpty(item.CustomClasses))
-                {
-                    tagBuilder.Attributes.Add("class", item.CustomClasses);
-                }
+            if (!string.IsNullOrEmpty(cssClass))
+            {
+                tagBuilder.AddCssClass(cssClass);
+            }
+           
+            if (!string.IsNullOrEmpty(item.CustomClasses))
+            {
+                tagBuilder.AddCssClass(item.CustomClasses);
+            }
 
-                if (!string.IsNullOrEmpty(id))
-                {
-                    tagBuilder.Attributes.Add("id", id);
-                }
+            if (!string.IsNullOrEmpty(id))
+            {
+                tagBuilder.Attributes.Add("id", id);
+            }
 
-                tagBuilder.MergeAttributes(htmlAttributesConverted);
+            tagBuilder.MergeAttributes(htmlAttributesConverted);
 
             if (item.ItemType == UmbNavItemType.Label)
             {

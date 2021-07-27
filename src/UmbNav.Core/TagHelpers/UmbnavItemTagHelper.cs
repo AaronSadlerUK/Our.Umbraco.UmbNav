@@ -1,5 +1,8 @@
 ﻿#if NETCOREAPP
+using System;
 using System.Collections.Generic;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using UmbNav.Core.Enums;
 using UmbNav.Core.Extensions;
@@ -23,15 +26,7 @@ namespace UmbNav.Core.TagHelpers
 
             if (!string.IsNullOrEmpty(MenuItem.CustomClasses))
             {
-                if (output.Attributes["class"] != null)
-                {
-                    var originalRelValue = output.Attributes["class"].Value;
-                    output.Attributes.SetAttribute("class", string.Format("{0} {1}", originalRelValue, string.Join(" ", MenuItem.CustomClasses)));
-                }
-                else
-                {
-                    output.Attributes.SetAttribute("rel", string.Join(" ", MenuItem.CustomClasses));
-                }
+                output.AddClass(MenuItem.CustomClasses, HtmlEncoder.Default);
             }
 
             if (!string.IsNullOrEmpty(MenuItem.Target) && MenuItem.ItemType != UmbNavItemType.Label)
