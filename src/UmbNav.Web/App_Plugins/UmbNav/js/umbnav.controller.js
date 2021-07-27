@@ -36,11 +36,29 @@
 
     $scope.collapseAll = function () {
         $scope.$broadcast('angular-ui-tree:collapse-all');
+        angular.forEach(vm.items,
+            function(value, key) {
+                toggleChildren(value, true);
+            });
     };
 
     $scope.expandAll = function () {
         $scope.$broadcast('angular-ui-tree:expand-all');
+        angular.forEach(vm.items,
+            function (value, key) {
+                toggleChildren(value, false);
+            });
     };
+
+    function toggleChildren(item, b) {
+        item.collapsed = b;
+        if (item.children) {
+            angular.forEach(item.children,
+                function(value, key) {
+                    toggleChildren(value, b);
+                });
+        }
+    }
 
     $scope.showExpandCollapseButtons = function () {
         const maxDepth = dialogOptions.config.maxDepth;
