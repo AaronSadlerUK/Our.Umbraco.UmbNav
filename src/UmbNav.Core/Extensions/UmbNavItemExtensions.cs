@@ -19,14 +19,14 @@ namespace UmbNav.Core.Extensions
     {
 #if NETCOREAPP
         [Obsolete("I see your using Umbraco V9, Why not use the TagHelper <umbnavitem> instead.")]
-        public static IHtmlContent GetLinkHtml(this UmbNavItem item, string culture = null, UrlMode mode = UrlMode.Default, object htmlAttributes = null)
+        public static IHtmlContent GetLinkHtml(this UmbNavItem item, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null)
 #else
-        public static HtmlString GetLinkHtml(this UmbNavItem item, string culture = null, UrlMode mode = UrlMode.Default, object htmlAttributes = null)
+        public static HtmlString GetLinkHtml(this UmbNavItem item, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null)
 #endif
         {
             var htmlAttributesConverted = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
             var tagBuilder = item.ItemType == UmbNavItemType.Label
-                ? new TagBuilder("span")
+                ? new TagBuilder(labelTagName)
                 : new TagBuilder("a");
 
 #if NETCOREAPP

@@ -13,10 +13,11 @@ namespace UmbNav.Core.TagHelpers
         public UmbNavItem MenuItem { get; set; }
         public UrlMode Mode { get; set; }
         public string Culture { get; set; }
+        public string LabelTagName { get; set; } = "span";
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = MenuItem.ItemType == UmbNavItemType.Label ? "span" : "a";
+            output.TagName = MenuItem.ItemType == UmbNavItemType.Label ? LabelTagName : "a";
             output.Attributes.SetAttribute("href", MenuItem.Url(Culture, Mode));
             output.Content.SetContent(MenuItem.Title);
 
