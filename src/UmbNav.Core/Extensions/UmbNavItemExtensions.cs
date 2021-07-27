@@ -19,9 +19,9 @@ namespace UmbNav.Core.Extensions
     {
 #if NETCOREAPP
         [Obsolete("I see your using Umbraco V9, Why not use the TagHelper <umbnavitem> instead.")]
-        public static IHtmlContent GetLinkHtml(this UmbNavItem item, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null)
+        public static IHtmlContent GetLinkHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null)
 #else
-        public static HtmlString GetLinkHtml(this UmbNavItem item, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null)
+        public static HtmlString GetLinkHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null)
 #endif
         {
             var htmlAttributesConverted = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
@@ -35,20 +35,25 @@ namespace UmbNav.Core.Extensions
             tagBuilder.InnerHtml = item.Title;
 #endif
 
-            if (!string.IsNullOrEmpty(item.CustomClasses))
-            {
-                if (htmlAttributesConverted.ContainsKey("class"))
+                if (!string.IsNullOrEmpty(cssClass) && !string.IsNullOrEmpty(item.CustomClasses))
                 {
-                    var originalRelValue = htmlAttributesConverted["class"] as string;
-                    htmlAttributesConverted["class"] = string.Format("{0} {1}", originalRelValue, string.Join(" ", item.CustomClasses));
+                    tagBuilder.Attributes.Add("class", string.Format("{0} {1}", cssClass, item.CustomClasses));
                 }
-                else
+                else if (!string.IsNullOrEmpty(cssClass))
                 {
-                    htmlAttributesConverted.Add("rel", string.Join(" ", item.CustomClasses));
+                    tagBuilder.Attributes.Add("class", cssClass);
                 }
-            }
+                else if(!string.IsNullOrEmpty(item.CustomClasses))
+                {
+                    tagBuilder.Attributes.Add("class", item.CustomClasses);
+                }
 
-            tagBuilder.MergeAttributes(htmlAttributesConverted);
+                if (!string.IsNullOrEmpty(id))
+                {
+                    tagBuilder.Attributes.Add("id", id);
+                }
+
+                tagBuilder.MergeAttributes(htmlAttributesConverted);
 
             if (item.ItemType == UmbNavItemType.Label)
             {
