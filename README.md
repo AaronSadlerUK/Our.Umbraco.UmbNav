@@ -55,6 +55,16 @@ After installing the package, you will have a new property editor called UmbNav 
 
 Check out the integration guide [integration guide](docs/integration-guide.md) to learn how to embed the package in your site.
 
+# Migration from MegaNavV8
+
+It is possible to migrate from [MegaNavV8](https://github.com/AaronSadlerUK/Umbraco.MegaNavV8) to UmbNav.
+
+First create a DataType for UmbNav with at minimum the same settings as your old MegaNavV8 property.
+
+Then edit your property in the document type, and then change the DataType to use your newly created UmbNav DataType, (if your using models builder you will need to regenerate these at this point), visit the location of your menu in the content section and then `Save and Publish`.
+
+Finally you will need to update your views to work with the new model.
+
 ### Screenshots
 
 ![](https://raw.githubusercontent.com/AaronSadlerUK/Our.Umbraco.UmbNav/develop/Screenshots/UmbNav.1.jpeg)
