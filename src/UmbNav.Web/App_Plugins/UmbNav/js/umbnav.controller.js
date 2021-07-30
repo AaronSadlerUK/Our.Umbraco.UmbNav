@@ -169,6 +169,7 @@
             hideLoggedOut: data.hideLoggedOut,
             customClasses: data.customClasses,
             imageUrl: data.imageUrl,
+            image: data.image,
             anchor: data.anchor,
             url: url,
             children: data.children || [],
