@@ -54,9 +54,9 @@ namespace UmbNav.Core.Services
                         continue;
                     }
 
-                    if (!string.IsNullOrEmpty(item.ImageUrl))
+                    if (item.ImageArray != null && item.ImageArray.Any())
                     {
-                        item.ImageUrl = GetImageUrl(item);
+                        item.Image = GetImageUrl(item);
                     }
 
                     if (item.Id > 0)
@@ -156,34 +156,28 @@ namespace UmbNav.Core.Services
             }
         }
 
-        private string GetImageUrl(UmbNavItem item)
+        private IPublishedContent GetImageUrl(UmbNavItem item)
         {
-            if (int.TryParse(item.ImageUrl, out var imageId))
-            {
-                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageId);
-
-                return mediaItem != null ? mediaItem.Url() : string.Empty;
-            }
-
+            var image = item.ImageArray[0];
+            IPublishedContent publishedImage = null;
 #if NETCOREAPP
-            if (UdiParser.TryParse(item.ImageUrl, out var imageUdi))
+            if (UdiParser.TryParse(image.Udi, out var imageUdi))
 #else
-            if (Udi.TryParse(item.ImageUrl, out var imageUdi))
+            if (Udi.TryParse(image.Udi, out var imageUdi))
 #endif
             {
                 var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageUdi);
 
-                return mediaItem != null ? mediaItem.Url() : string.Empty;
+                publishedImage = mediaItem;
             }
-
-            if (Guid.TryParse(item.ImageUrl, out var imageGuid))
+            else if (item.Id != default)
             {
-                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageGuid);
+                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(item.Id);
 
-                return mediaItem != null ? mediaItem.Url() : string.Empty;
+                publishedImage = mediaItem;
             }
 
-            return item.ImageUrl;
+            return publishedImage;
         }
     }
 }

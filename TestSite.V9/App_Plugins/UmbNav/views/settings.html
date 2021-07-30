@@ -179,10 +179,26 @@
 
                     <umb-control-group label="@umbnav_ImageIconUrl"
                                        ng-if="showImageIcon">
-                        <input type="text"
-                               localize="placeholder"
-                               class="umb-property-editor umb-textstring"
-                               ng-model="model.target.imageUrl" />
+                        <div ui-sortable="sortableOptions" ng-model="model.target.image">
+                            <umb-node-preview ng-repeat="link in model.target.image"
+                                              icon="link.icon"
+                                              name="link.name"
+                                              published="link.published"
+                                              sortable="!sortableOptions.disabled"
+                                              allow-remove="true"
+                                              allow-edit="true"
+                                              on-remove="remove($index)"
+                                              on-edit="edit(link, $index)">
+                            </umb-node-preview>
+                        </div>
+                        <button ng-show="model.target.image.length < 1 || model.target.image.length === 0"
+                                type="button"
+                                class="umb-node-preview-add"
+                                ng-click="add()"
+                                aria-label="{{labels.general_add}}">
+                            <localize key="general_add">Add</localize>
+                            <span class="sr-only">...</span>
+                        </button>
                     </umb-control-group>
                 </umb-box-content>
             </umb-box>

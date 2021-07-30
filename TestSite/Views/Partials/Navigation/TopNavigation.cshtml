@@ -8,6 +8,9 @@
 }
 @foreach (var item in umbNav)
 {
-    @item.ImageUrl
+    if (item.Image != null)
+    {
+        @item.Image.Url()
+    }
     <a class="nav-link " href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">@item.Title</a>
 }

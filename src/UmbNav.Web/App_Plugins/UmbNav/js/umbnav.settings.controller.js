@@ -9,6 +9,7 @@
     vm.toggleDisplayLoggedIn = toggleDisplayLoggedIn;
     vm.toggleDisplayLoggedOut = toggleDisplayLoggedOut;
     vm.toggleChildren = toggleChildren;
+    vm.openMediaPicker = openMediaPicker;
     vm.showAdvanced = false;
     vm.labels = {};
     vm.labels.itemTypes = {};
@@ -287,5 +288,39 @@
             $scope.model.submit($scope.model);
         }
     }
+
+    $scope.add = function () {
+        openMediaPicker(null, function(item) {
+            $scope.model.target.image = item;
+        });
+    };
+
+    $scope.edit = function (item) {
+        openMediaPicker(item, function (item) {
+            $scope.model.target.image = item;
+        });
+    };
+
+    $scope.remove = function (index) {
+        $scope.model.target.image.splice(index, 1);
+    };
+
+    function openMediaPicker(item, callback) {
+        var mediaPickerOptions = {
+            multiPicker: false,
+            onlyImages: true,
+            disableFolderSelect: true,
+            disableFocalPoint: true,
+            currentTarget: item,
+            submit: function (model) {
+                callback(model.selection);
+                editorService.close();
+            },
+            close: function () {
+                editorService.close();
+            }
+        };
+        editorService.mediaPicker(mediaPickerOptions);
+    };
 });
 'use strict';
