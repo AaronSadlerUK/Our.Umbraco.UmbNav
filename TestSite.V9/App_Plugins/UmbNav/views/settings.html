@@ -124,13 +124,13 @@
                     </div>
                 </umb-box-content>
             </umb-box>
-            <umb-box ng-if="model.target.itemType == 'link'">
+            <umb-box>
                 <umb-box-header ng-if="!vm.loading" title="{{vm.labels.configuration}}" ng-click="vm.showAdvanced = !vm.showAdvanced" style="cursor: pointer;">
                     <i class="icon icon-navigation-up" ng-if="vm.showAdvanced" title="expand"></i>
                     <i class="icon icon-navigation-down" ng-if="!vm.showAdvanced" title="collapse"></i>
                 </umb-box-header>
                 <umb-box-content ng-if="vm.showAdvanced">
-                    <umb-control-group ng-if="showDisplay" label="@umbnav_visibility">
+                    <umb-control-group ng-if="showDisplay && model.target.itemType == 'link'" label="@umbnav_visibility">
                         <umb-checkbox model="vm.hideLoggedIn"
                                       on-change="vm.toggleDisplayLoggedIn(model, value)"
                                       text="{{vm.labels.hideLoggedIn}}">
@@ -142,20 +142,20 @@
                         </umb-checkbox>
                     </umb-control-group>
 
-                    <umb-control-group ng-if="showTarget" label="@content_target">
+                    <umb-control-group ng-if="showTarget && model.target.itemType == 'link'" label="@content_target">
                         <umb-checkbox model="vm.openInNewWindow"
                                       on-change="vm.toggleOpenInNewWindow(model, value)"
                                       text="{{vm.labels.openInNewWindow}}">
                         </umb-checkbox>
                     </umb-control-group>
 
-                    <umb-control-group ng-if="showIncludeChildren" label="@umbnav_includeChildren">
+                    <umb-control-group ng-if="showIncludeChildren && model.target.itemType == 'link'" label="@umbnav_includeChildren">
                         <umb-checkbox model="vm.includeChildren"
                                       on-change="vm.toggleChildren(model, value)"
                                       text="{{vm.labels.includeChildNodes}}">
                         </umb-checkbox>
                     </umb-control-group>
-                    <umb-control-group ng-if="showNoopener || showNoreferrer" label="@umbnav_seo">
+                    <umb-control-group ng-if="showNoopener && model.target.itemType == 'link' || showNoreferrer && model.target.itemType == 'link' || model.target.itemType == 'link'" label="@umbnav_seo">
                         <umb-checkbox ng-if="showNoopener" model="vm.showNoopener"
                                       on-change="vm.toggleshowNoopener(model, value)"
                                       text="{{vm.labels.showNoopener}}"
@@ -191,7 +191,7 @@
                                               on-edit="edit(link, $index)">
                             </umb-node-preview>
                         </div>
-                        <button ng-show="model.target.image.length < 1 || model.target.image.length === 0"
+                        <button ng-show="model.target.image.length < 1 || model.target.image.length === 0 || !model.target.image"
                                 type="button"
                                 class="umb-node-preview-add"
                                 ng-click="add()"

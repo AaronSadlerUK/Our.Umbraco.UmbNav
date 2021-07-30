@@ -48,15 +48,15 @@ namespace UmbNav.Core.Services
                         continue;
                     }
 
+                    if (item.ImageArray != null && item.ImageArray.Any())
+                    {
+                        item.Image = GetImageUrl(item);
+                    }
+
                     if (item.MenuItemType is "nolink")
                     {
                         item.ItemType = UmbNavItemType.Label;
                         continue;
-                    }
-
-                    if (item.ImageArray != null && item.ImageArray.Any())
-                    {
-                        item.Image = GetImageUrl(item);
                     }
 
                     if (item.Id > 0)
