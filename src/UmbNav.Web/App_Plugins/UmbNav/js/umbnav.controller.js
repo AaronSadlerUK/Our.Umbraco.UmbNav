@@ -155,6 +155,13 @@
             url = data.url;
         }
 
+        var icon = data.icon;
+        if (data.itemType === 'nolink') {
+            icon = "icon-tag";
+        } else if (data.icon == null) {
+            icon = "icon-link";
+        }
+
         return {
             id: data.id,
             udi: data.udi,
@@ -173,7 +180,7 @@
             anchor: data.anchor,
             url: url,
             children: data.children || [],
-            icon: data.icon || "icon-link",
+            icon: icon,
             published: data.published,
             naviHide: data.naviHide,
             culture: data.culture,
