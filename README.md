@@ -23,7 +23,7 @@ This package is supported on Umbraco 8.7+ and Umbraco V9.0+
 - Allow menu items to be shown / hidden depending on member authentication status
 - Add custom CSS classes to each menu item in the backoffice
 - Display the property editor as full width in the back office (Hide the label)
-- Select an image from the media section
+- Add an image to a menu item
 - TagHelper for Umbraco V9
 - GetLinkHtml extension for Umbraco V8 and V9
 - Add label items
