@@ -17,12 +17,14 @@ The following properties are available in the `UmbNavItem` class:
 | Noopener          | String          	| noopener if set in the backoffice |
 | Noreferrer        | String         	| noreferrer  if set in the backoffice |
 | Url               | String            | The link url |
+| Anchor            | String            | The anchor part of the url |
 | QueryString       | String            | The link querystring / anchor |
 | Level             | Int               | The level in the overall navigation that the current item sits at |
 | Content           | IPublishedContent | The IPublishedContent for the selected content item. For external linking nav items this will be null |
 | Children          | List              | The picked child / sub items for the current item |
 | Culture           | String            | The link culture
 | CustomClasses     | String            | Any CSS classes set in the backoffice
+| ItemType     		| UmbNavItemType    | The menu item type, this can be either 'Link' or 'Content' or 'Label' |
 | Image     		| IPublishedContent | The IPublishedContent for the media item selected for the menu item |
 
 ## Implementing Razor
