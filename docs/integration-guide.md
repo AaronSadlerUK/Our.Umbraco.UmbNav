@@ -23,7 +23,7 @@ The following properties are available in the `UmbNavItem` class:
 | Children          | List              | The picked child / sub items for the current item |
 | Culture           | String            | The link culture
 | CustomClasses     | String            | Any CSS classes set in the backoffice
-| ImageUrl     		| String            | An image url as set in the backoffice
+| Image     		| IPublishedContent | The IPublishedContent for the media item selected for the menu item |
 
 ## Implementing Razor
 
