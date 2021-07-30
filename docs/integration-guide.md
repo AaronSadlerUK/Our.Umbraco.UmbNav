@@ -57,7 +57,7 @@ There is also some helpers available to generate the each menu item:
 and in Umbraco V9 there is a TagHelper available:
 
 ```csharp
-<umbnavitem menu-item="item" label-tag-name="" mode="UrlMode" culture="Culture" ></umbnavitem>
+<umbnavitem menu-item="item" label-tag-name="span" mode="UrlMode" culture="Culture" ></umbnavitem>
 ```
 To make the tag helper work in Umbraco V9 you will need to add the following you your `_ViewImports.cshtml`
 
