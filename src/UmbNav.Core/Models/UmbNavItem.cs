@@ -39,7 +39,10 @@ namespace UmbNav.Core.Models
 
         [JsonIgnore]
         internal IPublishedContent PublishedContentItem { get; set; }
-        
+
+        [JsonIgnore]
+        public IPublishedContent Content { get; set; }
+
         [JsonIgnore]
         public UmbNavItemType ItemType { get; set; }
 

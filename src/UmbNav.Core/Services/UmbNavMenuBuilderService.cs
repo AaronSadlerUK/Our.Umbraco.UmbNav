@@ -78,6 +78,7 @@ namespace UmbNav.Core.Services
                         if (umbracoContent != null)
                         {
                             item.ItemType = UmbNavItemType.Content;
+                            item.Content = umbracoContent;
 
                             if (removeNaviHideItems && !umbracoContent.IsVisible())
                             {
