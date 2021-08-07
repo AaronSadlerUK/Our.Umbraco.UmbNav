@@ -12,7 +12,7 @@ using Umbraco.Core.Composing;
 namespace UmbNav.Core.Composers
 {
 #if !NETCOREAPP
-    [RuntimeLevel(MinLevel = RuntimeLevel.Run)]
+    [RuntimeLevel(MinLevel = RuntimeLevel.Boot)]
 #endif
     public class RegisterUmbNavServicesComposer : IUserComposer
     {
