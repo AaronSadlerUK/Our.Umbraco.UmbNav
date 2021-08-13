@@ -35,27 +35,25 @@
         });
     };
 
-    $scope.collapseAll = function () {
-        $scope.$broadcast('angular-ui-tree:collapse-all');
-        angular.forEach(vm.items,
-            function(value, key) {
-                toggleChildren(value, true);
-            });
-    };
-
-    $scope.expandAll = function () {
-        $scope.$broadcast('angular-ui-tree:expand-all');
+    vm.toggleVar = false;
+    $scope.toggleCollapse = function () {
+        vm.toggleVar = !vm.toggleVar;
+        if (vm.toggleVar) {
+            $scope.$broadcast('angular-ui-tree:collapse-all');
+        } else {
+            $scope.$broadcast('angular-ui-tree:expand-all');
+        }
         angular.forEach(vm.items,
             function (value, key) {
-                toggleChildren(value, false);
+                toggleChildren(value, vm.toggleVar);
             });
-    };
+    }
 
     function toggleChildren(item, b) {
         item.collapsed = b;
         if (item.children) {
             angular.forEach(item.children,
-                function(value, key) {
+                function (value, key) {
                     toggleChildren(value, b);
                 });
         }

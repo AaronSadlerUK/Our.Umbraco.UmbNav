@@ -1,16 +1,18 @@
 <div ng-controller="AaronSadler.UmbNav.Controller as vm" class="" ng-class="{'umbnav-editor':!vm.wideMode, 'umbnav-editor--wide':vm.wideMode}">
     <div class="umbnav-editor-buttons" ng-show="showExpandCollapseButtons() || vm.showTopAddButton">
         <span ng-show="showExpandCollapseButtons()">
-            <a class="btn btn-primary" ng-click="expandAll()">
-                <localize key="umbnav_expandAll"></localize>
-            </a>
-            <a class="btn btn-secondary" ng-click="collapseAll()">
-                <localize key="umbnav_collapseAll"></localize>
-            </a>
+            <button class="btn btn-primary" type="button" ng-click="toggleCollapse()">
+                <span ng-show="vm.toggleVar">
+                    <localize key="umbnav_expandAll"></localize>
+                </span>
+                <span ng-show="!vm.toggleVar">
+                    <localize key="umbnav_collapseAll"></localize>
+                </span>
+            </button>
         </span>
-        <a class="btn btn-success" ng-show="vm.showTopAddButton" ng-click="add()">
+        <button class="btn btn-success" type="button" ng-show="vm.showTopAddButton" ng-click="add()">
             <localize key="umbnav_addItem"></localize>
-        </a>
+        </button>
     </div>
 
     <ng-form name="umbnavEditorForm">
