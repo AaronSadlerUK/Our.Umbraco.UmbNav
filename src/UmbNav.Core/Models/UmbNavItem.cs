@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UmbNav.Core.Enums;
@@ -15,6 +15,7 @@ namespace UmbNav.Core.Models
     public class UmbNavItem
     {
         [JsonProperty("id")]
+        [Obsolete("This is here purely for legacy reasons, please use the Key or Udi property as this is unreliable")]
         public int Id { get; set; }
 
         [JsonProperty("udi")]
