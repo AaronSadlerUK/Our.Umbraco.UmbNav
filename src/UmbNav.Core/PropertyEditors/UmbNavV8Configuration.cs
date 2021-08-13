@@ -46,5 +46,8 @@ namespace UmbNav.Core.PropertyEditors
 
         [ConfigurationField("allowLabels", "Allow Labels", "boolean", Description = "Allow label menu items")]
         public bool AllowLabels { get; set; }
+
+        [ConfigurationField("showTopAddButton", "Show \"Add Item\" Button", "boolean", Description = "Show the \"Add Item\" button above the nav items in the editor")]
+        public bool ShowTopAddButton { get; set; } = true;
     }
 }

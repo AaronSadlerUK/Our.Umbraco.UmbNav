@@ -3,6 +3,7 @@
     var dialogOptions = $scope.model;
     vm.wideMode = Object.toBoolean(dialogOptions.config.hideLabel);
     vm.allowChildNodes = Object.toBoolean(!dialogOptions.config.hideIncludeChildren);
+    vm.showTopAddButton = Object.toBoolean(dialogOptions.config.showTopAddButton);
     vm.items = [];
 
     if (dialogOptions.config.expandOnHoverTimeout > 0) {
