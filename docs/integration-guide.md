@@ -10,8 +10,9 @@ The following properties are available in the `UmbNavItem` class:
 
 | Property          | Type              | Description |
 |-------------------|-------------------|-------------|
-| Id                | Int               | The node ID of the selected content item. For external linking nav items this will be "0" |
+| *Id*                | *Int*           | **OBSOLETE! USE KEY OR UDI INSTEAD, THIS IS HERE PURELY FOR LEGACY SUPPORT.** *The node ID of the selected content item. For external linking nav items this will be "0"* |
 | Udi               | GuidUdi           | The node UDI of the selected content item. For external linking nav items this will be null |
+| Key               | Guid           | The node Key of the selected content item. For external linking nav items this will be 00000000-0000-0000-0000-000000000000 |
 | Title             | String            | The link title, often the node name |
 | Target            | String            | The link target |
 | Noopener          | String          	| noopener if set in the backoffice |
@@ -26,6 +27,7 @@ The following properties are available in the `UmbNavItem` class:
 | CustomClasses     | String            | Any CSS classes set in the backoffice
 | ItemType     		| UmbNavItemType    | The menu item type, this can be either `Link` or `Content` or `Label` |
 | Image     		| IPublishedContent | The IPublishedContent for the media item selected for the menu item |
+| IsActive     		| bool | Will return true if the current published request key equals the nav item key |
 
 ## Implementing Razor
 
@@ -51,13 +53,13 @@ It's easy to implement in your own Razor:
 There is also some helpers available to generate the each menu item:
 
  ```csharp
- GetLinkHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null)
+ GetLinkHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null, string activeClass = null)
  ```
 
 and in Umbraco V9 there is a TagHelper available:
 
 ```csharp
-<umbnavitem menu-item="item" label-tag-name="span" mode="UrlMode" culture="Culture" ></umbnavitem>
+<umbnavitem menu-item="item" label-tag-name="span" mode="UrlMode" culture="Culture" active-class=""></umbnavitem>
 ```
 To make the tag helper work in Umbraco V9 you will need to add the following you your `_ViewImports.cshtml`
 
