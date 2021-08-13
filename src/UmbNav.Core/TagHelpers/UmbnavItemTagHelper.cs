@@ -17,6 +17,7 @@ namespace UmbNav.Core.TagHelpers
         public UrlMode Mode { get; set; }
         public string Culture { get; set; }
         public string LabelTagName { get; set; } = "span";
+        public string ActiveClass { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -27,6 +28,11 @@ namespace UmbNav.Core.TagHelpers
             if (!string.IsNullOrEmpty(MenuItem.CustomClasses))
             {
                 output.AddClass(MenuItem.CustomClasses, HtmlEncoder.Default);
+            }
+
+            if (!string.IsNullOrEmpty(ActiveClass) && MenuItem.IsActive)
+            {
+                output.AddClass(ActiveClass, HtmlEncoder.Default);
             }
 
             if (!string.IsNullOrEmpty(MenuItem.Target) && MenuItem.ItemType != UmbNavItemType.Label)

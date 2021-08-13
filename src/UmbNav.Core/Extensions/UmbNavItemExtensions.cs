@@ -19,9 +19,9 @@ namespace UmbNav.Core.Extensions
     {
 #if NETCOREAPP
         [Obsolete("I see your using Umbraco V9, Why not use the TagHelper <umbnavitem> instead.")]
-        public static IHtmlContent GetLinkHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null)
+        public static IHtmlContent GetLinkHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null, string activeClass = null)
 #else
-        public static HtmlString GetLinkHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null)
+        public static HtmlString GetLinkHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null, string activeClass = null)
 #endif
         {
             var htmlAttributesConverted = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
@@ -43,6 +43,11 @@ namespace UmbNav.Core.Extensions
             if (!string.IsNullOrEmpty(item.CustomClasses))
             {
                 tagBuilder.AddCssClass(item.CustomClasses);
+            }
+
+            if (!string.IsNullOrEmpty(activeClass) && item.IsActive)
+            {
+                tagBuilder.AddCssClass(activeClass);
             }
 
             if (!string.IsNullOrEmpty(id))

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UmbNav.Core.Enums;
@@ -7,6 +7,7 @@ using UmbNav.Core.Models;
 #if NETCOREAPP
 using Microsoft.AspNetCore.Http;
 using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Extensions;
@@ -22,15 +23,17 @@ namespace UmbNav.Core.Services
 {
     public class UmbNavMenuBuilderService : IUmbNavMenuBuilderService
     {
+        private readonly IUmbracoContextAccessor _umbracoContextAccessor;
         private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger _logger;
 
-        public UmbNavMenuBuilderService(IPublishedSnapshotAccessor publishedSnapshotAccessor, ILogger logger, IHttpContextAccessor httpContextAccessor)
+        public UmbNavMenuBuilderService(IPublishedSnapshotAccessor publishedSnapshotAccessor, ILogger logger, IHttpContextAccessor httpContextAccessor, IUmbracoContextAccessor umbracoContextAccessor)
         {
             _publishedSnapshotAccessor = publishedSnapshotAccessor;
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
+            _umbracoContextAccessor = umbracoContextAccessor;
         }
 
         public IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, int level = 0, bool removeNaviHideItems = false,
@@ -59,7 +62,14 @@ namespace UmbNav.Core.Services
                         continue;
                     }
 
-                    if (item.Id > 0)
+
+                    var currentPublishedContent = _umbracoContextAccessor.UmbracoContext.PublishedRequest.PublishedContent;
+                    if (currentPublishedContent.Key == item.Key)
+                    {
+                        item.IsActive = true;
+                    }
+
+                    if (item.Key != Guid.Empty)
                     {
                         IPublishedContent umbracoContent;
                         string currentCulture;
@@ -110,10 +120,12 @@ namespace UmbNav.Core.Services
                                     {
                                         Title = child.Name,
                                         Id = child.Id,
+                                        Key = child.Key,
                                         Udi = new GuidUdi("document", child.Key),
                                         ItemType = UmbNavItemType.Content,
                                         Level = level + 1,
-                                        Url = child.Url(currentCulture)
+                                        Url = child.Url(currentCulture),
+                                        IsActive = child.Key == currentPublishedContent.Key
                                     }));
                                 }
                                 else
@@ -122,10 +134,12 @@ namespace UmbNav.Core.Services
                                     {
                                         Title = child.Name,
                                         Id = child.Id,
+                                        Key = child.Key,
                                         Udi = new GuidUdi("document", child.Key),
                                         ItemType = UmbNavItemType.Content,
                                         Level = level + 1,
-                                        Url = child.Url(currentCulture)
+                                        Url = child.Url(currentCulture),
+                                        IsActive = child.Key == currentPublishedContent.Key
                                     }));
                                 }
 

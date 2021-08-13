@@ -82,5 +82,8 @@ namespace UmbNav.Core.Models
         public IPublishedContent Image { get; set; }
 
         [JsonProperty("itemType")] internal string MenuItemType { get; set; } = "link";
+
+        [JsonIgnore]
+        public bool IsActive { get; set; }
     }
 }
