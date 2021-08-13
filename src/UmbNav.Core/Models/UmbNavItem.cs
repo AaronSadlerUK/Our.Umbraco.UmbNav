@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using UmbNav.Core.Enums;
 #if NETCOREAPP
@@ -18,6 +19,9 @@ namespace UmbNav.Core.Models
 
         [JsonProperty("udi")]
         public GuidUdi Udi { get; set; }
+
+        [JsonProperty("key")]
+        public Guid Key { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }

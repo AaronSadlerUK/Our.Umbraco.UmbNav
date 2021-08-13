@@ -70,6 +70,7 @@ namespace UmbNav.Api.Controllers.API
                 {
                     id = entity.Id,
                     udi = entity.GetUdi(),
+                    key = entity.Key,
                     name = entityName,
                     icon = entity.ContentType.Icon,
                     url = entityUrl,

@@ -9,6 +9,7 @@
 @foreach (var item in umbNav)
 {
     @*<a class="nav-link " href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">@item.Title</a>*@
-    <umbnavitem menu-item="item" class="nav-link" rel="test"></umbnavitem>
-    @item.GetLinkHtml(htmlAttributes: new {Class="nav-link"})
+    @*<umbnavitem menu-item="item" class="nav-link" rel="test"></umbnavitem>
+    @item.GetLinkHtml(htmlAttributes: new {Class="nav-link"})*@
+    @item.Key
 }

@@ -165,6 +165,7 @@
         return {
             id: data.id,
             udi: data.udi,
+            key: data.key,
             name: data.name,
             description: url,
             collapsed: data.collapsed,
