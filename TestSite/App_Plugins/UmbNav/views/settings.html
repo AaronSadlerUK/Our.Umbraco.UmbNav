@@ -67,6 +67,13 @@
                                    ng-required="!model.target.name" />
                         </umb-control-group>
 
+                        <umb-control-group ng-if="showTarget && model.target.itemType == 'link'" label="@content_target">
+                            <umb-checkbox model="vm.openInNewWindow"
+                                          on-change="vm.toggleOpenInNewWindow(model, value)"
+                                          text="{{vm.labels.openInNewWindow}}">
+                            </umb-checkbox>
+                        </umb-control-group>
+
                         <div class="umb-control-group">
                             <h5>
                                 <localize key="defaultdialogs_linkToPage">Link to page</localize>
@@ -139,13 +146,6 @@
                         <umb-checkbox model="vm.hideLoggedOut"
                                       on-change="vm.toggleDisplayLoggedOut(model, value)"
                                       text="{{vm.labels.hideLoggedOut}}">
-                        </umb-checkbox>
-                    </umb-control-group>
-
-                    <umb-control-group ng-if="showTarget && model.target.itemType == 'link'" label="@content_target">
-                        <umb-checkbox model="vm.openInNewWindow"
-                                      on-change="vm.toggleOpenInNewWindow(model, value)"
-                                      text="{{vm.labels.openInNewWindow}}">
                         </umb-checkbox>
                     </umb-control-group>
 
