@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UmbNav.Core.Enums;
@@ -168,6 +168,12 @@ namespace UmbNav.Core.Services
 #endif
             {
                 var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageUdi);
+
+                publishedImage = mediaItem;
+            }
+            else if (item.Key != Guid.Empty)
+            {
+                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(item.Key);
 
                 publishedImage = mediaItem;
             }
