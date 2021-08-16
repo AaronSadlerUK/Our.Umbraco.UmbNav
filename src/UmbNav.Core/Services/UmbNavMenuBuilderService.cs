@@ -69,7 +69,7 @@ namespace UmbNav.Core.Services
                         item.IsActive = true;
                     }
 
-                    if (item.Key != Guid.Empty)
+                    if (item.Udi != null || item.Key != Guid.Empty || item.Id > 0)
                     {
                         IPublishedContent umbracoContent;
                         string currentCulture;
@@ -78,6 +78,11 @@ namespace UmbNav.Core.Services
                         {
                             currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Udi)?.GetCultureFromDomains();
                             umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Udi);
+                        }
+                        else if (item.Key != Guid.Empty)
+                        {
+                            currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Key)?.GetCultureFromDomains();
+                            umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Key);
                         }
                         else
                         {
