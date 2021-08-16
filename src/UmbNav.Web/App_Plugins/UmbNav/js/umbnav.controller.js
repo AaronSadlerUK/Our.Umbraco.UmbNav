@@ -35,10 +35,11 @@
         });
     };
 
-    vm.toggleVar = false;
+
+    vm.toggleVar = vm.items.some((element) => element.collapsed === false);
     $scope.toggleCollapse = function () {
         vm.toggleVar = !vm.toggleVar;
-        if (vm.toggleVar) {
+        if (!vm.toggleVar) {
             $scope.$broadcast('angular-ui-tree:collapse-all');
         } else {
             $scope.$broadcast('angular-ui-tree:expand-all');

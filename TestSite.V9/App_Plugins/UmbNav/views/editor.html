@@ -2,10 +2,10 @@
     <div class="umbnav-editor-buttons" ng-show="showExpandCollapseButtons() || vm.showTopAddButton">
         <span ng-show="showExpandCollapseButtons()">
             <button class="btn btn-primary" type="button" ng-click="toggleCollapse()">
-                <span ng-show="vm.toggleVar">
+                <span ng-show="!vm.toggleVar">
                     <localize key="umbnav_expandAll"></localize>
                 </span>
-                <span ng-show="!vm.toggleVar">
+                <span ng-show="vm.toggleVar">
                     <localize key="umbnav_collapseAll"></localize>
                 </span>
             </button>
