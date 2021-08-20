@@ -62,8 +62,7 @@ namespace TestSite.V9
             app.UseUmbraco()
                 .WithMiddleware(u =>
                 {
-                    u.WithBackOffice();
-                    u.WithWebsite();
+                    u.UseUmbracoCoreMiddleware();
                 })
                 .WithEndpoints(u =>
                 {
