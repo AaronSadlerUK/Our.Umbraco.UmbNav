@@ -28,8 +28,8 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net50'">
-		<PackageReference Include="Umbraco.Cms.Web.Website" version="9.0.0-rc001" />
-		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="9.0.0-rc001" />
+		<PackageReference Include="Umbraco.Cms.Web.Website" version="9.0.0-rc002" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="9.0.0-rc002" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -37,6 +37,10 @@
 	    <Pack>True</Pack>
 	    <PackagePath></PackagePath>
 	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
 	</ItemGroup>
 
 	<!-- Workaround for this bug (replace the analyzer name with the one you need to exclude (filename only, no extension) -->

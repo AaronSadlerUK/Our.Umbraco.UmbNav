@@ -27,18 +27,18 @@ namespace UmbNav.Core.Services
         private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger _logger;
-
         public UmbNavMenuBuilderService(IPublishedSnapshotAccessor publishedSnapshotAccessor, ILogger logger, IHttpContextAccessor httpContextAccessor, IUmbracoContextAccessor umbracoContextAccessor)
         {
+            _umbracoContextAccessor = umbracoContextAccessor;
             _publishedSnapshotAccessor = publishedSnapshotAccessor;
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
-            _umbracoContextAccessor = umbracoContextAccessor;
         }
 
         public IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, int level = 0, bool removeNaviHideItems = false,
             bool removeNoopener = false, bool removeNoreferrer = false, bool removeIncludeChildNodes = false)
         {
+            var umbNavItems = items.ToList();
             try
             {
                 var isLoggedIn = _httpContextAccessor.HttpContext.User != null && _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
@@ -62,18 +62,50 @@ namespace UmbNav.Core.Services
                         continue;
                     }
 
-
+                    var currentPublishedContentKey = new Guid();
+#if NETCOREAPP
+                    if (_umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext))
+                    {
+                        var currentPublishedContent = umbracoContext.PublishedRequest.PublishedContent;
+                        currentPublishedContentKey = currentPublishedContent.Key;
+                        if (currentPublishedContent.Key == item.Key)
+                        {
+                            item.IsActive = true;
+                        }
+                    }
+#else
                     var currentPublishedContent = _umbracoContextAccessor.UmbracoContext.PublishedRequest.PublishedContent;
+                    currentPublishedContentKey = currentPublishedContent.Key;
                     if (currentPublishedContent.Key == item.Key)
                     {
                         item.IsActive = true;
                     }
+#endif
 
                     if (item.Udi != null || item.Key != Guid.Empty || item.Id > 0)
                     {
-                        IPublishedContent umbracoContent;
-                        string currentCulture;
-
+                        IPublishedContent umbracoContent = null;
+                        string currentCulture = null;
+#if NETCOREAPP
+                        if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
+                        {
+                            if (item.Udi != null)
+                            {
+                                currentCulture = publishedSnapshot.Content.GetById(item.Udi)?.GetCultureFromDomains();
+                                umbracoContent = publishedSnapshot.Content.GetById(item.Udi);
+                            }
+                            else if (item.Key != Guid.Empty)
+                            {
+                                currentCulture = publishedSnapshot.Content.GetById(item.Key)?.GetCultureFromDomains();
+                                umbracoContent = publishedSnapshot.Content.GetById(item.Key);
+                            }
+                            else
+                            {
+                                currentCulture = publishedSnapshot.Content.GetById(item.Id)?.GetCultureFromDomains();
+                                umbracoContent = publishedSnapshot.Content.GetById(item.Id);
+                            }
+                        }
+#else
                         if (item.Udi != null)
                         {
                             currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Udi)?.GetCultureFromDomains();
@@ -89,6 +121,7 @@ namespace UmbNav.Core.Services
                             currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Id)?.GetCultureFromDomains();
                             umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Id);
                         }
+#endif
 
                         if (umbracoContent != null)
                         {
@@ -130,7 +163,7 @@ namespace UmbNav.Core.Services
                                         ItemType = UmbNavItemType.Content,
                                         Level = level + 1,
                                         Url = child.Url(currentCulture),
-                                        IsActive = child.Key == currentPublishedContent.Key
+                                        IsActive = child.Key == currentPublishedContentKey
                                     }));
                                 }
                                 else
@@ -144,7 +177,7 @@ namespace UmbNav.Core.Services
                                         ItemType = UmbNavItemType.Content,
                                         Level = level + 1,
                                         Url = child.Url(currentCulture),
-                                        IsActive = child.Key == currentPublishedContent.Key
+                                        IsActive = child.Key == currentPublishedContentKey
                                     }));
                                 }
 
@@ -160,10 +193,9 @@ namespace UmbNav.Core.Services
 
                     item.Level = level;
                 }
-
                 //items = items.Where(x => x.ItemType == UmbNavItemType.Link);
 
-                return items;
+                return umbNavItems;
             }
             catch (Exception ex)
             {
@@ -179,31 +211,37 @@ namespace UmbNav.Core.Services
         private IPublishedContent GetImageUrl(UmbNavItem item)
         {
             var image = item.ImageArray[0];
-            IPublishedContent publishedImage = null;
 #if NETCOREAPP
-            if (UdiParser.TryParse(image.Udi, out var imageUdi))
+            if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
+            {
+                if (UdiParser.TryParse(image.Udi, out var imageUdi))
+                {
+                    return publishedSnapshot.Media.GetById(imageUdi);
+                }
+                else if (item.Key != Guid.Empty)
+                {
+                    return publishedSnapshot.Media.GetById(item.Key);
+                }
+                else if (item.Id != default)
+                {
+                    return publishedSnapshot.Media.GetById(item.Id);
+                }
+            }
 #else
             if (Udi.TryParse(image.Udi, out var imageUdi))
-#endif
             {
-                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageUdi);
-
-                publishedImage = mediaItem;
+                return _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageUdi);
             }
             else if (item.Key != Guid.Empty)
             {
-                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(item.Key);
-
-                publishedImage = mediaItem;
+                return _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(item.Key);
             }
             else if (item.Id != default)
             {
-                var mediaItem = _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(item.Id);
-
-                publishedImage = mediaItem;
+                return _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(item.Id);
             }
-
-            return publishedImage;
+#endif
+            return null;
         }
     }
 }

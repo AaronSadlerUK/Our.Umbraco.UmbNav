@@ -57,6 +57,18 @@ namespace UmbNav.Api.Controllers.API
 
                 if (entity.Published)
                 {
+#if NETCOREAPP
+                    if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
+                    {
+                        var publishedEntity = publishedSnapshot.Content.GetById(entity.Key);
+
+                        if (publishedEntity != null)
+                        {
+                            entityName = publishedEntity.Name(culture);
+                            entityUrl = publishedEntity.Url(culture);
+                        }
+                    }
+#else
                     var publishedEntity = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(entity.Key);
 
                     if (publishedEntity != null)
@@ -64,6 +76,7 @@ namespace UmbNav.Api.Controllers.API
                         entityName = publishedEntity.Name(culture);
                         entityUrl = publishedEntity.Url(culture);
                     }
+#endif
                 }
 
                 var menuItem = new
