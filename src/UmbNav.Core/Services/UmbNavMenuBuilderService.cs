@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UmbNav.Core.Enums;
@@ -122,7 +122,7 @@ namespace UmbNav.Core.Services
                             item.ItemType = UmbNavItemType.Content;
                             item.Content = umbracoContent;
 
-                            if (removeNaviHideItems && !umbracoContent.IsVisible())
+                            if (removeNaviHideItems && !umbracoContent.IsVisible() || removeNaviHideItems && umbracoContent.HasProperty("umbracoNavihide") && umbracoContent.Value<bool>("umbracoNavihide"))
                             {
                                 continue;
                             }
