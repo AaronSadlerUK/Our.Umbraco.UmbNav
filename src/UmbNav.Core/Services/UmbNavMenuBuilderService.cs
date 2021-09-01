@@ -57,6 +57,11 @@ namespace UmbNav.Core.Services
                         continue;
                     }
 
+                    var children = new List<UmbNavItem>();
+                    if (item.Children != null && item.Children.Any())
+                    {
+                        children = item.Children.ToList();
+                    }
                     var currentPublishedContentKey = new Guid();
 #if NETCOREAPP
                     if (_umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext))
@@ -147,7 +152,6 @@ namespace UmbNav.Core.Services
 
                             if (!removeIncludeChildNodes && item.IncludeChildNodes && umbracoContent.Children != null && umbracoContent.Children.Any())
                             {
-                                var children = item.Children.ToList();
                                 if (removeNaviHideItems)
                                 {
                                     children.AddRange(umbracoContent.Children.Where(x => x.IsVisible() ||  x.HasProperty("umbracoNavihide") && x.Value<bool>("umbracoNavihide")).Select(child => new UmbNavItem
@@ -176,8 +180,6 @@ namespace UmbNav.Core.Services
                                         IsActive = child.Key == currentPublishedContentKey
                                     }));
                                 }
-
-                                item.Children = children;
                             }
                         }
                     }
@@ -187,14 +189,15 @@ namespace UmbNav.Core.Services
                         item.Image = GetImageUrl(item);
                     }
 
-                    var childItems = item.Children.ToList();
-                    if (childItems != null && childItems.Any())
+                    if (children != null && children.Any())
                     {
-                        var children = BuildMenu(childItems, level + 1, removeNaviHideItems);
+                        var childItems = BuildMenu(children, level + 1, removeNaviHideItems).ToList();
                         if (!children.Equals(childItems))
                         {
-                            item.Children = children;
+                            children = childItems;
                         }
+
+                        item.Children = children;
                     }
 
                     item.Level = level;
