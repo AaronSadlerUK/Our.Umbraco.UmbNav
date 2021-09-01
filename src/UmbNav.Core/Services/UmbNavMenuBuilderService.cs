@@ -39,21 +39,16 @@ namespace UmbNav.Core.Services
             bool removeNoopener = false, bool removeNoreferrer = false, bool removeIncludeChildNodes = false)
         {
             var umbNavItems = items.ToList();
+            var removeItems = new List<UmbNavItem>();
             try
             {
                 var isLoggedIn = _httpContextAccessor.HttpContext.User != null && _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
-                items = items.ToList();
 
-                foreach (var item in items)
+                foreach (var item in umbNavItems)
                 {
                     if (item.HideLoggedIn && isLoggedIn || item.HideLoggedOut && !isLoggedIn)
                     {
                         continue;
-                    }
-
-                    if (item.ImageArray != null && item.ImageArray.Any())
-                    {
-                        item.Image = GetImageUrl(item);
                     }
 
                     if (item.MenuItemType is "nolink")
@@ -62,6 +57,11 @@ namespace UmbNav.Core.Services
                         continue;
                     }
 
+                    var children = new List<UmbNavItem>();
+                    if (item.Children != null && item.Children.Any())
+                    {
+                        children = item.Children.ToList();
+                    }
                     var currentPublishedContentKey = new Guid();
 #if NETCOREAPP
                     if (_umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext))
@@ -128,8 +128,9 @@ namespace UmbNav.Core.Services
                             item.ItemType = UmbNavItemType.Content;
                             item.Content = umbracoContent;
 
-                            if (removeNaviHideItems && !umbracoContent.IsVisible())
+                            if (removeNaviHideItems && !umbracoContent.IsVisible() || removeNaviHideItems && umbracoContent.HasProperty("umbracoNavihide") && umbracoContent.Value<bool>("umbracoNavihide"))
                             {
+                                removeItems.Add(item);
                                 continue;
                             }
 
@@ -151,10 +152,9 @@ namespace UmbNav.Core.Services
 
                             if (!removeIncludeChildNodes && item.IncludeChildNodes && umbracoContent.Children != null && umbracoContent.Children.Any())
                             {
-                                var children = item.Children.ToList();
                                 if (removeNaviHideItems)
                                 {
-                                    children.AddRange(umbracoContent.Children.Where(x => x.IsVisible()).Select(child => new UmbNavItem
+                                    children.AddRange(umbracoContent.Children.Where(x => x.IsVisible() ||  x.HasProperty("umbracoNavihide") && x.Value<bool>("umbracoNavihide")).Select(child => new UmbNavItem
                                     {
                                         Title = child.Name,
                                         Id = child.Id,
@@ -180,21 +180,33 @@ namespace UmbNav.Core.Services
                                         IsActive = child.Key == currentPublishedContentKey
                                     }));
                                 }
-
-                                item.Children = children;
                             }
                         }
                     }
 
-                    if (item.Children.Any())
+                    if (item.ImageArray != null && item.ImageArray.Any())
                     {
-                        BuildMenu(item.Children, level + 1, true);
+                        item.Image = GetImageUrl(item);
+                    }
+
+                    if (children != null && children.Any())
+                    {
+                        var childItems = BuildMenu(children, level + 1, removeNaviHideItems).ToList();
+                        if (!children.Equals(childItems))
+                        {
+                            children = childItems;
+                        }
+
+                        item.Children = children;
                     }
 
                     item.Level = level;
                 }
                 //items = items.Where(x => x.ItemType == UmbNavItemType.Link);
-
+                foreach (var removeItem in removeItems)
+                {
+                    umbNavItems.Remove(removeItem);
+                }
                 return umbNavItems;
             }
             catch (Exception ex)
