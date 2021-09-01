@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UmbNav.Core.Enums;
@@ -49,11 +49,6 @@ namespace UmbNav.Core.Services
                     if (item.HideLoggedIn && isLoggedIn || item.HideLoggedOut && !isLoggedIn)
                     {
                         continue;
-                    }
-
-                    if (item.ImageArray != null && item.ImageArray.Any())
-                    {
-                        item.Image = GetImageUrl(item);
                     }
 
                     if (item.MenuItemType is "nolink")
@@ -186,7 +181,12 @@ namespace UmbNav.Core.Services
                         }
                     }
 
-                    if (item.Children.Any())
+                    if (item.ImageArray != null && item.ImageArray.Any())
+                    {
+                        item.Image = GetImageUrl(item);
+                    }
+
+                    if (item.Children != null && item.Children.Any())
                     {
                         BuildMenu(item.Children, level + 1, true);
                     }
