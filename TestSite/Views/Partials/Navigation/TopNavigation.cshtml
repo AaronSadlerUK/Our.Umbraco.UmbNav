@@ -7,23 +7,47 @@
     var site = Model.Root();
     var umbNav = site.FirstChildOfType("umbNav").Value<IEnumerable<UmbNavItem>>("umbNavPE");
 }
-@foreach (var item in umbNav)
-{
-    var hideChildren = false;
-    if (item.ItemType == UmbNavItemType.Content && item.Content != null && item.Content.HasProperty("hideChildren"))
+
+<ul id="nav">
+    @foreach (var item in umbNav)
     {
-        hideChildren = item.Content.Value<bool>("hideChildren");
-    }
-    if (item.Image != null)
-    {
-        @item.Image.Url()
-    }
-    <a class="nav-link @item.CustomClasses" href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">@item.Title</a>
-    if (!hideChildren)
-    {
-        foreach (var child in item.Children)
+        if (item.Children != null && item.Children.Any())
         {
-            <a class="nav-link @child.CustomClasses" href="@child.Url()" target="@child.Target" rel="@child.Noopener @child.Noreferrer">@child.Title</a>
+            <li>
+                <a class="@item.CustomClasses" href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">
+                    @if (item.Image != null)
+                    {
+                        <img src="@item.Image.Url()" alt="@item.Title" width="30" height="30" />
+                    }
+                    @item.Title
+                </a>
+                <ul>
+                    @foreach (var child in item.Children)
+                    {
+                        <li>
+                            <a class="@child.CustomClasses" href="@child.Url()" target="@child.Target" rel="@child.Noopener @child.Noreferrer">
+                                @if (child.Image != null)
+                                {
+                                    <img src="@child.Image.Url()" alt="@child.Title" width="30" height="30" />
+                                }
+                                @child.Title
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a class="@item.CustomClasses" href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">
+                    @if (item.Image != null)
+                    {
+                        <img src="@item.Image.Url()" alt="@item.Title" width="30" height="30" />
+                    }
+                    @item.Title
+                </a>
+            </li>
         }
     }
-}
+</ul>
