@@ -46,7 +46,7 @@
         }
         angular.forEach(vm.items,
             function (value, key) {
-                toggleChildren(value, vm.toggleVar);
+                toggleChildren(value, !vm.toggleVar);
             });
     }
 
