@@ -38,12 +38,13 @@ namespace UmbNav.Core.Services
         public IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, int level = 0, bool removeNaviHideItems = false,
             bool removeNoopener = false, bool removeNoreferrer = false, bool removeIncludeChildNodes = false)
         {
-            var umbNavItems = new List<UmbNavItem>();
+            var umbNavItems = items.ToList();
+            var removeItems = new List<UmbNavItem>();
             try
             {
                 var isLoggedIn = _httpContextAccessor.HttpContext.User != null && _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
 
-                foreach (var item in items)
+                foreach (var item in umbNavItems)
                 {
                     if (item.HideLoggedIn && isLoggedIn || item.HideLoggedOut && !isLoggedIn)
                     {
@@ -124,6 +125,7 @@ namespace UmbNav.Core.Services
 
                             if (removeNaviHideItems && !umbracoContent.IsVisible() || removeNaviHideItems && umbracoContent.HasProperty("umbracoNavihide") && umbracoContent.Value<bool>("umbracoNavihide"))
                             {
+                                removeItems.Add(item);
                                 continue;
                             }
 
@@ -148,7 +150,7 @@ namespace UmbNav.Core.Services
                                 var children = item.Children.ToList();
                                 if (removeNaviHideItems)
                                 {
-                                    children.AddRange(umbracoContent.Children.Where(x => x.IsVisible()).Select(child => new UmbNavItem
+                                    children.AddRange(umbracoContent.Children.Where(x => x.IsVisible() ||  x.HasProperty("umbracoNavihide") && x.Value<bool>("umbracoNavihide")).Select(child => new UmbNavItem
                                     {
                                         Title = child.Name,
                                         Id = child.Id,
@@ -185,16 +187,23 @@ namespace UmbNav.Core.Services
                         item.Image = GetImageUrl(item);
                     }
 
-                    if (item.Children != null && item.Children.Any())
+                    var childItems = item.Children.ToList();
+                    if (childItems != null && childItems.Any())
                     {
-                        BuildMenu(item.Children, level + 1, true);
+                        var children = BuildMenu(childItems, level + 1, removeNaviHideItems);
+                        if (!children.Equals(childItems))
+                        {
+                            item.Children = children;
+                        }
                     }
 
                     item.Level = level;
-                    umbNavItems.Add(item);
                 }
                 //items = items.Where(x => x.ItemType == UmbNavItemType.Link);
-
+                foreach (var removeItem in removeItems)
+                {
+                    umbNavItems.Remove(removeItem);
+                }
                 return umbNavItems;
             }
             catch (Exception ex)
