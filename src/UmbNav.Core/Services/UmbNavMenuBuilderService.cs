@@ -38,11 +38,10 @@ namespace UmbNav.Core.Services
         public IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, int level = 0, bool removeNaviHideItems = false,
             bool removeNoopener = false, bool removeNoreferrer = false, bool removeIncludeChildNodes = false)
         {
-            var umbNavItems = items.ToList();
+            var umbNavItems = new List<UmbNavItem>();
             try
             {
                 var isLoggedIn = _httpContextAccessor.HttpContext.User != null && _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
-                items = items.ToList();
 
                 foreach (var item in items)
                 {
@@ -192,6 +191,7 @@ namespace UmbNav.Core.Services
                     }
 
                     item.Level = level;
+                    umbNavItems.Add(item);
                 }
                 //items = items.Where(x => x.ItemType == UmbNavItemType.Link);
 
