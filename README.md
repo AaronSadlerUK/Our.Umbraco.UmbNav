@@ -4,7 +4,7 @@
 
 [![NuGet Badge](https://buildstats.info/nuget/Our.Umbraco.UmbNav.Web?includePreReleases=true)](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web)
 
-[![Umbraco Cloud Badge]](https://img.shields.io/badge/Works%20on-Umbraco%20Cloud-3544b1)
+![Umbraco Cloud Badge](https://img.shields.io/badge/Works%20on-Umbraco%20Cloud-3544b1)
 
 
 UmbNav adds a drag and drop menu builder to the Umbraco V8 or V9 backoffice.
