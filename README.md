@@ -5,7 +5,7 @@
 [![NuGet Badge](https://buildstats.info/nuget/Our.Umbraco.UmbNav.Web?includePreReleases=true)](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web)
 
 
-UmbNav adds a drag and drop menu builder to the Umbraco V8 backoffice.
+UmbNav adds a drag and drop menu builder to the Umbraco V8 or V9 backoffice.
 
 ## Getting started
 
