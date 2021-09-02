@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <umbPackage>
   <info>
     <package>
       <name>Our.Umbraco.UmbNav</name>
-      <version>1.0.0-rc.9</version>
+      <version>1.0.0-rc.10</version>
       <iconUrl></iconUrl>
       <licence url="https://opensource.org/licenses/MIT">MIT</licence>
       <url>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</url>
