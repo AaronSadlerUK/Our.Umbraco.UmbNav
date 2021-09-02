@@ -1,5 +1,4 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
-@using UmbNav.Core.Enums
 @using UmbNav.Core.Extensions
 @using UmbNav.Core.Models
 @using Umbraco.Web;
@@ -19,7 +18,11 @@
                     {
                         <img src="@item.Image.Url()" alt="@item.Title" width="30" height="30" />
                     }
-                    @item.Title
+                    @item.Title 
+                    @if (item.IsActive)
+                    {
+                        <text>Active</text>
+                    }
                 </a>
                 <ul>
                     @foreach (var child in item.Children)
@@ -31,6 +34,10 @@
                                     <img src="@child.Image.Url()" alt="@child.Title" width="30" height="30" />
                                 }
                                 @child.Title
+                                @if (child.IsActive)
+                                {
+                                    <text>Active</text>
+                                }
                             </a>
                         </li>
                     }
@@ -46,6 +53,10 @@
                         <img src="@item.Image.Url()" alt="@item.Title" width="30" height="30" />
                     }
                     @item.Title
+                    @if (item.IsActive)
+                    {
+                        <text>Active</text>
+                    }
                 </a>
             </li>
         }

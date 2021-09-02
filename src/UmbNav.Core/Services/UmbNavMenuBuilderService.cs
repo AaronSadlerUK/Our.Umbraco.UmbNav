@@ -46,6 +46,17 @@ namespace UmbNav.Core.Services
 
                 foreach (var item in umbNavItems)
                 {
+                    var currentPublishedContentKey = Guid.Empty;
+#if NETCOREAPP
+                    if (_umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext))
+                    {
+                        var currentPublishedContent = umbracoContext.PublishedRequest.PublishedContent;
+                        currentPublishedContentKey = currentPublishedContent.Key;
+                    }
+#else
+                    var currentPublishedContent = _umbracoContextAccessor.UmbracoContext.PublishedRequest.PublishedContent;
+                    currentPublishedContentKey = currentPublishedContent.Key;
+#endif
                     if (item.HideLoggedIn && isLoggedIn || item.HideLoggedOut && !isLoggedIn)
                     {
                         continue;
@@ -62,25 +73,6 @@ namespace UmbNav.Core.Services
                     {
                         children = item.Children.ToList();
                     }
-                    var currentPublishedContentKey = new Guid();
-#if NETCOREAPP
-                    if (_umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext))
-                    {
-                        var currentPublishedContent = umbracoContext.PublishedRequest.PublishedContent;
-                        currentPublishedContentKey = currentPublishedContent.Key;
-                        if (currentPublishedContent.Key == item.Key)
-                        {
-                            item.IsActive = true;
-                        }
-                    }
-#else
-                    var currentPublishedContent = _umbracoContextAccessor.UmbracoContext.PublishedRequest.PublishedContent;
-                    currentPublishedContentKey = currentPublishedContent.Key;
-                    if (currentPublishedContent.Key == item.Key)
-                    {
-                        item.IsActive = true;
-                    }
-#endif
 
                     if (item.Udi != null || item.Key != Guid.Empty || item.Id > 0)
                     {
@@ -128,6 +120,11 @@ namespace UmbNav.Core.Services
                             item.ItemType = UmbNavItemType.Content;
                             item.Content = umbracoContent;
 
+                            if (umbracoContent.Key == currentPublishedContentKey)
+                            {
+                                item.IsActive = true;
+                            }
+
                             if (removeNaviHideItems && !umbracoContent.IsVisible() || removeNaviHideItems && umbracoContent.HasProperty("umbracoNavihide") && umbracoContent.Value<bool>("umbracoNavihide"))
                             {
                                 removeItems.Add(item);
@@ -154,7 +151,7 @@ namespace UmbNav.Core.Services
                             {
                                 if (removeNaviHideItems)
                                 {
-                                    children.AddRange(umbracoContent.Children.Where(x => x.IsVisible() ||  x.HasProperty("umbracoNavihide") && x.Value<bool>("umbracoNavihide")).Select(child => new UmbNavItem
+                                    children.AddRange(umbracoContent.Children.Where(x => x.IsVisible() || x.HasProperty("umbracoNavihide") && x.Value<bool>("umbracoNavihide")).Select(child => new UmbNavItem
                                     {
                                         Title = child.Name,
                                         Id = child.Id,
