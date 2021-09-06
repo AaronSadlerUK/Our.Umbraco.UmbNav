@@ -70,8 +70,6 @@ namespace UmbNav.Core.Services
                         item.Target = null;
                         item.Noopener = null;
                         item.Noreferrer = null;
-                        item.HideLoggedIn = false;
-                        item.HideLoggedOut = false;
                         item.IncludeChildNodes = false;
                         item.Udi = null;
                         continue;

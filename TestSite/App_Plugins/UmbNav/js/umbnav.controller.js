@@ -127,8 +127,6 @@
                     model.target.target = null;
                     model.target.noopener = false;
                     model.target.noreferrer = false;
-                    model.target.hideLoggedIn = false;
-                    model.target.hideLoggedOut = false;
                     model.target.includeChildren = false;
                     model.target.udi = null;
                 } else {
