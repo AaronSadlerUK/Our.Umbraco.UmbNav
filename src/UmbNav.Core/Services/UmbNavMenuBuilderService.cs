@@ -65,6 +65,15 @@ namespace UmbNav.Core.Services
                     if (item.MenuItemType is "nolink")
                     {
                         item.ItemType = UmbNavItemType.Label;
+                        item.Anchor = null;
+                        item.Url = null;
+                        item.Target = null;
+                        item.Noopener = null;
+                        item.Noreferrer = null;
+                        item.HideLoggedIn = false;
+                        item.HideLoggedOut = false;
+                        item.IncludeChildNodes = false;
+                        item.Udi = null;
                         continue;
                     }
 

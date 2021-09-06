@@ -119,10 +119,25 @@
             allowLabels: dialogOptions.config.allowLabels,
             currentTarget: item,
             submit: function (model) {
-                model.target.description = model.target.url + model.target.anchor;
-                if (model.target.anchor && model.target.anchor[0] !== '?' && model.target.anchor[0] !== '#') {
-                    model.target.anchor = (model.target.anchor.indexOf('=') === -1 ? '#' : '?') + model.target.anchor;
+
+                if (model.target.itemType === 'nolink') {
+                    model.target.anchor = null;
+                    model.target.url = null;
+                    model.target.description = null;
+                    model.target.target = null;
+                    model.target.noopener = false;
+                    model.target.noreferrer = false;
+                    model.target.hideLoggedIn = false;
+                    model.target.hideLoggedOut = false;
+                    model.target.includeChildren = false;
+                    model.target.udi = null;
+                } else {
+                    model.target.description = model.target.url + model.target.anchor;
+                    if (model.target.anchor && model.target.anchor[0] !== '?' && model.target.anchor[0] !== '#') {
+                        model.target.anchor = (model.target.anchor.indexOf('=') === -1 ? '#' : '?') + model.target.anchor;
+                    }
                 }
+
                 if (model.target.udi) {
                     umbnavResource.getById(model.target.udi, $routeParams.cculture ? $routeParams.cculture : $routeParams.mculture)
                         .then(function (response) {
@@ -158,6 +173,7 @@
         var icon = data.icon;
         if (data.itemType === 'nolink') {
             icon = "icon-tag";
+
         } else if (data.icon == null) {
             icon = "icon-link";
         }
