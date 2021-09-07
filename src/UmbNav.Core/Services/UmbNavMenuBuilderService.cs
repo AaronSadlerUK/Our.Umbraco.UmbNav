@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UmbNav.Core.Enums;
@@ -62,7 +62,7 @@ namespace UmbNav.Core.Services
                         continue;
                     }
 
-                    if (item.MenuItemType is "nolink")
+                    if (item.MenuItemType is "nolink" || item.DisplayAsLabel)
                     {
                         item.ItemType = UmbNavItemType.Label;
                         item.Anchor = null;
@@ -72,7 +72,11 @@ namespace UmbNav.Core.Services
                         item.Noreferrer = null;
                         item.IncludeChildNodes = false;
                         item.Udi = null;
-                        continue;
+
+                        if (!item.DisplayAsLabel)
+                        {
+                            continue;
+                        }
                     }
 
                     var children = new List<UmbNavItem>();
@@ -124,7 +128,10 @@ namespace UmbNav.Core.Services
 
                         if (umbracoContent != null)
                         {
-                            item.ItemType = UmbNavItemType.Content;
+                            if (!item.DisplayAsLabel)
+                            {
+                                item.ItemType = UmbNavItemType.Content;
+                            }
                             item.Content = umbracoContent;
 
                             if (umbracoContent.Key == currentPublishedContentKey)

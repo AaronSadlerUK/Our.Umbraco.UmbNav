@@ -149,6 +149,13 @@
                         </umb-checkbox>
                     </umb-control-group>
 
+                    <umb-control-group ng-if="showDisplayAsLabel" label="@umbnav_displayAsLabel">
+                        <umb-checkbox model="vm.displayAsLabel"
+                                      on-change="vm.toggleDisplayAsLabel(model, value)"
+                                      text="{{vm.labels.displayAsLabel}}">
+                        </umb-checkbox>
+                    </umb-control-group>
+
                     <umb-control-group ng-if="showIncludeChildren && model.target.itemType == 'link'" label="@umbnav_includeChildren">
                         <umb-checkbox model="vm.includeChildren"
                                       on-change="vm.toggleChildren(model, value)"

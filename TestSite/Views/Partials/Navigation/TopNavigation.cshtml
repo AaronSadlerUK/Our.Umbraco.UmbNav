@@ -13,17 +13,18 @@
         if (item.Children != null && item.Children.Any())
         {
             <li>
-                <a class="@item.CustomClasses" href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">
-                    @if (item.Image != null)
-                    {
-                        <img src="@item.Image.Url()" alt="@item.Title" width="30" height="30" />
-                    }
-                    @item.Title 
-                    @if (item.IsActive)
-                    {
-                        <text>Active</text>
-                    }
-                </a>
+                @item.GetItemHtml()
+                @*<a class="@item.CustomClasses" href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">
+                        @if (item.Image != null)
+                        {
+                            <img src="@item.Image.Url()" alt="@item.Title" width="30" height="30" />
+                        }
+                        @item.Title
+                        @if (item.IsActive)
+                        {
+                            <text>Active</text>
+                        }
+                    </a>*@
                 <ul>
                     @foreach (var child in item.Children)
                     {
@@ -48,16 +49,16 @@
         {
             <li>
                 @*<a class="@item.CustomClasses" href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">
-                    @if (item.Image != null)
-                    {
-                        <img src="@item.Image.Url()" alt="@item.Title" width="30" height="30" />
-                    }
-                    @item.Title
-                    @if (item.IsActive)
-                    {
-                        <text>Active</text>
-                    }
-                </a>*@
+                        @if (item.Image != null)
+                        {
+                            <img src="@item.Image.Url()" alt="@item.Title" width="30" height="30" />
+                        }
+                        @item.Title
+                        @if (item.IsActive)
+                        {
+                            <text>Active</text>
+                        }
+                    </a>*@
                 @item.GetItemHtml()
             </li>
         }

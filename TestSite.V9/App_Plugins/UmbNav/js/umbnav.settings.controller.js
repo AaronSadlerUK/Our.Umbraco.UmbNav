@@ -9,6 +9,7 @@
     vm.toggleDisplayLoggedIn = toggleDisplayLoggedIn;
     vm.toggleDisplayLoggedOut = toggleDisplayLoggedOut;
     vm.toggleChildren = toggleChildren;
+    vm.toggleDisplayAsLabel = toggleDisplayAsLabel;
     vm.openMediaPicker = openMediaPicker;
     vm.showAdvanced = false;
     vm.labels = {};
@@ -52,6 +53,9 @@
     localizationService.localizeMany(['umbnav_linkTypeDescription']).then(function (data) {
         vm.labels.linkTypeDescription = data[0];
     });
+    localizationService.localizeMany(['umbnav_displayAsLabel']).then(function (data) {
+        vm.labels.displayAsLabel = data[0];
+    });
     if (!$scope.model.title) {
         localizationService.localize('defaultdialogs_selectLink').then(function (value) {
             $scope.model.title = value;
@@ -70,6 +74,7 @@
     };
     $scope.showTarget = $scope.model.hideTarget !== true;
     $scope.showDisplay = $scope.model.allowDisplay === true;
+    $scope.showDisplayAsLabel = $scope.model.allowDisplayAsLabel === true;
     $scope.showNoopener = $scope.model.hideNoopener !== true;
     $scope.showNoreferrer = $scope.model.hideNoreferrer !== true;
     $scope.showAnchor = $scope.model.hideAnchor !== true;
@@ -147,6 +152,7 @@
         vm.hideLoggedIn = $scope.model.target.hideLoggedIn;
         vm.hideLoggedOut = $scope.model.target.hideLoggedOut;
         vm.includeChildren = $scope.model.target.includeChildNodes;
+        vm.displayAsLabel = $scope.model.target.displayAsLabel;
         vm.showNoopener = $scope.model.target.noopener === 'noopener' && $scope.model.target.id === null || $scope.model.target.udi === null;
         vm.showNoreferrer = $scope.model.target.noreferrer === 'noreferrer' && $scope.model.target.id === null || $scope.model.target.udi === null;
     } else if (dialogOptions.anchors) {
@@ -277,6 +283,9 @@
     }
     function toggleChildren(model, value) {
         $scope.model.target.includeChildren = model ? true : false;
+    }
+    function toggleDisplayAsLabel(model, value) {
+        $scope.model.target.displayAsLabel = model ? true : false;
     }
     function close() {
         if ($scope.model && $scope.model.close) {

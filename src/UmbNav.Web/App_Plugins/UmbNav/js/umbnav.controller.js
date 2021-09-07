@@ -117,6 +117,7 @@
             allowImageIcon: dialogOptions.config.allowImageIcon,
             hideIncludeChildren: dialogOptions.config.hideIncludeChildren,
             allowLabels: dialogOptions.config.allowLabels,
+            allowDisplayAsLabel: dialogOptions.config.allowDisplayAsLabel,
             currentTarget: item,
             submit: function (model) {
 
@@ -200,7 +201,8 @@
             naviHide: data.naviHide,
             culture: data.culture,
             includeChildNodes: data.includeChildNodes,
-            itemType: data.itemType
+            itemType: data.itemType,
+            displayAsLabel: data.displayAsLabel
         }
     }
 }
