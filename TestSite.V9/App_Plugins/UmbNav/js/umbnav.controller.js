@@ -199,7 +199,7 @@
             published: data.published,
             naviHide: data.naviHide,
             culture: data.culture,
-            includeChildNodes: data.includeChildren,
+            includeChildNodes: data.includeChildNodes,
             itemType: data.itemType
         }
     }
