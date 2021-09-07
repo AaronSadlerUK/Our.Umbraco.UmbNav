@@ -30,6 +30,9 @@ namespace UmbNav.Core.PropertyEditors
         [ConfigurationField("allowDisplay", "Allow Member Visibility", "boolean", Description = "Allow the ability to hide menu items based on member authentication status")]
         public bool AllowDisplay { get; set; } = false;
 
+        [ConfigurationField("allowDisplayAsLabel", "Allow a Link To Display as a Label", "boolean", Description = "Allow the ability to display a link item as a label")]
+        public bool AllowDisplayAsLabel { get; set; } = false;
+
         [ConfigurationField("allowCustomClasses", "Allow Custom Classes", "boolean", Description = "Allow the ability to set custom classes on an item")]
         public bool AllowCustomClasses { get; set; } = false;
 

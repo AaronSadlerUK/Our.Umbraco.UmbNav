@@ -85,5 +85,8 @@ namespace UmbNav.Core.Models
 
         [JsonIgnore]
         public bool IsActive { get; set; }
+
+        [JsonProperty("displayAsLabel")]
+        public bool DisplayAsLabel { get; set; }
     }
 }

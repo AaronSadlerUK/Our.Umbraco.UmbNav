@@ -27,5 +27,6 @@
 		<key alias="title">Title</key>
 		<key alias="itemType">Menu Item Type</key>
 		<key alias="linkTypeDescription">Select menu item type</key>
+		<key alias="displayAsLabel">Display as label</key>
 	</area>
 </language>

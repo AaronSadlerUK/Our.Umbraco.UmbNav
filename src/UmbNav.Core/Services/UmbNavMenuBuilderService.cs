@@ -62,7 +62,7 @@ namespace UmbNav.Core.Services
                         continue;
                     }
 
-                    if (item.MenuItemType is "nolink")
+                    if (item.MenuItemType is "nolink" || item.DisplayAsLabel)
                     {
                         item.ItemType = UmbNavItemType.Label;
                         item.Anchor = null;
@@ -72,7 +72,11 @@ namespace UmbNav.Core.Services
                         item.Noreferrer = null;
                         item.IncludeChildNodes = false;
                         item.Udi = null;
-                        continue;
+
+                        //if (!item.DisplayAsLabel)
+                        //{ 
+                        //    continue;
+                        //}
                     }
 
                     var children = new List<UmbNavItem>();
@@ -85,46 +89,52 @@ namespace UmbNav.Core.Services
                     {
                         IPublishedContent umbracoContent = null;
                         string currentCulture = null;
-#if NETCOREAPP
-                        if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
+                        if (item.MenuItemType != "nolink")
                         {
+#if NETCOREAPP
+                            if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
+                            {
+                                if (item.Udi != null)
+                                {
+                                    currentCulture = publishedSnapshot.Content.GetById(item.Udi)?.GetCultureFromDomains();
+                                    umbracoContent = publishedSnapshot.Content.GetById(item.Udi);
+                                }
+                                else if (item.Key != Guid.Empty)
+                                {
+                                    currentCulture = publishedSnapshot.Content.GetById(item.Key)?.GetCultureFromDomains();
+                                    umbracoContent = publishedSnapshot.Content.GetById(item.Key);
+                                }
+                                else
+                                {
+                                    currentCulture = publishedSnapshot.Content.GetById(item.Id)?.GetCultureFromDomains();
+                                    umbracoContent = publishedSnapshot.Content.GetById(item.Id);
+                                }
+                            }
+#else
                             if (item.Udi != null)
                             {
-                                currentCulture = publishedSnapshot.Content.GetById(item.Udi)?.GetCultureFromDomains();
-                                umbracoContent = publishedSnapshot.Content.GetById(item.Udi);
+                                currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Udi)?.GetCultureFromDomains();
+                                umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Udi);
                             }
                             else if (item.Key != Guid.Empty)
                             {
-                                currentCulture = publishedSnapshot.Content.GetById(item.Key)?.GetCultureFromDomains();
-                                umbracoContent = publishedSnapshot.Content.GetById(item.Key);
+                                currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Key)?.GetCultureFromDomains();
+                                umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Key);
                             }
                             else
                             {
-                                currentCulture = publishedSnapshot.Content.GetById(item.Id)?.GetCultureFromDomains();
-                                umbracoContent = publishedSnapshot.Content.GetById(item.Id);
+                                currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Id)?.GetCultureFromDomains();
+                                umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Id);
                             }
-                        }
-#else
-                        if (item.Udi != null)
-                        {
-                            currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Udi)?.GetCultureFromDomains();
-                            umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Udi);
-                        }
-                        else if (item.Key != Guid.Empty)
-                        {
-                            currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Key)?.GetCultureFromDomains();
-                            umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Key);
-                        }
-                        else
-                        {
-                            currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Id)?.GetCultureFromDomains();
-                            umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Id);
-                        }
 #endif
+                        }
 
                         if (umbracoContent != null)
                         {
-                            item.ItemType = UmbNavItemType.Content;
+                            if (!item.DisplayAsLabel)
+                            {
+                                item.ItemType = UmbNavItemType.Content;
+                            }
                             item.Content = umbracoContent;
 
                             if (umbracoContent.Key == currentPublishedContentKey)
@@ -205,6 +215,11 @@ namespace UmbNav.Core.Services
                     }
 
                     item.Level = level;
+
+                    if (item.DisplayAsLabel && item.Content == null || item.MenuItemType is "link" && item.Content == null)
+                    {
+                        item.ItemType = UmbNavItemType.Link;
+                    }
                 }
                 //items = items.Where(x => x.ItemType == UmbNavItemType.Link);
                 foreach (var removeItem in removeItems)

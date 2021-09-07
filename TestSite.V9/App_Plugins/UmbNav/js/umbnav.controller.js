@@ -117,6 +117,7 @@
             allowImageIcon: dialogOptions.config.allowImageIcon,
             hideIncludeChildren: dialogOptions.config.hideIncludeChildren,
             allowLabels: dialogOptions.config.allowLabels,
+            allowDisplayAsLabel: dialogOptions.config.allowDisplayAsLabel,
             currentTarget: item,
             submit: function (model) {
 
@@ -127,8 +128,9 @@
                     model.target.target = null;
                     model.target.noopener = false;
                     model.target.noreferrer = false;
-                    model.target.includeChildren = false;
+                    model.target.includeChildNodes = false;
                     model.target.udi = null;
+                    model.target.id = null;
                 } else {
                     model.target.description = model.target.url + model.target.anchor;
                     if (model.target.anchor && model.target.anchor[0] !== '?' && model.target.anchor[0] !== '#') {
@@ -200,7 +202,8 @@
             naviHide: data.naviHide,
             culture: data.culture,
             includeChildNodes: data.includeChildNodes,
-            itemType: data.itemType
+            itemType: data.itemType,
+            displayAsLabel: data.displayAsLabel
         }
     }
 }
