@@ -137,7 +137,7 @@
                     <i class="icon icon-navigation-down" ng-if="!vm.showAdvanced" title="collapse"></i>
                 </umb-box-header>
                 <umb-box-content ng-if="vm.showAdvanced">
-                    <umb-control-group ng-if="showDisplay && model.target.itemType == 'link'" label="@umbnav_visibility">
+                    <umb-control-group ng-if="showDisplay" label="@umbnav_visibility">
                         <umb-checkbox model="vm.hideLoggedIn"
                                       on-change="vm.toggleDisplayLoggedIn(model, value)"
                                       text="{{vm.labels.hideLoggedIn}}">
