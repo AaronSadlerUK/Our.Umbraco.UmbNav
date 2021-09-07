@@ -128,8 +128,9 @@
                     model.target.target = null;
                     model.target.noopener = false;
                     model.target.noreferrer = false;
-                    model.target.includeChildren = false;
+                    model.target.includeChildNodes = false;
                     model.target.udi = null;
+                    model.target.id = null;
                 } else {
                     model.target.description = model.target.url + model.target.anchor;
                     if (model.target.anchor && model.target.anchor[0] !== '?' && model.target.anchor[0] !== '#') {
