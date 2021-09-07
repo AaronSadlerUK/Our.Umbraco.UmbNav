@@ -39,7 +39,7 @@ namespace UmbNav.Core.Extensions
             {
                 tagBuilder.AddCssClass(cssClass);
             }
-           
+
             if (!string.IsNullOrEmpty(item.CustomClasses))
             {
                 tagBuilder.AddCssClass(item.CustomClasses);
@@ -62,7 +62,7 @@ namespace UmbNav.Core.Extensions
 #if NETCOREAPP
                 return tagBuilder;
 #else
-            return MvcHtmlString.Create(tagBuilder.ToString());
+                return MvcHtmlString.Create(tagBuilder.ToString());
 #endif
             }
 
@@ -104,6 +104,18 @@ namespace UmbNav.Core.Extensions
 #else
             return MvcHtmlString.Create(tagBuilder.ToString());
 #endif
+        }
+
+#if NETCOREAPP
+        [Obsolete("I see your using Umbraco V9, Why not use the TagHelper <umbnavitem> instead.")]
+        public static IHtmlContent GetItemHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null, string activeClass = null)
+#else
+        public static HtmlString GetItemHtml(this UmbNavItem item, string cssClass = null, string id = null,
+            string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span",
+            object htmlAttributes = null, string activeClass = null)
+#endif
+        {
+            return GetLinkHtml(item, cssClass, id, culture, mode, labelTagName, htmlAttributes, activeClass);
         }
 
         public static string Url(this UmbNavItem item, string culture = null, UrlMode mode = UrlMode.Default)

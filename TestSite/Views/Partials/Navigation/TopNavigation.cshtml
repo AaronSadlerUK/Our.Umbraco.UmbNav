@@ -47,7 +47,7 @@
         else
         {
             <li>
-                <a class="@item.CustomClasses" href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">
+                @*<a class="@item.CustomClasses" href="@item.Url()" target="@item.Target" rel="@item.Noopener @item.Noreferrer">
                     @if (item.Image != null)
                     {
                         <img src="@item.Image.Url()" alt="@item.Title" width="30" height="30" />
@@ -57,7 +57,8 @@
                     {
                         <text>Active</text>
                     }
-                </a>
+                </a>*@
+                @item.GetItemHtml()
             </li>
         }
     }
