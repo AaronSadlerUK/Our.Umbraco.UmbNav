@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UmbNav.Core.Enums;
@@ -212,6 +212,11 @@ namespace UmbNav.Core.Services
                     }
 
                     item.Level = level;
+
+                    if ((!item.DisplayAsLabel || item.MenuItemType is "link") && item.Content == null)
+                    {
+                        item.ItemType = UmbNavItemType.Link;
+                    }
                 }
                 //items = items.Where(x => x.ItemType == UmbNavItemType.Link);
                 foreach (var removeItem in removeItems)
