@@ -5,7 +5,7 @@ variables:
     src/UmbNav.Api/UmbNav.Api.csproj
 
     src/UmbNav.Core/UmbNav.Core.csproj
-name: 1.0.$(Rev:.r)
+name: 1.0.0$(Rev:.r)
 resources:
   repositories:
   - repository: self
