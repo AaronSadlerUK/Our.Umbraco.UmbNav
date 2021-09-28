@@ -3,7 +3,7 @@
   <info>
     <package>
       <name>Our.Umbraco.UmbNav</name>
-      <version>1.0.0-rc.11</version>
+      <version>1.0.0-stable</version>
       <iconUrl></iconUrl>
       <licence url="https://opensource.org/licenses/MIT">MIT</licence>
       <url>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</url>
