@@ -676,7 +676,7 @@
     *       Do stuff...
     *    });
     * </pre>
-    * 
+    *
     * @returns {Promise} resourcePromise object.
     *
     */
@@ -1196,6 +1196,17 @@
                     return $q.when(umbDataFormatter.formatContentGetData(result));
                 });
             },
+            getScaffoldByKeys: function getScaffoldByKeys(parentId, scaffoldKeys) {
+                return umbRequestHelper.resourcePromise($http.post(umbRequestHelper.getApiUrl('contentApiBaseUrl', 'GetEmptyByKeys'), {
+                    contentTypeKeys: scaffoldKeys,
+                    parentId: parentId
+                }), 'Failed to retrieve data for empty content items ids' + scaffoldKeys.join(', ')).then(function (result) {
+                    Object.keys(result).map(function (key) {
+                        result[key] = umbDataFormatter.formatContentGetData(result[key]);
+                    });
+                    return $q.when(result);
+                });
+            },
             getBlueprintScaffold: function getBlueprintScaffold(parentId, blueprintId) {
                 return umbRequestHelper.resourcePromise($http.get(umbRequestHelper.getApiUrl('contentApiBaseUrl', 'GetEmpty', {
                     blueprintId: blueprintId,
@@ -1270,7 +1281,7 @@
                     options = {};
                 }
                 //overwrite the defaults if there are any specified
-                angular.extend(defaults, options);
+                Utilities.extend(defaults, options);
                 //now copy back to the options we will use
                 options = defaults;
                 //change asc/desct
@@ -3223,7 +3234,7 @@
                     options = {};
                 }
                 //overwrite the defaults if there are any specified
-                angular.extend(defaults, options);
+                Utilities.extend(defaults, options);
                 //now copy back to the options we will use
                 options = defaults;
                 //change asc/desct
@@ -3284,7 +3295,7 @@
                     options = {};
                 }
                 //overwrite the defaults if there are any specified
-                angular.extend(defaults, options);
+                Utilities.extend(defaults, options);
                 //now copy back to the options we will use
                 options = defaults;
                 //change asc/desct
@@ -3581,7 +3592,7 @@
                     options = {};
                 }
                 //overwrite the defaults if there are any specified
-                angular.extend(defaults, options);
+                Utilities.extend(defaults, options);
                 //now copy back to the options we will use
                 options = defaults;
                 if (options.hasOwnProperty('sinceDate')) {
@@ -3638,7 +3649,7 @@
                     options = {};
                 }
                 //overwrite the defaults if there are any specified
-                angular.extend(defaults, options);
+                Utilities.extend(defaults, options);
                 //now copy back to the options we will use
                 options = defaults;
                 if (options.hasOwnProperty('sinceDate')) {
@@ -3792,7 +3803,7 @@
                     options = {};
                 }
                 //overwrite the defaults if there are any specified
-                angular.extend(defaults, options);
+                Utilities.extend(defaults, options);
                 //now copy back to the options we will use
                 options = defaults;
                 return umbRequestHelper.resourcePromise($http.get(umbRequestHelper.getApiUrl('logViewerApiBaseUrl', 'GetLogs', options)), 'Failed to retrieve common log messages');
@@ -4158,7 +4169,7 @@
                     options = {};
                 }
                 //overwrite the defaults if there are any specified
-                angular.extend(defaults, options);
+                Utilities.extend(defaults, options);
                 //now copy back to the options we will use
                 options = defaults;
                 //change asc/desct
@@ -4348,7 +4359,7 @@
                     options = {};
                 }
                 //overwrite the defaults if there are any specified
-                angular.extend(defaults, options);
+                Utilities.extend(defaults, options);
                 //now copy back to the options we will use
                 options = defaults;
                 return umbRequestHelper.resourcePromise($http.get(umbRequestHelper.getApiUrl('mediaApiBaseUrl', 'GetPagedReferences', {
@@ -4570,7 +4581,7 @@
                     options = {};
                 }
                 //overwrite the defaults if there are any specified
-                angular.extend(defaults, options);
+                Utilities.extend(defaults, options);
                 //now copy back to the options we will use
                 options = defaults;
                 //change asc/desct
@@ -5391,7 +5402,7 @@
                     options = {};
                 }
                 //overwrite the defaults if there are any specified
-                angular.extend(defaults, options);
+                Utilities.extend(defaults, options);
                 //now copy back to the options we will use
                 options = defaults;
                 return umbRequestHelper.resourcePromise($http.get(umbRequestHelper.getApiUrl('relationTypeApiBaseUrl', 'GetPagedResults', {
@@ -6082,7 +6093,7 @@
                     options = {};
                 }
                 //overwrite the defaults if there are any specified
-                angular.extend(defaults, options);
+                Utilities.extend(defaults, options);
                 //now copy back to the options we will use
                 options = defaults;
                 //change asc/desct

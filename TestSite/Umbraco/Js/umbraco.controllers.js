@@ -716,30 +716,48 @@
  * Controls the dashboards of the application
  * 
  */
-    function DashboardController($scope, $routeParams, dashboardResource, localizationService) {
+    function DashboardController($scope, $q, $routeParams, $location, dashboardResource, localizationService) {
+        var DASHBOARD_QUERY_PARAM = 'dashboard';
         $scope.page = {};
         $scope.page.nameLocked = true;
         $scope.page.loading = true;
         $scope.dashboard = {};
-        localizationService.localize('sections_' + $routeParams.section).then(function (name) {
+        var promises = [];
+        promises.push(localizationService.localize('sections_' + $routeParams.section).then(function (name) {
             $scope.dashboard.name = name;
-        });
-        dashboardResource.getDashboard($routeParams.section).then(function (tabs) {
+        }));
+        promises.push(dashboardResource.getDashboard($routeParams.section).then(function (tabs) {
             $scope.dashboard.tabs = tabs;
-            // set first tab to active
             if ($scope.dashboard.tabs && $scope.dashboard.tabs.length > 0) {
-                $scope.dashboard.tabs[0].active = true;
+                initActiveTab();
             }
+        }));
+        $q.all(promises).then(function () {
             $scope.page.loading = false;
         });
         $scope.changeTab = function (tab) {
-            $scope.dashboard.tabs.forEach(function (tab) {
-                tab.active = false;
-            });
+            if ($scope.dashboard.tabs && $scope.dashboard.tabs.length > 0) {
+                $scope.dashboard.tabs.forEach(function (tab) {
+                    tab.active = false;
+                });
+            }
             tab.active = true;
+            $location.search(DASHBOARD_QUERY_PARAM, tab.alias);
         };
+        function initActiveTab() {
+            // Check the query parameter for a dashboard alias
+            var dashboardAlias = $location.search()[DASHBOARD_QUERY_PARAM];
+            var dashboardIndex = $scope.dashboard.tabs.findIndex(function (tab) {
+                return tab.alias === dashboardAlias;
+            });
+            // Set the first dashboard to active if there is no query parameter or we can't find a matching dashboard for the alias
+            var activeIndex = dashboardIndex !== -1 ? dashboardIndex : 0;
+            var tab = $scope.dashboard.tabs[activeIndex];
+            tab.active = true;
+            $location.search(DASHBOARD_QUERY_PARAM, tab.alias);
+        }
     }
-    //register it
+    // Register it
     angular.module('umbraco').controller('Umbraco.DashboardController', DashboardController);
     'use strict';
     (function () {
@@ -1563,7 +1581,7 @@
                     newDataType.name = nameArray.join(' - ');
                     // get pre values
                     dataTypeResource.getPreValues(newDataType.selectedEditor).then(function (preValues) {
-                        newDataType.preValues = preValues;
+                        newDataType.preValues = dataTypeHelper.createPreValueProps(preValues);
                         vm.dataType = newDataType;
                         vm.loadingDataType = false;
                     });
@@ -1572,6 +1590,7 @@
             function getDataType() {
                 vm.loadingDataType = true;
                 dataTypeResource.getById($scope.model.id).then(function (dataType) {
+                    dataType.preValues = dataTypeHelper.createPreValueProps(dataType.preValues);
                     vm.dataType = dataType;
                     vm.loadingDataType = false;
                 });
@@ -2906,6 +2925,7 @@
                 var originalTarget = $scope.target;
                 var id = $scope.target.udi ? $scope.target.udi : $scope.target.id;
                 var altText = $scope.target.altText;
+                var caption = $scope.target.caption;
                 // ID of a UDI or legacy int ID still could be null/undefinied here
                 // As user may dragged in an image that has not been saved to media section yet
                 if (id) {
@@ -2917,6 +2937,7 @@
                             $scope.target.url = mediaHelper.resolveFileFromEntity(node);
                             $scope.target.thumbnail = mediaHelper.resolveFileFromEntity(node, true);
                             $scope.target.altText = altText;
+                            $scope.target.caption = caption;
                             $scope.target.focalPoint = originalTarget.focalPoint;
                             $scope.target.coordinates = originalTarget.coordinates;
                             openDetailsDialog();
@@ -4065,31 +4086,47 @@
                 // find diff in name
                 vm.diff.name = JsDiff.diffWords(currentVersion.name, previousVersion.name);
                 // extract all properties from the tabs and create new object for the diff
-                currentVersion.tabs.forEach(function (tab, tabIndex) {
-                    tab.properties.forEach(function (property, propertyIndex) {
-                        var oldProperty = previousVersion.tabs[tabIndex].properties[propertyIndex];
-                        // copy existing properties, so it doesn't manipulate existing properties on page
-                        oldProperty = Utilities.copy(oldProperty);
-                        property = Utilities.copy(property);
-                        // we have to make properties storing values as object into strings (Grid, nested content, etc.)
-                        if (property.value instanceof Object) {
-                            property.value = JSON.stringify(property.value, null, 1);
-                            property.isObject = true;
+                currentVersion.tabs.forEach(function (tab) {
+                    tab.properties.forEach(function (property) {
+                        var oldTabIndex = -1;
+                        var oldTabPropertyIndex = -1;
+                        var previousVersionTabs = previousVersion.tabs;
+                        // find the property by alias, but only search until we find it
+                        for (var oti = 0, length = previousVersionTabs.length; oti < length; oti++) {
+                            var opi = previousVersionTabs[oti].properties.findIndex(function (p) {
+                                return p.alias === property.alias;
+                            });
+                            if (opi !== -1) {
+                                oldTabIndex = oti;
+                                oldTabPropertyIndex = opi;
+                                break;
+                            }
                         }
-                        if (oldProperty.value instanceof Object) {
-                            oldProperty.value = JSON.stringify(oldProperty.value, null, 1);
-                            oldProperty.isObject = true;
+                        if (oldTabIndex !== -1 && oldTabPropertyIndex !== -1) {
+                            var oldProperty = previousVersion.tabs[oldTabIndex].properties[oldTabPropertyIndex];
+                            // copy existing properties, so it doesn't manipulate existing properties on page
+                            oldProperty = Utilities.copy(oldProperty);
+                            property = Utilities.copy(property);
+                            // we have to make properties storing values as object into strings (Grid, nested content, etc.)
+                            if (property.value instanceof Object) {
+                                property.value = JSON.stringify(property.value, null, 1);
+                                property.isObject = true;
+                            }
+                            if (oldProperty.value instanceof Object) {
+                                oldProperty.value = JSON.stringify(oldProperty.value, null, 1);
+                                oldProperty.isObject = true;
+                            }
+                            // diff requires a string
+                            property.value = property.value ? property.value + '' : '';
+                            oldProperty.value = oldProperty.value ? oldProperty.value + '' : '';
+                            var diffProperty = {
+                                'alias': property.alias,
+                                'label': property.label,
+                                'diff': property.isObject ? JsDiff.diffJson(property.value, oldProperty.value) : JsDiff.diffWords(property.value, oldProperty.value),
+                                'isObject': property.isObject || oldProperty.isObject
+                            };
+                            vm.diff.properties.push(diffProperty);
                         }
-                        // diff requires a string
-                        property.value = property.value ? property.value + '' : '';
-                        oldProperty.value = oldProperty.value ? oldProperty.value + '' : '';
-                        var diffProperty = {
-                            'alias': property.alias,
-                            'label': property.label,
-                            'diff': property.isObject ? JsDiff.diffJson(property.value, oldProperty.value) : JsDiff.diffWords(property.value, oldProperty.value),
-                            'isObject': property.isObject || oldProperty.isObject ? true : false
-                        };
-                        vm.diff.properties.push(diffProperty);
                     });
                 });
             }
@@ -4713,6 +4750,8 @@
                                 return i.parentId === child.id;
                             });
                             listViewResults.forEach(function (item) {
+                                if (!child.children)
+                                    return;
                                 var childExists = child.children.find(function (c) {
                                     return c.id === item.id;
                                 });
@@ -6787,6 +6826,7 @@
                             currentForm.$dirty = false;
                         }
                     });
+                    $scope.dialog.confirmDiscardChanges = false;
                     vm.saveState = 'success';
                     vm.saveSuccces = true;
                 }, function (error) {
@@ -7339,10 +7379,20 @@
      * @param {any} type publish or unpublish
      */
             function datePickerShow(variant, type) {
+                var activeDatePickerInstance;
                 if (type === 'publish') {
                     variant.releaseDatePickerOpen = true;
+                    activeDatePickerInstance = variant.releaseDatePickerInstance;
                 } else if (type === 'unpublish') {
                     variant.expireDatePickerOpen = true;
+                    activeDatePickerInstance = variant.expireDatePickerInstance;
+                }
+                // Prevent enter key in time fields from submitting the overlay before the associated input gets the updated time
+                if (activeDatePickerInstance && !activeDatePickerInstance.hourElement.hasAttribute('overlay-submit-on-enter')) {
+                    activeDatePickerInstance.hourElement.setAttribute('overlay-submit-on-enter', 'false');
+                }
+                if (activeDatePickerInstance && !activeDatePickerInstance.minuteElement.hasAttribute('overlay-submit-on-enter')) {
+                    activeDatePickerInstance.minuteElement.setAttribute('overlay-submit-on-enter', 'false');
                 }
                 checkForBackdropClick();
                 $scope.model.disableSubmitButton = !canSchedule();
@@ -8057,8 +8107,8 @@
         };
         evts.push(eventsService.on('appState.tour.complete', function (name, completedTour) {
             $timeout(function () {
-                angular.forEach(vm.tours, function (tourGroup) {
-                    angular.forEach(tourGroup, function (tour) {
+                Utilities.forEach(vm.tours, function (tourGroup) {
+                    Utilities.forEach(tourGroup, function (tour) {
                         if (tour.alias === completedTour.alias) {
                             tour.completed = true;
                         }
@@ -8188,7 +8238,7 @@
     }
     angular.module('umbraco').controller('Umbraco.Dashboard.MediaFolderBrowserDashboardController', MediaFolderBrowserDashboardController);
     'use strict';
-    function ExamineManagementController($scope, $http, $q, $timeout, $location, umbRequestHelper, localizationService, overlayService, editorService) {
+    function ExamineManagementController($http, $q, $timeout, umbRequestHelper, localizationService, overlayService, editorService) {
         var vm = this;
         vm.indexerDetails = [];
         vm.searcherDetails = [];
@@ -8323,17 +8373,17 @@
                 vm.searchResults.totalPages = Math.ceil(vm.searchResults.totalRecords / 20);
                 // add URLs to edit well known entities
                 _.each(vm.searchResults.results, function (result) {
-                    var section = result.values['__IndexType'];
+                    var section = result.values['__IndexType'][0];
                     switch (section) {
                     case 'content':
                     case 'media':
-                        result.editUrl = '/' + section + '/' + section + '/edit/' + result.values['__NodeId'];
-                        result.editId = result.values['__NodeId'];
+                        result.editUrl = '/' + section + '/' + section + '/edit/' + result.values['__NodeId'][0];
+                        result.editId = result.values['__NodeId'][0];
                         result.editSection = section;
                         break;
                     case 'member':
-                        result.editUrl = '/member/member/edit/' + result.values['__Key'];
-                        result.editId = result.values['__Key'];
+                        result.editUrl = '/member/member/edit/' + result.values['__Key'][0];
+                        result.editId = result.values['__Key'][0];
                         result.editSection = section;
                         break;
                     }
@@ -8401,7 +8451,7 @@
     'use strict';
     (function () {
         'use strict';
-        function HealthCheckController($scope, healthCheckResource) {
+        function HealthCheckController(healthCheckResource) {
             var SUCCESS = 0;
             var WARNING = 1;
             var ERROR = 2;
@@ -8416,6 +8466,7 @@
             vm.checkAllInGroup = checkAllInGroup;
             vm.openGroup = openGroup;
             vm.setViewState = setViewState;
+            vm.parseRegex = parseRegex;
             // Get a (grouped) list of all health checks
             healthCheckResource.getAllChecks().then(function (response) {
                 vm.groups = response;
@@ -8506,6 +8557,9 @@
                         setGroupGlobalResultType(group);
                     }
                 }
+            }
+            function parseRegex(regexAsString) {
+                return new RegExp(regexAsString);
             }
         }
         angular.module('umbraco').controller('Umbraco.Dashboard.HealthCheckController', HealthCheckController);
@@ -8818,18 +8872,7 @@
         vm.preValues = [];
         //method used to configure the pre-values when we retrieve them from the server
         function createPreValueProps(preVals) {
-            vm.preValues = [];
-            for (var i = 0; i < preVals.length; i++) {
-                vm.preValues.push({
-                    hideLabel: preVals[i].hideLabel,
-                    alias: preVals[i].key,
-                    description: preVals[i].description,
-                    label: preVals[i].label,
-                    view: preVals[i].view,
-                    value: preVals[i].value,
-                    config: preVals[i].config
-                });
-            }
+            vm.preValues = dataTypeHelper.createPreValueProps(preVals);
         }
         function setHeaderNameState(content) {
             if (content.isSystem == 1) {
@@ -14903,7 +14946,7 @@
     'use strict';
     (function () {
         'use strict';
-        function PackagesRepoController($scope, $route, $location, $timeout, ourPackageRepositoryResource, $q, packageResource, localStorageService, localizationService) {
+        function PackagesRepoController($scope, $timeout, ourPackageRepositoryResource, $q, packageResource, localStorageService, localizationService) {
             var vm = this;
             vm.packageViewState = 'packageList';
             vm.categories = [];
@@ -14965,7 +15008,9 @@
                 });
                 $q.all([
                     ourPackageRepositoryResource.getCategories().then(function (cats) {
-                        vm.categories = cats;
+                        vm.categories = cats.filter(function (cat) {
+                            return cat.name !== 'Umbraco Pro';
+                        });
                     }),
                     ourPackageRepositoryResource.getPopular(8).then(function (pack) {
                         vm.popular = pack.packages;
@@ -16128,7 +16173,7 @@
         //setup the default config
         var config = { useLabel: false };
         //map the user config
-        angular.extend(config, $scope.model.config);
+        Utilities.extend(config, $scope.model.config);
         //map back to the model
         $scope.model.config = config;
         $scope.isConfigured = $scope.model.prevalues && _.keys($scope.model.prevalues).length > 0;
@@ -16252,7 +16297,7 @@
         };
         //combine the dialogOptions with any values returned from the server
         if ($scope.model.config) {
-            angular.extend(dialogOptions, $scope.model.config);
+            Utilities.extend(dialogOptions, $scope.model.config);
         }
         $scope.openTreePicker = function () {
             var treePicker = dialogOptions;
@@ -16427,10 +16472,10 @@
         };
         //combine the config with any values returned from the server
         if ($scope.model.config) {
-            angular.extend(config, $scope.model.config);
+            Utilities.extend(config, $scope.model.config);
         }
         if ($scope.model.value) {
-            if (Array.isArray($scope.model.value)) {
+            if (!Array.isArray($scope.model.value)) {
                 $scope.ids = $scope.model.value.split(',');
             } else {
                 $scope.ids.push($scope.model.value);
@@ -16453,7 +16498,7 @@
                 });
             });
         }
-        $scope.openContentPicker = function () {
+        $scope.openTreePicker = function () {
             var treePicker = config;
             treePicker.section = config.type;
             treePicker.submit = function (model) {
@@ -17241,8 +17286,8 @@
             falsevalue: '0',
             showLabels: false
         };
-        if ($scope.model.config && $scope.model.config.showLabels && Object.toBoolean($scope.model.config.showLabels)) {
-            config.showLabels = true;
+        if ($scope.model.config) {
+            $scope.model.config.showLabels = $scope.model.config.showLabels ? Object.toBoolean($scope.model.config.showLabels) : config.showLabels;
         }
         // Map the user config
         Utilities.extend(config, $scope.model.config);
@@ -17814,7 +17859,7 @@
                 delete $scope.model.config.startNode;
             }
             //merge the server config on top of the default config, then set the server config to use the result
-            $scope.model.config = angular.extend(defaultConfig, $scope.model.config);
+            $scope.model.config = Utilities.extend(defaultConfig, $scope.model.config);
             // if the property is mandatory, set the minCount config to 1 (unless of course it is set to something already),
             // that way the minCount/maxCount validation handles the mandatory as well
             if ($scope.model.validation && $scope.model.validation.mandatory && !$scope.model.config.minNumber) {
@@ -17859,7 +17904,7 @@
         };
         //since most of the pre-value config's are used in the dialog options (i.e. maxNumber, minNumber, etc...) we'll merge the
         // pre-value config on to the dialog options
-        angular.extend(dialogOptions, $scope.model.config);
+        Utilities.extend(dialogOptions, $scope.model.config);
         dialogOptions.dataTypeKey = $scope.model.dataTypeKey;
         // if we can't pick more than one item, explicitly disable multiPicker in the dialog options
         if ($scope.model.config.maxNumber && parseInt($scope.model.config.maxNumber) === 1) {
@@ -18219,7 +18264,8 @@
                 }
             };
             // map the user config
-            $scope.model.config = angular.extend(config, $scope.model.config);
+            $scope.model.config = Utilities.extend(config, $scope.model.config);
+            ;
             // ensure the format doesn't get overwritten with an empty string
             if ($scope.model.config.format === '' || $scope.model.config.format === undefined || $scope.model.config.format === null) {
                 $scope.model.config.format = $scope.model.config.pickTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD';
@@ -18377,7 +18423,7 @@
             multiple: false
         };
         //map the user config
-        angular.extend(config, $scope.model.config);
+        Utilities.extend(config, $scope.model.config);
         //map back to the model
         $scope.model.config = config;
         //ensure this is a bool, old data could store zeros/ones or string versions
@@ -19788,7 +19834,7 @@
                         // merge this template data on to our current value (as if it was new) so that we can preserve what is and isn't
                         // allowed for this template based on the current config.
                         _.each(found.sections, function (templateSection, index) {
-                            angular.extend($scope.model.value.sections[index], Utilities.copy(templateSection));
+                            Utilities.extend($scope.model.value.sections[index], Utilities.copy(templateSection));
                         });
                     }
                 }
@@ -20313,7 +20359,7 @@
         function setModelValueWithSrc(src) {
             if (!$scope.model.value || !$scope.model.value.src) {
                 //we are copying to not overwrite the original config
-                $scope.model.value = angular.extend(Utilities.copy($scope.model.config), { src: src });
+                $scope.model.value = Utilities.extend(Utilities.copy($scope.model.config), { src: src });
             }
         }
         /**
@@ -22181,7 +22227,7 @@
                 if (updatedMediaNodes.indexOf(media.udi) !== -1) {
                     media.loading = true;
                     entityResource.getById(media.udi, 'Media').then(function (mediaEntity) {
-                        angular.extend(media, mediaEntity);
+                        Utilities.extend(media, mediaEntity);
                         media.thumbnail = mediaHelper.resolveFileFromEntity(media, true);
                         media.loading = false;
                     });
@@ -22271,7 +22317,7 @@
                             // we need to update all the media items
                             vm.mediaItems.forEach(function (media) {
                                 if (media.id === model.mediaNode.id) {
-                                    angular.extend(media, mediaEntity);
+                                    Utilities.extend(media, mediaEntity);
                                     media.thumbnail = mediaHelper.resolveFileFromEntity(media, true);
                                 }
                             });
@@ -22452,6 +22498,9 @@
                 window.dispatchEvent(new Event('resize.umbImageGravity'));
             }
         };
+        $scope.isEmpty = function (crop) {
+            return !crop.label && !crop.alias && !crop.width && !crop.height;
+        };
         $scope.useForAlias = function (crop) {
             if (crop.alias == null || crop.alias === '') {
                 crop.alias = (crop.label || '').toCamelCase();
@@ -22546,6 +22595,10 @@
     //this controller simply tells the dialogs service to open a memberPicker window
     //with a specified callback, this callback will receive an object with a selection on it
     function memberGroupPicker($scope, editorService, memberGroupResource) {
+        var vm = this;
+        vm.openMemberGroupPicker = openMemberGroupPicker;
+        vm.remove = remove;
+        vm.clear = clear;
         function trim(str, chr) {
             var rgxtrim = !chr ? new RegExp('^\\s+|\\s+$', 'g') : new RegExp('^' + chr + '+|' + chr + '+$', 'g');
             return str.replace(rgxtrim, '');
@@ -22564,7 +22617,7 @@
                 $scope.modelValueForm.modelValue.$setDirty();
             }
         }
-        $scope.openMemberGroupPicker = function () {
+        function openMemberGroupPicker() {
             var memberGroupPicker = {
                 multiPicker: true,
                 submit: function submit(model) {
@@ -22589,31 +22642,15 @@
                 }
             };
             editorService.memberGroupPicker(memberGroupPicker);
-        };
-        // TODO: I don't believe this is used
-        $scope.remove = function (index) {
+        }
+        function remove(index) {
             $scope.renderModel.splice(index, 1);
             setDirty();
-        };
-        // TODO: I don't believe this is used
-        $scope.add = function (item) {
-            var currIds = _.map($scope.renderModel, function (i) {
-                return i.id;
-            });
-            if (currIds.indexOf(item) < 0) {
-                $scope.renderModel.push({
-                    name: item,
-                    id: item,
-                    icon: 'icon-users'
-                });
-                setDirty();
-            }
-        };
-        // TODO: I don't believe this is used
-        $scope.clear = function () {
+        }
+        function clear() {
             $scope.renderModel = [];
             setDirty();
-        };
+        }
         function renderModelIds() {
             return _.map($scope.renderModel, function (i) {
                 return i.id;
@@ -22630,6 +22667,9 @@
     angular.module('umbraco').controller('Umbraco.PropertyEditors.MemberGroupPickerController', memberGroupPicker);
     'use strict';
     function memberGroupController($scope, editorService, memberGroupResource) {
+        var vm = this;
+        vm.pickGroup = pickGroup;
+        vm.removeGroup = removeGroup;
         //set the selected to the keys of the dictionary who's value is true
         $scope.getSelected = function () {
             var selected = [];
@@ -22645,7 +22685,7 @@
                 $scope.modelValueForm.modelValue.$setDirty();
             }
         }
-        $scope.pickGroup = function () {
+        function pickGroup() {
             editorService.memberGroupPicker({
                 multiPicker: true,
                 submit: function submit(model) {
@@ -22664,11 +22704,11 @@
                     editorService.close();
                 }
             });
-        };
-        $scope.removeGroup = function (group) {
+        }
+        function removeGroup(group) {
             $scope.model.value[group] = false;
             setDirty();
-        };
+        }
     }
     angular.module('umbraco').controller('Umbraco.PropertyEditors.MemberGroupController', memberGroupController);
     'use strict';
@@ -22709,7 +22749,7 @@
         //since most of the pre-value config's are used in the dialog options (i.e. maxNumber, minNumber, etc...) we'll merge the
         // pre-value config on to the dialog options
         if ($scope.model.config) {
-            angular.extend(dialogOptions, $scope.model.config);
+            Utilities.extend(dialogOptions, $scope.model.config);
         }
         $scope.openMemberPicker = function () {
             var memberPicker = dialogOptions;
@@ -23515,6 +23555,8 @@
                                 }
                             });
                         }
+                        // Ensure Culture Data for Complex Validation.
+                        ensureCultureData(scaffold);
                         // Store the scaffold object
                         vm.scaffolds.push(scaffold);
                     }
@@ -23525,6 +23567,27 @@
                     initIfAllScaffoldsHaveLoaded();
                 });
             });
+            /**
+     * Ensure that the containing content variant language and current property culture is transferred along
+     * to the scaffolded content object representing this block.
+     * This is required for validation along with ensuring that the umb-property inheritance is constantly maintained.
+     * @param {any} content
+     */
+            function ensureCultureData(content) {
+                if (!content || !vm.umbVariantContent || !vm.umbProperty)
+                    return;
+                if (vm.umbVariantContent.editor.content.language) {
+                    // set the scaffolded content's language to the language of the current editor
+                    content.language = vm.umbVariantContent.editor.content.language;
+                }
+                // currently we only ever deal with invariant content for blocks so there's only one
+                content.variants[0].tabs.forEach(function (tab) {
+                    tab.properties.forEach(function (prop) {
+                        // set the scaffolded property to the culture of the containing property
+                        prop.culture = vm.umbProperty.property.culture;
+                    });
+                });
+            }
             var initIfAllScaffoldsHaveLoaded = function initIfAllScaffoldsHaveLoaded() {
                 // Initialize when all scaffolds have loaded
                 if (model.config.contentTypes.length === scaffoldsLoaded) {
@@ -24198,7 +24261,7 @@
                     currentFormInput: $scope.rteForm.modelValue
                 });
             };
-            angular.extend(baseLineConfigObj, standardConfig);
+            Utilities.extend(baseLineConfigObj, standardConfig);
             // We need to wait for DOM to have rendered before we can find the element by ID.
             $timeout(function () {
                 tinymce.init(baseLineConfigObj);
@@ -24501,6 +24564,9 @@
                 $scope.charsCount = $scope.model.value.length;
                 checkLengthVadility();
                 $scope.nearMaxLimit = $scope.validLength && $scope.charsCount > Math.max($scope.maxChars * 0.8, $scope.maxChars - 25);
+            } else {
+                $scope.charsCount = 0;
+                checkLengthVadility();
             }
         };
         $scope.model.onValueChanged = $scope.change;
@@ -27440,6 +27506,7 @@
                     $location.search('create', 'true');
                     $location.search('invite', null);
                 } else if (state === 'inviteUser') {
+                    clearAddUserForm();
                     $location.search('create', null);
                     $location.search('invite', 'true');
                 } else if (state === 'overview') {
