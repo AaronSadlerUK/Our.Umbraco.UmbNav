@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UmbNav.Core.Enums;
 using UmbNav.Core.Models;
 #if NETCOREAPP
+using Umbraco.Extensions;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using HtmlHelper = Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper;
 using TagBuilder = Microsoft.AspNetCore.Mvc.Rendering.TagBuilder;
 using Microsoft.AspNetCore.Html;
 #else
+using Umbraco.Web;
 using System.Web;
 using Umbraco.Core.Models.PublishedContent;
 using System.Web.Mvc;
@@ -120,33 +122,29 @@ namespace UmbNav.Core.Extensions
 
         public static string Url(this UmbNavItem item, string culture = null, UrlMode mode = UrlMode.Default)
         {
-            if (item.Udi != null)
+            if (item.Content != null)
             {
-                var contentItem = item.PublishedContentItem;
-                if (contentItem != null)
+                switch (item.Content.ContentType.ItemType)
                 {
-                    switch (contentItem.ContentType.ItemType)
-                    {
-                        case PublishedItemType.Content:
+                    case PublishedItemType.Content:
 
-                            string url;
-                            if (!string.IsNullOrEmpty(item.Anchor))
-                            {
-                                url = item.Url(culture, mode) + item.Anchor;
-                            }
-                            else
-                            {
-                                url = item.Url(culture, mode);
-                            }
+                        string url;
+                        if (!string.IsNullOrEmpty(item.Anchor))
+                        {
+                            url = item.Content.Url(culture, mode) + item.Anchor;
+                        }
+                        else
+                        {
+                            url = item.Content.Url(culture, mode);
+                        }
 
-                            return url;
+                        return url;
 
-                        case PublishedItemType.Media:
-                            return item.Url(culture, mode);
+                    case PublishedItemType.Media:
+                        return item.Content.Url(culture, mode);
 
-                        default:
-                            throw new NotSupportedException();
-                    }
+                    default:
+                        throw new NotSupportedException();
                 }
             }
 
