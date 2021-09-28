@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net50;net472</TargetFrameworks>
+		<ContentTargetFolders>content</ContentTargetFolders>
+
+		<Product>Our.Umbraco.UmbNav.Web</Product>
+		<PackageId>Our.Umbraco.UmbNav.Web</PackageId>
+		<Title>UmbNav Web</Title>
+		<Description>A flexible, draggable link picker for constructing site navigation menus, big or small, in Umbraco</Description>
+		<PackageTags>umbraco, umbraco-cms, UmbNav, UmbNav-V8</PackageTags>
+		<RepositoryUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</RepositoryUrl>
+		<RepositoryType>Git</RepositoryType>
+		<PackageIcon>UmbNav-Logo.png</PackageIcon>
+		<PackageIconUrl />
+		<PackageProjectUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</PackageProjectUrl>
+		<Authors>Aaron Sadler</Authors>
+		<Company>UmbHost Limited</Company>
+		<Copyright>2021 UmbHost Limited</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+		<PackageReference Include="UmbracoCms.Core" version="8.7.0" />
+		<PackageReference Include="UmbracoCms.Web" version="8.7.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net50'">
+		<PackageReference Include="Umbraco.Cms.Web.Website" version="9.0.0-rc002" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="9.0.0-rc002" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="App_Plugins\UmbNav\**\*.*">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+
+		<None Include="build\**\*.*">
+			<Pack>True</Pack>
+			<PackagePath>buildTransitive</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="build\Our.Umbraco.UmbNav.Web.targets" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="App_Plugins\UmbNav\css\editor.css" />
+	  <None Remove="App_Plugins\UmbNav\js\angular-ui-tree.js" />
+	  <None Remove="App_Plugins\UmbNav\js\umbnav.controller.js" />
+	  <None Remove="App_Plugins\UmbNav\js\umbnav.resource.js" />
+	  <None Remove="App_Plugins\UmbNav\js\umbnav.settings.controller.js" />
+	  <None Remove="App_Plugins\UmbNav\lang\en-us.xml" />
+	  <None Remove="App_Plugins\UmbNav\package.manifest" />
+	  <None Remove="App_Plugins\UmbNav\views\editor.html" />
+	  <None Remove="App_Plugins\UmbNav\views\settings.html" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\UmbNav-Logo.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\UmbNav.Api\UmbNav.Api.csproj" />
+	  <ProjectReference Include="..\UmbNav.Core\UmbNav.Core.csproj" />
+	</ItemGroup>
+
+	<!-- Workaround for this bug (replace the analyzer name with the one you need to exclude (filename only, no extension) -->
+	<Target Name="RemoveLuceneAnalyzer" BeforeTargets="CoreCompile">
+		<ItemGroup>
+			<Analyzer Remove="@(Analyzer)" Condition="%(FileName) == 'Lucene.Net.CodeAnalysis.CSharp'" />
+		</ItemGroup>
+	</Target>
+</Project>

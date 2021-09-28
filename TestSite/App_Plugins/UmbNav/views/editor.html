@@ -1,0 +1,92 @@
+<div ng-controller="AaronSadler.UmbNav.Controller as vm" class="" ng-class="{'umbnav-editor':!vm.wideMode, 'umbnav-editor--wide':vm.wideMode}">
+    <div class="umbnav-editor-buttons" ng-show="showExpandCollapseButtons() || vm.showTopAddButton">
+        <span ng-show="showExpandCollapseButtons()">
+            <button class="btn btn-primary" type="button" ng-click="toggleCollapse()">
+                <span ng-show="!vm.toggleVar">
+                    <localize key="umbnav_expandAll"></localize>
+                </span>
+                <span ng-show="vm.toggleVar">
+                    <localize key="umbnav_collapseAll"></localize>
+                </span>
+            </button>
+        </span>
+        <button class="btn btn-success" type="button" ng-show="vm.showTopAddButton" ng-click="add()">
+            <localize key="umbnav_addItem"></localize>
+        </button>
+    </div>
+
+    <ng-form name="umbnavEditorForm">
+
+        <!-- umbnav sortable tree -->
+        <div ui-tree="treeOptions" data-max-depth="{{model.config.maxDepth}}">
+
+            <ol ui-tree-nodes ng-model="vm.items" ng-class="{hidden: collapsed}">
+
+                <li ng-repeat="item in vm.items" ui-tree-node data-collapsed="{{item.collapsed}}" data-expand-on-hover="{{vm.expandOnHover}}" ng-include="'nav_item_template.html'"></li>
+
+            </ol>
+
+        </div>
+
+        <!-- add nav items -->
+        <a href="" class="umb-node-preview-add" data-nodrag ng-click="add()" prevent-default>
+            <localize key="umbnav_addItem"></localize>
+        </a>
+
+    </ng-form>
+
+    <!-- repeatable nav item template -->
+    <script type="text/ng-template" id="nav_item_template.html">
+
+        <div ui-tree-handle class="umbnav-item"
+             ng-class="{'umbnav-item--unpublished': item.published === false, 'umbnav-item--navihide': item.naviHide === true}">
+            <div class="umb-node-preview" ng-class="{'umb-node-preview--sortable': sortable, 'umb-node-preview--unpublished': published === false}">
+                <div class="flex">
+                    <!-- div keeps icon and nodename from wrapping -->
+                    <i ng-if="item.icon" class="umb-node-preview__icon {{ item.icon }}" aria-hidden="true"></i>
+                    <div class="umb-node-preview__content">
+
+                        <div class="umb-node-preview__name" ng-attr-title="{{item.title || item.name}}">{{ item.title || item.name }} <span ng-if="item.includeChildNodes && vm.allowChildNodes" class="umbnav-label umbnav-label-primary"><localize key="umbnav_includesChildNodes"></localize></span></div>
+                        <div class="umb-node-preview__description" ng-if="item.description">{{ item.description }}</div>
+                    </div>
+                </div>
+                <div class="umb-node-preview__actions">
+                    <a class="umb-node-preview__action" ng-if="item.children && item.children.length > 0" data-nodrag ng-click="toggle(item)">
+                        <span ng-if="collapsed">
+                            <localize key="umbnav_expand"></localize>
+                        </span>
+                        <span ng-if="!collapsed">
+                            <localize key="umbnav_collapse"></localize>
+                        </span>
+                    </a>
+
+                    <a class="umb-node-preview__action"
+                       ng-href="{{editUrl}}"
+                       data-nodrag
+                       ng-click="edit(item)">
+                        <localize key="umbnav_editItem"></localize>
+                        <span class="sr-only">{{item.title || item.name}}</span>
+                    </a>
+
+                    <a class="umb-node-preview__action umb-node-preview__action--red"
+                       ng-href="{{removeUrl}}"
+                       data-nodrag
+                       ng-click="remove(item)">
+                        <localize key="umbnav_removeItem"></localize>
+                        <span class="sr-only">{{item.title || item.name}}</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <ol ui-tree-nodes ng-model="item.children" ng-class="{hidden: collapsed}">
+
+            <li ng-repeat="item in item.children" ui-tree-node data-collapsed="{{item.collapsed}}" data-expand-on-hover="{{vm.expandOnHover}}" ng-include="'nav_item_template.html'"></li>
+
+        </ol>
+
+    </script>
+
+</div>
