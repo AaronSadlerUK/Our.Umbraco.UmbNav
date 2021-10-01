@@ -11,21 +11,21 @@
         }
 
         vm.page = {
-            title: '🦄 uSync',
+            title: 'uSync',
             description: '...',
             navigation: [
                 {
                     'name': 'uSync',
                     'alias': 'uSync',
                     'icon': 'icon-infinity',
-                    'view': Umbraco.Sys.ServerVariables.umbracoSettings.appPluginsPath + '/usync/settings/default.html',
+                    'view': Umbraco.Sys.ServerVariables.umbracoSettings.appPluginsPath + '/uSync/settings/default.html',
                     'active': true
                 },
                 {
                     'name': 'Settings',
                     'alias': 'settings',
                     'icon': 'icon-settings',
-                    'view': Umbraco.Sys.ServerVariables.umbracoSettings.appPluginsPath + '/usync/settings/settings.html'
+                    'view': Umbraco.Sys.ServerVariables.umbracoSettings.appPluginsPath + '/uSync/settings/settings.html'
                 } 
             ]
         };
@@ -46,16 +46,16 @@
                 vm.addOns = result.data.addOns;
 
                 var insertOffset = 1;
-                // if (vm.version.indexOf('Complete') == -1) {
-                //     insertOffset = 2;
-                //     vm.page.navigation.push(
-                //         {
-                //             'name': 'Add ons',
-                //             'alias': 'expansion',
-                //             'icon': 'icon-box',
-                //             'view': Umbraco.Sys.ServerVariables.umbracoSettings.appPluginsPath + '/usync/settings/expansion.html'
-                //         });
-                // }
+                if (vm.version.indexOf('Complete') == -1) {
+                     insertOffset = 2;
+                     vm.page.navigation.push(
+                         {
+                             'name': 'Add ons',
+                             'alias': 'expansion',
+                             'icon': 'icon-box',
+                             'view': Umbraco.Sys.ServerVariables.umbracoSettings.appPluginsPath + '/usync/settings/expansion.html'
+                         });
+                }
 
                 vm.addOns.forEach(function (value, key) {
                     if (value.view !== '') {

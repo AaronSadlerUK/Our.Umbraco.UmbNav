@@ -64,15 +64,15 @@
 
             var appSetting = {
                 "uSync": {
-                    "Settings": vm.settings,
+                    "Settings": toPascal(vm.settings),
                     "Sets": {
-                        "Default": vm.handlerSet
+                        "Default": toPascal(vm.handlerSet)
                     }
                 }
             };
 
             var options = {
-                view: Umbraco.Sys.ServerVariables.umbracoSettings.appPluginsPath + '/usync/settings/settings.overlay.html',
+                view: Umbraco.Sys.ServerVariables.umbracoSettings.appPluginsPath + '/uSync/settings/settings.overlay.html',
                 title: 'appsettings.json snipped',
                 content: JSON.stringify(appSetting, null, 4),
                 docslink: vm.docslink,
@@ -87,6 +87,33 @@
             overlayService.confirm(options);
 
         }
+
+
+        function toPascal(o) {
+            var newO, origKey, newKey, value
+            if (o instanceof Array) {
+                return o.map(function (value) {
+                    if (typeof value === "object") {
+                        value = toCamel(value)
+                    }
+                    return value
+                })
+            } else {
+                newO = {}
+                for (origKey in o) {
+                    if (o.hasOwnProperty(origKey)) {
+                        newKey = (origKey.charAt(0).toUpperCase() + origKey.slice(1) || origKey).toString()
+                        value = o[origKey]
+                        if (value instanceof Array || (value !== null && value.constructor === Object)) {
+                            value = toPascal(value)
+                        }
+                        newO[newKey] = value
+                    }
+                }
+            }
+            return newO
+        }
+
 
 
     }

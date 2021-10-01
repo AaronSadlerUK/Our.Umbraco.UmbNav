@@ -1,4 +1,4 @@
-﻿#if NETCOREAPP
+#if NETCOREAPP
 using System;
 using System.Collections.Generic;
 using System.Text.Encodings.Web;
@@ -18,13 +18,18 @@ namespace UmbNav.Core.TagHelpers
         public string Culture { get; set; }
         public string LabelTagName { get; set; } = "span";
         public string ActiveClass { get; set; }
+        private bool IsLabel { get { return MenuItem.ItemType == UmbNavItemType.Label; } }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = MenuItem.ItemType == UmbNavItemType.Label ? LabelTagName : "a";
-            output.Attributes.SetAttribute("href", MenuItem.Url(Culture, Mode));
+            output.TagName = IsLabel ? LabelTagName : "a";
             output.Content.SetContent(MenuItem.Title);
 
+            if (!IsLabel)
+            {
+                output.Attributes.SetAttribute("href", MenuItem.Url(Culture, Mode));
+            }
+            
             if (!string.IsNullOrEmpty(MenuItem.CustomClasses))
             {
                 output.AddClass(MenuItem.CustomClasses, HtmlEncoder.Default);
@@ -35,12 +40,12 @@ namespace UmbNav.Core.TagHelpers
                 output.AddClass(ActiveClass, HtmlEncoder.Default);
             }
 
-            if (!string.IsNullOrEmpty(MenuItem.Target) && MenuItem.ItemType != UmbNavItemType.Label)
+            if (!string.IsNullOrEmpty(MenuItem.Target) && !IsLabel)
             {
                 output.Attributes.SetAttribute("target", MenuItem.Target);
             }
 
-            if ((!string.IsNullOrEmpty(MenuItem.Noopener) || !string.IsNullOrEmpty(MenuItem.Noreferrer)) && MenuItem.ItemType != UmbNavItemType.Label)
+            if ((!string.IsNullOrEmpty(MenuItem.Noopener) || !string.IsNullOrEmpty(MenuItem.Noreferrer)) && !IsLabel)
             {
                 var rel = new List<string>();
 
