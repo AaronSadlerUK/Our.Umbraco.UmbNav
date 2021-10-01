@@ -10,7 +10,7 @@ The following properties are available in the `UmbNavItem` class:
 
 | Property          | Type              | Description |
 |-------------------|-------------------|-------------|
-| *Id*                | *Int*           | **OBSOLETE! USE KEY OR UDI INSTEAD, THIS IS HERE PURELY FOR LEGACY SUPPORT.** *The node ID of the selected content item. For external linking nav items this will be "0"* |
+| *Id*                | *Int*           | **OBSOLETE! USE KEY OR UDI INSTEAD, THIS IS HERE PURELY FOR LEGACY SUPPORT.** *The node ID of the selected content item. For null or external linking nav items this will be "0"* |
 | Udi               | GuidUdi           | The node UDI of the selected content item. For external linking nav items this will be null |
 | Key               | Guid           | The node Key of the selected content item. For external linking nav items this will be 00000000-0000-0000-0000-000000000000 |
 | Title             | String            | The link title, often the node name |
