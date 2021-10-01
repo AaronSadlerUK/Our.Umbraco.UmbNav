@@ -14,9 +14,9 @@ namespace UmbNav.Core.Models
 {
     public class UmbNavItem
     {
-        [JsonProperty("id")]
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         [Obsolete("This is here purely for legacy reasons, please use the Key or Udi property as this is unreliable")]
-        public int Id { get; set; }
+        public int Id { get; set; } = 0;
 
         [JsonProperty("udi")]
         public GuidUdi Udi { get; set; }
