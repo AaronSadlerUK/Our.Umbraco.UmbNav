@@ -282,7 +282,7 @@
         $scope.model.target.hideLoggedOut = model ? true : false;
     }
     function toggleChildren(model, value) {
-        $scope.model.target.includeChildren = model ? true : false;
+        $scope.model.target.includeChildNodes = model ? true : false;
     }
     function toggleDisplayAsLabel(model, value) {
         $scope.model.target.displayAsLabel = model ? true : false;
