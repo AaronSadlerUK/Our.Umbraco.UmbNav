@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace UmbNav.Core.Models
@@ -16,7 +15,7 @@ namespace UmbNav.Core.Models
         internal bool HideLoggedOut { get; set; }
 
         [JsonProperty("url")]
-        public string Url { internal get; set; }
+        public new string Url { internal get; set; }
 
         [JsonProperty("image")]
         internal ImageItem[] ImageArray { get; set; }
