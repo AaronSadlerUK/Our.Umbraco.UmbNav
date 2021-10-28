@@ -35,7 +35,7 @@ namespace UmbNav.Core.ValueConverters
 
         public override bool IsConverter(IPublishedPropertyType propertyType)
         {
-            return propertyType.EditorAlias.Equals(Constants.PropertyEditorAlias);
+            return propertyType.EditorAlias.Equals(UmbNavConstants.PropertyEditorAlias);
         }
 
         public override Type GetPropertyValueType(IPublishedPropertyType propertyType) => typeof(IEnumerable<UmbNavItem>);

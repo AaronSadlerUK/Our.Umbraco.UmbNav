@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Constants = UmbNav.Core.Constants;
+using UmbNavConstants = UmbNav.Core.UmbNavConstants;
 #if NETCOREAPP
 using Umbraco.Cms.Core;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +23,7 @@ using Umbraco.Web.PublishedCache;
 
 namespace UmbNav.Api.Controllers.API
 {
-    [PluginController(Constants.PackageName)]
+    [PluginController(UmbNavConstants.PackageName)]
     public class UmbNavEntityApiController : UmbracoAuthorizedJsonController
     {
         private readonly IContentService _contentService;

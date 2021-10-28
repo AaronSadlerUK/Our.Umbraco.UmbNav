@@ -9,7 +9,7 @@ using Umbraco.Core.PropertyEditors;
 
 namespace UmbNav.Core.PropertyEditors
 {
-    [DataEditor(Constants.PropertyEditorAlias, Constants.PackageName, Constants.PackageFilesPath + "views/editor.html",
+    [DataEditor(UmbNavConstants.PropertyEditorAlias, UmbNavConstants.PackageName, UmbNavConstants.PackageFilesPath + "views/editor.html",
         ValueType = "JSON", Group = "pickers", Icon = "icon-sitemap")]
     public class UmbNavV8PropertyEditor : DataEditor, IDataEditor
     {

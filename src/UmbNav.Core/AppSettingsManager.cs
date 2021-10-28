@@ -7,14 +7,14 @@ namespace UmbNav.Core
     {
         internal static bool GetDisableUmbracoCloudSync()
         {
-            return ConfigurationManager.AppSettings[Constants.PackageName + ".DisableUmbracoCloudSync"] != null
-                   && Convert.ToBoolean(ConfigurationManager.AppSettings[Constants.PackageName + ".DisableUmbracoCloudSync"]);
+            return ConfigurationManager.AppSettings[UmbNavConstants.PackageName + ".DisableUmbracoCloudSync"] != null
+                   && Convert.ToBoolean(ConfigurationManager.AppSettings[UmbNavConstants.PackageName + ".DisableUmbracoCloudSync"]);
         }
 
         internal static bool GetDisableUmbracoCloudDependencySync()
         {
-            return ConfigurationManager.AppSettings[Constants.PackageName + ".DisableUmbracoCloudDependencySync"] != null
-                   && Convert.ToBoolean(ConfigurationManager.AppSettings[Constants.PackageName + ".DisableUmbracoCloudDependencySync"]);
+            return ConfigurationManager.AppSettings[UmbNavConstants.PackageName + ".DisableUmbracoCloudDependencySync"] != null
+                   && Convert.ToBoolean(ConfigurationManager.AppSettings[UmbNavConstants.PackageName + ".DisableUmbracoCloudDependencySync"]);
         }
     }
 }
