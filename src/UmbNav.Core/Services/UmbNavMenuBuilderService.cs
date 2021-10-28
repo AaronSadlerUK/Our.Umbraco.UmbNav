@@ -35,11 +35,11 @@ namespace UmbNav.Core.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, int level = 0, bool removeNaviHideItems = false,
+        public IEnumerable<UmbNavInternalItem> BuildMenu(IEnumerable<UmbNavInternalItem> items, int level = 0, bool removeNaviHideItems = false,
             bool removeNoopener = false, bool removeNoreferrer = false, bool removeIncludeChildNodes = false)
         {
             var umbNavItems = items.ToList();
-            var removeItems = new List<UmbNavItem>();
+            var removeItems = new List<UmbNavInternalItem>();
             try
             {
                 var isLoggedIn = _httpContextAccessor.HttpContext.User != null && _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
@@ -79,10 +79,10 @@ namespace UmbNav.Core.Services
                         //}
                     }
 
-                    var children = new List<UmbNavItem>();
+                    var children = new List<UmbNavInternalItem>();
                     if (item.Children != null && item.Children.Any())
                     {
-                        children = item.Children.ToList();
+                        children = item.InternalChildren.ToList();
                     }
 
                     if (item.Udi != null || item.Key != Guid.Empty || item.Id > 0)
@@ -168,7 +168,7 @@ namespace UmbNav.Core.Services
                             {
                                 if (removeNaviHideItems)
                                 {
-                                    children.AddRange(umbracoContent.Children.Where(x => x.IsVisible() || x.HasProperty("umbracoNavihide") && x.Value<bool>("umbracoNavihide")).Select(child => new UmbNavItem
+                                    children.AddRange(umbracoContent.Children.Where(x => x.IsVisible() || x.HasProperty("umbracoNavihide") && x.Value<bool>("umbracoNavihide")).Select(child => new UmbNavInternalItem
                                     {
                                         Title = child.Name,
                                         Id = child.Id,
@@ -182,7 +182,7 @@ namespace UmbNav.Core.Services
                                 }
                                 else
                                 {
-                                    children.AddRange(umbracoContent.Children.Select(child => new UmbNavItem
+                                    children.AddRange(umbracoContent.Children.Select(child => new UmbNavInternalItem
                                     {
                                         Title = child.Name,
                                         Id = child.Id,
@@ -235,11 +235,43 @@ namespace UmbNav.Core.Services
 #else
                 _logger.Error(typeof(UmbNavMenuBuilderService), ex, "Failed to build UmbNav");
 #endif
-                return Enumerable.Empty<UmbNavItem>();
+                return Enumerable.Empty<UmbNavInternalItem>();
             }
         }
 
-        private IPublishedContent GetImageUrl(UmbNavItem item)
+        public IEnumerable<UmbNavItem> BuildRenderingMenu(IEnumerable<UmbNavInternalItem> internalItems)
+        {
+            var umbNav = new List<UmbNavItem>();
+            foreach (var internalItem in internalItems)
+            {
+                var children = BuildRenderingMenu(internalItem.InternalChildren);
+                umbNav.Add(new UmbNavItem
+                {
+                    Anchor = internalItem.Anchor,
+                    Children = children,
+                    Content = internalItem.Content,
+                    Culture = internalItem.Culture,
+                    CustomClasses = internalItem.CustomClasses,
+                    DisplayAsLabel = internalItem.DisplayAsLabel,
+                    Id = internalItem.Id,
+                    Image = internalItem.Image,
+                    IsActive = internalItem.IsActive,
+                    ItemType = internalItem.ItemType,
+                    Key = internalItem.Key,
+                    Level = internalItem.Level,
+                    Noopener = internalItem.Noopener,
+                    Noreferrer = internalItem.Noreferrer,
+                    Target = internalItem.Target,
+                    Title = internalItem.Target,
+                    Udi = internalItem.Udi,
+                    Url = internalItem.Url
+                });
+            }
+
+            return umbNav;
+        }
+
+        private IPublishedContent GetImageUrl(UmbNavInternalItem item)
         {
             var image = item.ImageArray[0];
 #if NETCOREAPP

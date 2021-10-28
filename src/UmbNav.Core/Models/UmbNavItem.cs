@@ -54,32 +54,14 @@ namespace UmbNav.Core.Models
         [JsonProperty("culture")]
         public string Culture { get; set; }
 
-        [JsonProperty("collapsed")]
-        internal bool Collapsed { get; set; }
-
-        [JsonProperty("hideLoggedIn")]
-        internal bool HideLoggedIn { get; set; }
-
-        [JsonProperty("hideLoggedOut")]
-        internal bool HideLoggedOut { get; set; }
-
         [JsonProperty("url")]
-        [Obsolete("Use the Url() extension when rendering")]
-        public string Url { internal get; set; }
-
-        [JsonProperty("includeChildNodes")]
-        internal bool IncludeChildNodes { get; set; }
+        internal string Url { get; set; }
 
         [JsonProperty("customClasses")]
         public string CustomClasses { get; set; }
 
-        [JsonProperty("image")]
-        internal ImageItem[] ImageArray { get; set; }
-
         [JsonIgnore]
         public IPublishedContent Image { get; set; }
-
-        [JsonProperty("itemType")] internal string MenuItemType { get; set; } = "link";
 
         [JsonIgnore]
         public bool IsActive { get; set; }
