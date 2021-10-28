@@ -1,6 +1,6 @@
 ﻿namespace UmbNav.Core
 {
-    public class Constants
+    public class UmbNavConstants
     {
         public const string PackageName = "UmbNav";
 
