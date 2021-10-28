@@ -64,7 +64,8 @@ namespace UmbNav.Core.Models
         internal bool HideLoggedOut { get; set; }
 
         [JsonProperty("url")]
-        internal string Url { get; set; }
+        [Obsolete("Use the Url() extension when rendering")]
+        public string Url { internal get; set; }
 
         [JsonProperty("includeChildNodes")]
         internal bool IncludeChildNodes { get; set; }
