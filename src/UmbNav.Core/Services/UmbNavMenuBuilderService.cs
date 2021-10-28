@@ -262,7 +262,7 @@ namespace UmbNav.Core.Services
                     Noopener = internalItem.Noopener,
                     Noreferrer = internalItem.Noreferrer,
                     Target = internalItem.Target,
-                    Title = internalItem.Target,
+                    Title = internalItem.Title,
                     Udi = internalItem.Udi,
                     Url = internalItem.Url
                 });
