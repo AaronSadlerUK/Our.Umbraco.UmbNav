@@ -153,8 +153,8 @@
         vm.hideLoggedOut = $scope.model.target.hideLoggedOut;
         vm.includeChildren = $scope.model.target.includeChildNodes;
         vm.displayAsLabel = $scope.model.target.displayAsLabel;
-        vm.showNoopener = $scope.model.target.noopener === 'noopener' && $scope.model.target.id === null || $scope.model.target.udi === null;
-        vm.showNoreferrer = $scope.model.target.noreferrer === 'noreferrer' && $scope.model.target.id === null || $scope.model.target.udi === null;
+        vm.showNoopener = $scope.model.target.noopener === 'noopener' && ($scope.model.target.id === undefined || $scope.model.target.udi === undefined);
+        vm.showNoreferrer = $scope.model.target.noreferrer === 'noreferrer' && ($scope.model.target.id === undefined || $scope.model.target.udi === undefined);
     } else if (dialogOptions.anchors) {
         $scope.anchorValues = dialogOptions.anchors;
     }
