@@ -73,8 +73,16 @@ namespace UmbNav.Api.Controllers.API
 
                     if (publishedEntity != null)
                     {
-                        entityName = publishedEntity.Name(culture);
-                        entityUrl = publishedEntity.Url(culture);
+                        if (culture == "undefined")
+                        {
+                            entityName = publishedEntity.Name;
+                            entityUrl = publishedEntity.Url();
+                        }
+                        else
+                        {
+                            entityName = publishedEntity.Name(culture);
+                            entityUrl = publishedEntity.Url(culture);
+                        }
                     }
 #endif
                 }
