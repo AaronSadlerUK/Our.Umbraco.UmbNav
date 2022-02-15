@@ -131,7 +131,7 @@
                     </div>
                 </umb-box-content>
             </umb-box>
-            <umb-box>
+            <umb-box ng-if="showDisplay || showDisplayAsLabel || showIncludeChildren || showNoopener || showNoreferrer || showCustomClasses || showImageIcon">
                 <umb-box-header ng-if="!vm.loading" title="{{vm.labels.configuration}}" ng-click="vm.showAdvanced = !vm.showAdvanced" style="cursor: pointer;">
                     <i class="icon icon-navigation-up" ng-if="vm.showAdvanced" title="expand"></i>
                     <i class="icon icon-navigation-down" ng-if="!vm.showAdvanced" title="collapse"></i>
