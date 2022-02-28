@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UmbNav.Core.Enums;
@@ -195,6 +195,10 @@ namespace UmbNav.Core.Services
                                     }));
                                 }
                             }
+                        }
+                        else
+                        {
+                            removeItems.Add(item);
                         }
                     }
 
