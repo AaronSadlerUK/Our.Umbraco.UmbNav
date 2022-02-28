@@ -32,6 +32,11 @@
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="9.0.0" />
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
+		<PackageReference Include="Umbraco.Cms.Web.Website" version="9.0.0" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="9.0.0" />
+	</ItemGroup>
+
 	<ItemGroup>
 	  <None Include="..\UmbNav-Logo.png">
 	    <Pack>True</Pack>
