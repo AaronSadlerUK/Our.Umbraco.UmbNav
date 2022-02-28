@@ -82,6 +82,7 @@
     $scope.showCustomClasses = $scope.model.allowCustomClasses === true;
     $scope.showImageIcon = $scope.model.allowImageIcon === true;
     $scope.allowLabels = $scope.model.allowLabels === true;
+    $scope.showAdvancedBlock = showAdvanced();
     if (!$scope.allowLabels) {
         $scope.model.target.itemType = 'link';
     }
@@ -313,6 +314,24 @@
     $scope.remove = function (index) {
         $scope.model.target.image.splice(index, 1);
     };
+
+    function showAdvanced() {
+        var show = false;
+
+        if (($scope.showDisplay ||
+            $scope.showDisplayAsLabel ||
+            $scope.showDisplayAsLabel ||
+            $scope.showIncludeChildren ||
+            $scope.showNoopener ||
+            $scope.showNoreferrer ||
+            $scope.showCustomClasses ||
+            $scope.showImageIcon) && show === false)
+        {
+            show = true;
+        }
+
+        return show;
+    }
 
     function openMediaPicker(item, callback) {
         var mediaPickerOptions = {
