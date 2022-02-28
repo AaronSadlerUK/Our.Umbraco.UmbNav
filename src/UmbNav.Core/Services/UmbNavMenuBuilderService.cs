@@ -43,10 +43,7 @@ namespace UmbNav.Core.Services
             try
             {
                 var isLoggedIn = _httpContextAccessor.HttpContext.User != null && _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
-
-                foreach (var item in umbNavItems)
-                {
-                    var currentPublishedContentKey = Guid.Empty;
+                var currentPublishedContentKey = Guid.Empty;
 #if NETCOREAPP
                     if (_umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext))
                     {
@@ -54,9 +51,12 @@ namespace UmbNav.Core.Services
                         currentPublishedContentKey = currentPublishedContent.Key;
                     }
 #else
-                    var currentPublishedContent = _umbracoContextAccessor.UmbracoContext.PublishedRequest.PublishedContent;
-                    currentPublishedContentKey = currentPublishedContent.Key;
+                var currentPublishedContent = _umbracoContextAccessor.UmbracoContext.PublishedRequest.PublishedContent;
+                currentPublishedContentKey = currentPublishedContent.Key;
 #endif
+
+                foreach (var item in umbNavItems)
+                {
                     if (item.HideLoggedIn && isLoggedIn || item.HideLoggedOut && !isLoggedIn)
                     {
                         continue;
@@ -142,7 +142,7 @@ namespace UmbNav.Core.Services
                                 item.IsActive = true;
                             }
 
-                            if (removeNaviHideItems && !umbracoContent.IsVisible() || removeNaviHideItems && umbracoContent.HasProperty("umbracoNavihide") && umbracoContent.Value<bool>("umbracoNavihide"))
+                            if (!umbracoContent.IsPublished() || removeNaviHideItems && !umbracoContent.IsVisible() || removeNaviHideItems && umbracoContent.HasProperty("umbracoNavihide") && umbracoContent.Value<bool>("umbracoNavihide"))
                             {
                                 removeItems.Add(item);
                                 continue;
@@ -195,6 +195,10 @@ namespace UmbNav.Core.Services
                                     }));
                                 }
                             }
+                        }
+                        else
+                        {
+                            removeItems.Add(item);
                         }
                     }
 
