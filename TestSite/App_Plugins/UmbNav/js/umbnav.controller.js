@@ -108,7 +108,7 @@
 
         var settingsEditor = {
             title: "Settings",
-            view: "/App_Plugins/UmbNav/Views/settings.html",
+            view: "/App_Plugins/UmbNav/views/settings.html",
             size: "small",
             hideNoreferrer: dialogOptions.config.hideNoreferrer,
             hideNoopener: dialogOptions.config.hideNoopener,
