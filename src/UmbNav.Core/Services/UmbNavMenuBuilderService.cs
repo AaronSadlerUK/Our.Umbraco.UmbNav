@@ -43,10 +43,7 @@ namespace UmbNav.Core.Services
             try
             {
                 var isLoggedIn = _httpContextAccessor.HttpContext.User != null && _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
-
-                foreach (var item in umbNavItems)
-                {
-                    var currentPublishedContentKey = Guid.Empty;
+                var currentPublishedContentKey = Guid.Empty;
 #if NETCOREAPP
                     if (_umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext))
                     {
@@ -54,9 +51,12 @@ namespace UmbNav.Core.Services
                         currentPublishedContentKey = currentPublishedContent.Key;
                     }
 #else
-                    var currentPublishedContent = _umbracoContextAccessor.UmbracoContext.PublishedRequest.PublishedContent;
-                    currentPublishedContentKey = currentPublishedContent.Key;
+                var currentPublishedContent = _umbracoContextAccessor.UmbracoContext.PublishedRequest.PublishedContent;
+                currentPublishedContentKey = currentPublishedContent.Key;
 #endif
+
+                foreach (var item in umbNavItems)
+                {
                     if (item.HideLoggedIn && isLoggedIn || item.HideLoggedOut && !isLoggedIn)
                     {
                         continue;
