@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net50;net472</TargetFrameworks>
+		<TargetFrameworks>net50;net472;net60</TargetFrameworks>
 		<ContentTargetFolders>content</ContentTargetFolders>
 
 		<Product>Our.Umbraco.UmbNav.Core</Product>
