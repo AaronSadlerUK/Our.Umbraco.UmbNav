@@ -128,7 +128,7 @@
                     model.target.target = null;
                     model.target.noopener = false;
                     model.target.noreferrer = false;
-                    model.target.includeChildNodes = false;
+                    model.target.includeChildren = false;
                     model.target.udi = null;
                     model.target.id = null;
                 } else {
@@ -201,7 +201,7 @@
             published: data.published,
             naviHide: data.naviHide,
             culture: data.culture,
-            includeChildNodes: data.includeChildNodes,
+            includeChildNodes: data.includeChildren,
             itemType: data.itemType,
             displayAsLabel: data.displayAsLabel
         }
