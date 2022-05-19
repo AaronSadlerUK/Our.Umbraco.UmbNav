@@ -59,9 +59,11 @@ namespace UmbNav.Core.ValueConverters
 
             try
             {
-                var items = JsonConvert.DeserializeObject<IEnumerable<UmbNavItem>>(inter.ToString());
+                var items = JsonConvert.DeserializeObject<IEnumerable<UmbNavInternalItem>>(inter.ToString());
 
-                return _umbNavMenuBuilderService.BuildMenu(items, 0, _removeNaviHideItems, _removeNoopener, _removeNoreferrer, _removeIncludeChildNodes);
+                var internalMenu = _umbNavMenuBuilderService.BuildMenu(items, 0, _removeNaviHideItems, _removeNoopener, _removeNoreferrer, _removeIncludeChildNodes);
+
+                return _umbNavMenuBuilderService.BuildRenderingMenu(internalMenu);
             }
             catch (Exception ex)
             {

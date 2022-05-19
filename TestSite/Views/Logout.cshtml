@@ -1,0 +1,22 @@
+﻿@using ContentModels = Umbraco.Web.PublishedModels;
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Logout>
+@using Umbraco.Web;
+@{
+    Layout = "master.cshtml";
+    Members.Logout();
+}
+
+<section class="section">
+
+    <div class="container">
+        @if (Members.IsLoggedIn())
+        {
+            <p>Logged in</p>
+        }
+        else
+        {
+            <p>Logged Out</p>
+        }
+    </div>
+
+</section>
