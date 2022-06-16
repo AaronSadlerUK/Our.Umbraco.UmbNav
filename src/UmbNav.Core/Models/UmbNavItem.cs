@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UmbNav.Core.Enums;
-#if NETCOREAPP
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models.PublishedContent;
-#else
-using Umbraco.Core;
-using Umbraco.Core.Models.PublishedContent;
-#endif
 
 namespace UmbNav.Core.Models
 {

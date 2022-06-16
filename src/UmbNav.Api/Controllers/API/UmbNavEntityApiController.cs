@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UmbNavConstants = UmbNav.Core.UmbNavConstants;
-#if NETCOREAPP
 using Umbraco.Cms.Core;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core.PublishedCache;
@@ -9,17 +8,6 @@ using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
 using Umbraco.Extensions;
-#else
-
-using System.Net;
-using System.Net.Http;
-using Umbraco.Core;
-using Umbraco.Core.Services;
-using Umbraco.Web;
-using Umbraco.Web.Editors;
-using Umbraco.Web.Mvc;
-using Umbraco.Web.PublishedCache;
-#endif
 
 namespace UmbNav.Api.Controllers.API
 {
@@ -35,18 +23,10 @@ namespace UmbNav.Api.Controllers.API
             _publishedSnapshotAccessor = publishedSnapshotAccessor;
         }
 
-#if NETCOREAPP
         public IActionResult GetById(string id, string culture = null)
-#else
-        public HttpResponseMessage GetById(string id, string culture = null)
-#endif
         {
             var udiList = new List<Udi>();
-#if NETCOREAPP
             var udi = UdiParser.Parse(id);
-#else
-        var udi = Udi.Parse(id);
-#endif
             udiList.Add(udi);
             var entity = _contentService.GetByIds(udiList).FirstOrDefault();
 
@@ -57,7 +37,6 @@ namespace UmbNav.Api.Controllers.API
 
                 if (entity.Published)
                 {
-#if NETCOREAPP
                     if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
                     {
                         var publishedEntity = publishedSnapshot.Content.GetById(entity.Key);
@@ -68,23 +47,6 @@ namespace UmbNav.Api.Controllers.API
                             entityUrl = publishedEntity.Url(culture);
                         }
                     }
-#else
-                    var publishedEntity = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(entity.Key);
-
-                    if (publishedEntity != null)
-                    {
-                        if (culture == "undefined")
-                        {
-                            entityName = publishedEntity.Name;
-                            entityUrl = publishedEntity.Url();
-                        }
-                        else
-                        {
-                            entityName = publishedEntity.Name(culture);
-                            entityUrl = publishedEntity.Url(culture);
-                        }
-                    }
-#endif
                 }
 
                 var menuItem = new
@@ -101,11 +63,7 @@ namespace UmbNav.Api.Controllers.API
                     culture = culture
                 };
 
-#if NETCOREAPP
                 return Ok(menuItem);
-#else
-                return Request.CreateResponse(HttpStatusCode.OK, menuItem);
-#endif
             }
 
             return null;
