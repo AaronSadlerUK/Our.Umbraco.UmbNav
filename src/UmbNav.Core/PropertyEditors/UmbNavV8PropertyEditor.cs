@@ -1,4 +1,4 @@
-using Umbraco.Cms.Core.PropertyEditors;
+﻿using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Services;
@@ -10,10 +10,12 @@ namespace UmbNav.Core.PropertyEditors
     public class UmbNavV8PropertyEditor : DataEditor, IDataEditor
     {
         private readonly IIOHelper _ioHelper;
-        public UmbNavV8PropertyEditor(IDataValueEditorFactory dataValueEditorFactory, IIOHelper ioHelper)
+        private readonly IEditorConfigurationParser _editorConfigurationParser;
+        public UmbNavV8PropertyEditor(IDataValueEditorFactory dataValueEditorFactory, IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser)
             : base(dataValueEditorFactory)
         {
             _ioHelper = ioHelper;
+            _editorConfigurationParser = editorConfigurationParser;
         }
 
         public override IDataValueEditor GetValueEditor(object configuration)
@@ -31,12 +33,10 @@ namespace UmbNav.Core.PropertyEditors
         }
 
         protected override IConfigurationEditor CreateConfigurationEditor() => new UmbNavV8ConfigurationEditor(_ioHelper,_editorConfigurationParser);
-        protected override IConfigurationEditor CreateConfigurationEditor() => new UmbNavV8ConfigurationEditor(_ioHelper);
 
         public class UmbNavV8ConfigurationEditor : ConfigurationEditor<UmbNavV8Configuration>
         {
             public UmbNavV8ConfigurationEditor(IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(ioHelper, editorConfigurationParser)
-            public UmbNavV8ConfigurationEditor(IIOHelper ioHelper) : base(ioHelper)
             {
             }
         }
