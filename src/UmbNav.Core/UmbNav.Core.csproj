@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net50;net472;net60</TargetFrameworks>
+		<TargetFrameworks>net60</TargetFrameworks>
 		<ContentTargetFolders>content</ContentTargetFolders>
 
 		<Product>Our.Umbraco.UmbNav.Core</Product>
@@ -22,19 +22,9 @@
 
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
-		<PackageReference Include="UmbracoCms.Core" version="8.7.0" />
-		<PackageReference Include="UmbracoCms.Web" version="8.7.0" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net50'">
-		<PackageReference Include="Umbraco.Cms.Web.Website" version="9.0.0" />
-		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="9.0.0" />
-	</ItemGroup>
-
 	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
-		<PackageReference Include="Umbraco.Cms.Web.Website" version="9.0.0" />
-		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="9.0.0" />
+		<PackageReference Include="Umbraco.Cms.Web.Website" version="10.0.0" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="10.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -45,7 +35,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
 	</ItemGroup>
 
 	<!-- Workaround for this bug (replace the analyzer name with the one you need to exclude (filename only, no extension) -->
