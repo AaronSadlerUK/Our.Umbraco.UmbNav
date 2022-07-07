@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Umbraco.Cms.Core;
+﻿using Umbraco.Cms.Core;
 using Microsoft.AspNetCore.Mvc;
+using UmbNav.Api.Extensions;
 using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Controllers;
@@ -28,45 +27,50 @@ namespace UmbNav.Api.Controllers.API
             {
                 culture = null;
             }
-            var udiList = new List<Udi>();
-            var udi = UdiParser.Parse(id);
-            udiList.Add(udi);
-            var entity = _contentService.GetByIds(udiList).FirstOrDefault();
+            var isUdi = UdiParser.TryParse(id, out var udi);
 
-            if (entity != null)
+            if (isUdi)
             {
-                string entityName = entity.Name;
-                string entityUrl = "#";
+                var entity = _contentService.GetById(udi);
 
-                if (entity.Published)
+                if (entity != null)
                 {
-                    if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
-                    {
-                        var publishedEntity = publishedSnapshot.Content.GetById(entity.Key);
+                    string entityName = entity.Name;
+                    string entityUrl = "#";
 
-                        if (publishedEntity != null)
+                    if (entity.Published)
+                    {
+                        if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
                         {
-                            entityName = publishedEntity.Name(culture);
-                            entityUrl = publishedEntity.Url(culture);
+                            if (publishedSnapshot is { Content: { } })
+                            {
+                                var publishedEntity = publishedSnapshot.Content.GetById(entity.Key);
+
+                                if (publishedEntity != null)
+                                {
+                                    entityName = publishedEntity.Name(culture);
+                                    entityUrl = publishedEntity.Url(culture);
+                                }
+                            }
                         }
                     }
+
+                    var menuItem = new
+                    {
+                        id = entity.Id,
+                        udi = entity.GetUdi(),
+                        key = entity.Key,
+                        name = entityName,
+                        icon = entity.ContentType.Icon,
+                        url = entityUrl,
+                        published = entity.Published,
+                        naviHide = entity.HasProperty("umbracoNaviHide") && entity.GetValue<bool>("umbracoNaviHide") ||
+                                   entity.HasProperty("umbracoNavihide") && entity.GetValue<bool>("umbracoNavihide"),
+                        culture
+                    };
+
+                    return Ok(menuItem);
                 }
-
-                var menuItem = new
-                {
-                    id = entity.Id,
-                    udi = entity.GetUdi(),
-                    key = entity.Key,
-                    name = entityName,
-                    icon = entity.ContentType.Icon,
-                    url = entityUrl,
-                    published = entity.Published,
-                    naviHide = entity.HasProperty("umbracoNaviHide") && entity.GetValue<bool>("umbracoNaviHide") ||
-                               entity.HasProperty("umbracoNavihide") && entity.GetValue<bool>("umbracoNavihide"),
-                    culture = culture
-                };
-
-                return Ok(menuItem);
             }
 
             return null;
