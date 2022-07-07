@@ -2,40 +2,25 @@
 using System.Collections.Generic;
 using UmbNav.Core.Enums;
 using UmbNav.Core.Models;
-#if NETCOREAPP
 using Umbraco.Extensions;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using HtmlHelper = Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper;
 using TagBuilder = Microsoft.AspNetCore.Mvc.Rendering.TagBuilder;
 using Microsoft.AspNetCore.Html;
-#else
-using Umbraco.Web;
-using System.Web;
-using Umbraco.Core.Models.PublishedContent;
-using System.Web.Mvc;
-#endif
 
 namespace UmbNav.Core.Extensions
 {
     public static class UmbNavItemExtensions
     {
-#if NETCOREAPP
         [Obsolete("I see your using Umbraco V9, Why not use the TagHelper <umbnavitem> instead.")]
         public static IHtmlContent GetLinkHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null, string activeClass = null)
-#else
-        public static HtmlString GetLinkHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null, string activeClass = null)
-#endif
         {
             var htmlAttributesConverted = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
             var tagBuilder = item.ItemType == UmbNavItemType.Label
                 ? new TagBuilder(labelTagName)
                 : new TagBuilder("a");
 
-#if NETCOREAPP
             tagBuilder.InnerHtml.Append(item.Title);
-#else
-            tagBuilder.InnerHtml = item.Title;
-#endif
 
             if (!string.IsNullOrEmpty(cssClass))
             {
@@ -61,11 +46,7 @@ namespace UmbNav.Core.Extensions
 
             if (item.ItemType == UmbNavItemType.Label)
             {
-#if NETCOREAPP
                 return tagBuilder;
-#else
-                return MvcHtmlString.Create(tagBuilder.ToString());
-#endif
             }
 
             tagBuilder.Attributes.Add("href", item.Url(culture, mode));
@@ -101,21 +82,11 @@ namespace UmbNav.Core.Extensions
                 }
             }
 
-#if NETCOREAPP
             return tagBuilder;
-#else
-            return MvcHtmlString.Create(tagBuilder.ToString());
-#endif
         }
 
-#if NETCOREAPP
         [Obsolete("I see your using Umbraco V9, Why not use the TagHelper <umbnavitem> instead.")]
         public static IHtmlContent GetItemHtml(this UmbNavItem item, string cssClass = null, string id = null, string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span", object htmlAttributes = null, string activeClass = null)
-#else
-        public static HtmlString GetItemHtml(this UmbNavItem item, string cssClass = null, string id = null,
-            string culture = null, UrlMode mode = UrlMode.Default, string labelTagName = "span",
-            object htmlAttributes = null, string activeClass = null)
-#endif
         {
             return GetLinkHtml(item, cssClass, id, culture, mode, labelTagName, htmlAttributes, activeClass);
         }

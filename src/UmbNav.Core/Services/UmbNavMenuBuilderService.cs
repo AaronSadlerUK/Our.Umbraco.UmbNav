@@ -4,7 +4,6 @@ using System.Linq;
 using UmbNav.Core.Enums;
 using UmbNav.Core.Interfaces;
 using UmbNav.Core.Models;
-#if NETCOREAPP
 using Microsoft.AspNetCore.Http;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Web;
@@ -12,13 +11,6 @@ using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Extensions;
 using Serilog;
-#else
-using Umbraco.Core;
-using Umbraco.Core.Logging;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web;
-using Umbraco.Web.PublishedCache;
-#endif
 namespace UmbNav.Core.Services
 {
     public class UmbNavMenuBuilderService : IUmbNavMenuBuilderService
@@ -44,18 +36,13 @@ namespace UmbNav.Core.Services
             {
                 var isLoggedIn = _httpContextAccessor.HttpContext.User != null && _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
                 var currentPublishedContentKey = Guid.Empty;
-#if NETCOREAPP
-                    if (_umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext))
+                if (_umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext))
                     {
                         var currentPublishedContent = umbracoContext.PublishedRequest.PublishedContent;
                         currentPublishedContentKey = currentPublishedContent.Key;
                     }
-#else
-                var currentPublishedContent = _umbracoContextAccessor.UmbracoContext.PublishedRequest.PublishedContent;
-                currentPublishedContentKey = currentPublishedContent.Key;
-#endif
 
-                foreach (var item in umbNavItems)
+                    foreach (var item in umbNavItems)
                 {
                     if (item.HideLoggedIn && isLoggedIn || item.HideLoggedOut && !isLoggedIn)
                     {
@@ -85,13 +72,12 @@ namespace UmbNav.Core.Services
                         children = item.Children.ToList();
                     }
 
-                    if (item.Udi != null || item.Key != Guid.Empty || item.Id > 0)
+                    if (item.Udi != null || item.Key != Guid.Empty)
                     {
                         IPublishedContent umbracoContent = null;
                         string currentCulture = null;
                         if (item.MenuItemType != "nolink")
                         {
-#if NETCOREAPP
                             if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
                             {
                                 if (item.Udi != null)
@@ -104,29 +90,7 @@ namespace UmbNav.Core.Services
                                     currentCulture = publishedSnapshot.Content.GetById(item.Key)?.GetCultureFromDomains();
                                     umbracoContent = publishedSnapshot.Content.GetById(item.Key);
                                 }
-                                else
-                                {
-                                    currentCulture = publishedSnapshot.Content.GetById(item.Id)?.GetCultureFromDomains();
-                                    umbracoContent = publishedSnapshot.Content.GetById(item.Id);
-                                }
                             }
-#else
-                            if (item.Udi != null)
-                            {
-                                currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Udi)?.GetCultureFromDomains();
-                                umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Udi);
-                            }
-                            else if (item.Key != Guid.Empty)
-                            {
-                                currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Key)?.GetCultureFromDomains();
-                                umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Key);
-                            }
-                            else
-                            {
-                                currentCulture = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Id)?.GetCultureFromDomains();
-                                umbracoContent = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(item.Id);
-                            }
-#endif
                         }
 
                         if (umbracoContent != null)
@@ -171,7 +135,6 @@ namespace UmbNav.Core.Services
                                     children.AddRange(umbracoContent.Children.Where(x => x.IsVisible() || x.HasProperty("umbracoNavihide") && x.Value<bool>("umbracoNavihide")).Select(child => new UmbNavItem
                                     {
                                         Title = child.Name,
-                                        Id = child.Id,
                                         Key = child.Key,
                                         Udi = new GuidUdi("document", child.Key),
                                         ItemType = UmbNavItemType.Content,
@@ -185,7 +148,6 @@ namespace UmbNav.Core.Services
                                     children.AddRange(umbracoContent.Children.Select(child => new UmbNavItem
                                     {
                                         Title = child.Name,
-                                        Id = child.Id,
                                         Key = child.Key,
                                         Udi = new GuidUdi("document", child.Key),
                                         ItemType = UmbNavItemType.Content,
@@ -234,11 +196,7 @@ namespace UmbNav.Core.Services
             }
             catch (Exception ex)
             {
-#if NETCOREAPP
                 _logger.Error(ex, "Failed to build UmbNav");
-#else
-                _logger.Error(typeof(UmbNavMenuBuilderService), ex, "Failed to build UmbNav");
-#endif
                 return Enumerable.Empty<UmbNavItem>();
             }
         }
@@ -246,7 +204,6 @@ namespace UmbNav.Core.Services
         private IPublishedContent GetImageUrl(UmbNavItem item)
         {
             var image = item.ImageArray[0];
-#if NETCOREAPP
             if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
             {
                 if (UdiParser.TryParse(image.Udi, out var imageUdi))
@@ -257,25 +214,7 @@ namespace UmbNav.Core.Services
                 {
                     return publishedSnapshot.Media.GetById(item.Key);
                 }
-                else if (item.Id != default)
-                {
-                    return publishedSnapshot.Media.GetById(item.Id);
-                }
             }
-#else
-            if (Udi.TryParse(image.Udi, out var imageUdi))
-            {
-                return _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(imageUdi);
-            }
-            else if (item.Key != Guid.Empty)
-            {
-                return _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(item.Key);
-            }
-            else if (item.Id != default)
-            {
-                return _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(item.Id);
-            }
-#endif
             return null;
         }
     }

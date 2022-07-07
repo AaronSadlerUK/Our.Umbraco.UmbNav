@@ -1,5 +1,3 @@
-#if NETCOREAPP
-using System;
 using System.Collections.Generic;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
@@ -73,4 +71,3 @@ namespace UmbNav.Core.TagHelpers
         }
     }
 }
-#endif
