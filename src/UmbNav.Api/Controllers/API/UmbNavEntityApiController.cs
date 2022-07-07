@@ -21,7 +21,7 @@ namespace UmbNav.Api.Controllers.API
             _publishedSnapshotAccessor = publishedSnapshotAccessor;
         }
 
-        public IActionResult GetById(string id, string culture = null)
+        public IActionResult GetById(string id, string? culture = null)
         {
             if (culture == "undefined")
             {
@@ -29,13 +29,13 @@ namespace UmbNav.Api.Controllers.API
             }
             var isUdi = UdiParser.TryParse(id, out var udi);
 
-            if (isUdi)
+            if (isUdi && udi != null)
             {
                 var entity = _contentService.GetById(udi);
 
                 if (entity != null)
                 {
-                    string entityName = entity.Name;
+                    string? entityName = entity.Name ?? string.Empty;
                     string entityUrl = "#";
 
                     if (entity.Published)
@@ -73,7 +73,7 @@ namespace UmbNav.Api.Controllers.API
                 }
             }
 
-            return null;
+            return BadRequest();
         }
     }
 }

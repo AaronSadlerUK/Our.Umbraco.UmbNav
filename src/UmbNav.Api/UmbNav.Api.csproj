@@ -23,6 +23,7 @@
 		<Version>$(AssemblyVersion)</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
