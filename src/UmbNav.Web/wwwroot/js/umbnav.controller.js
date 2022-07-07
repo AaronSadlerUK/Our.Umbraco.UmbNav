@@ -85,11 +85,11 @@
 
     function getItemEntities(items) {
         _.each(items, function (item) {
-            item.description = item.url;
             if (item.udi) {
                 umbnavResource.getById(item.udi, $routeParams.cculture ? $routeParams.cculture : $routeParams.mculture)
                     .then(function (response) {
                         angular.extend(item, response.data);
+                        item.description = item.url;
                     }
                     );
 
