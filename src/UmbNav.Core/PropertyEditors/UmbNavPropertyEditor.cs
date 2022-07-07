@@ -7,11 +7,11 @@ namespace UmbNav.Core.PropertyEditors
 {
     [DataEditor(UmbNavConstants.PropertyEditorAlias, UmbNavConstants.PackageName, UmbNavConstants.PackageFilesPath + "views/editor.html",
         ValueType = "JSON", Group = "pickers", Icon = "icon-sitemap")]
-    public class UmbNavV8PropertyEditor : DataEditor, IDataEditor
+    public class UmbNavPropertyEditor : DataEditor
     {
         private readonly IIOHelper _ioHelper;
         private readonly IEditorConfigurationParser _editorConfigurationParser;
-        public UmbNavV8PropertyEditor(IDataValueEditorFactory dataValueEditorFactory, IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser)
+        public UmbNavPropertyEditor(IDataValueEditorFactory dataValueEditorFactory, IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser)
             : base(dataValueEditorFactory)
         {
             _ioHelper = ioHelper;
@@ -23,7 +23,7 @@ namespace UmbNav.Core.PropertyEditors
 
             var editor = base.GetValueEditor(configuration);
 
-            if (editor is DataValueEditor valueEditor && configuration is UmbNavV8Configuration config)
+            if (editor is DataValueEditor valueEditor && configuration is UmbNavConfiguration config)
             {
                 valueEditor.HideLabel = config.HideLabel;
             }
@@ -34,7 +34,7 @@ namespace UmbNav.Core.PropertyEditors
 
         protected override IConfigurationEditor CreateConfigurationEditor() => new UmbNavV8ConfigurationEditor(_ioHelper,_editorConfigurationParser);
 
-        public class UmbNavV8ConfigurationEditor : ConfigurationEditor<UmbNavV8Configuration>
+        public class UmbNavV8ConfigurationEditor : ConfigurationEditor<UmbNavConfiguration>
         {
             public UmbNavV8ConfigurationEditor(IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(ioHelper, editorConfigurationParser)
             {

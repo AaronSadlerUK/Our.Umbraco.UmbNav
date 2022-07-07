@@ -2,7 +2,7 @@
 
 namespace UmbNav.Core.PropertyEditors
 {
-    public class UmbNavV8Configuration
+    public class UmbNavConfiguration
     {
         [ConfigurationField("maxDepth", "Max Depth", "number", Description = "The maximum number of levels in the navigation")]
         public int MaxDepth { get; set; }

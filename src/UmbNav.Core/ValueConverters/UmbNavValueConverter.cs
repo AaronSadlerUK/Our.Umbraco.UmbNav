@@ -11,7 +11,7 @@ using Serilog;
 
 namespace UmbNav.Core.ValueConverters
 {
-    public class UmbNavV8ValueConverter : PropertyValueConverterBase
+    public class UmbNavValueConverter : PropertyValueConverterBase
     {
         private readonly IUmbNavMenuBuilderService _umbNavMenuBuilderService;
         private readonly ILogger _logger;
@@ -21,7 +21,7 @@ namespace UmbNav.Core.ValueConverters
         private bool _removeNoreferrer;
         private bool _removeIncludeChildNodes;
 
-        public UmbNavV8ValueConverter(ILogger logger, IUmbNavMenuBuilderService umbNavMenuBuilderService)
+        public UmbNavValueConverter(ILogger logger, IUmbNavMenuBuilderService umbNavMenuBuilderService)
         {
             _logger = logger;
             _umbNavMenuBuilderService = umbNavMenuBuilderService;
@@ -41,7 +41,7 @@ namespace UmbNav.Core.ValueConverters
                 return Enumerable.Empty<UmbNavItem>();
             }
 
-            var configuration = propertyType.DataType.ConfigurationAs<UmbNavV8Configuration>();
+            var configuration = propertyType.DataType.ConfigurationAs<UmbNavConfiguration>();
 
             if (configuration != null)
             {
