@@ -1,14 +1,16 @@
-﻿@using Umbraco.Cms.Core.Models.PublishedContent
-@using Umbraco.Cms.Core.Routing
-@using Umbraco.Extensions
+﻿@using UmbNav.Core.Models
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
     var site = Model.Root();
-    var selection = site.Children.Where(x => x.IsVisible());
+    var umbNav = site.Value<IEnumerable<UmbNavItem>>("umbNav");
 }
 <!-- comment out the following line if you want to remove the root node name from the top navigation -->
-<a class="nav-link @Html.Raw(Model.Id == site.Id ? "navi-link--active" : "")" href="@site.Url()">@site.Name</a>
+@*<a class="nav-link @Html.Raw(Model.Id == site.Id ? "navi-link--active" : "")" href="@site.Url()">@site.Name</a>
 @foreach (var item in selection)
 {
     <a class="nav-link @(item.IsAncestorOrSelf(Model) ? "nav-link--active" : null)" href="@item.Url()">@item.Name</a>
+}*@
+@foreach (var item in umbNav)
+{
+    <umbnavitem menu-item="item" active-class="nav-link--active" class="nav-link"></umbnavitem>
 }
