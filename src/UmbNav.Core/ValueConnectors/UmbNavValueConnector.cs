@@ -12,7 +12,7 @@ namespace UmbNav.Core.ValueConnectors
     /// Represents a value connector for Umbraco UmbNav property editor
     /// </summary>
     /// <seealso cref="IValueConnector" />
-    public class UmbNavV8ValueConnector : IValueConnector
+    public class UmbNavValueConnector : IValueConnector
     {
         public string ToArtifact(object value, IPropertyType propertyType, ICollection<ArtifactDependency> dependencies)
         {

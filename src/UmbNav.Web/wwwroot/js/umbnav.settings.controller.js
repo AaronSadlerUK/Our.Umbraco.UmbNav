@@ -1,4 +1,4 @@
-﻿angular.module('umbraco').controller('AaronSadler.UmbNav.Settings.Controller', function ($scope, eventsService, entityResource, mediaResource, mediaHelper, udiParser, userService, localizationService, editorService) {
+﻿angular.module('umbraco').controller('Our.UmbNav.Settings.Controller', function ($scope, eventsService, entityResource, mediaResource, mediaHelper, udiParser, userService, localizationService, editorService) {
     var vm = this;
     var dialogOptions = $scope.model;
     vm.submit = submit;

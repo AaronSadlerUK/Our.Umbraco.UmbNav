@@ -206,6 +206,6 @@
     }
 }
 
-angular.module("umbraco").controller("AaronSadler.UmbNav.Controller", UmbNav);
+angular.module("umbraco").controller("Our.UmbNav.Controller", UmbNav);
 
 app.requires.push("ui.tree");
