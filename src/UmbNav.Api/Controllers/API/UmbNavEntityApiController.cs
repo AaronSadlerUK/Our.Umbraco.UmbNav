@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UmbNavConstants = UmbNav.Core.UmbNavConstants;
 using Umbraco.Cms.Core;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core.PublishedCache;
