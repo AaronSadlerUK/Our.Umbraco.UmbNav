@@ -1,17 +1,17 @@
 # Umbraco UmbNav
 
-[![Build status](https://dev.azure.com/TerrabitHost/UmbNav/_apis/build/status/UmbNavV8?branchName=develop)](https://dev.azure.com/TerrabitHost/UmbNav/_build/latest?definitionId=33)
-
 [![NuGet Badge](https://buildstats.info/nuget/Our.Umbraco.UmbNav.Web?includePreReleases=true)](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web)
 
 ![Umbraco Cloud Badge](https://img.shields.io/badge/Works%20on-Umbraco%20Cloud-3544b1)
 
 
-UmbNav adds a drag and drop menu builder to the Umbraco V8 or V9 backoffice.
+UmbNav adds a drag and drop menu builder to the Umbraco V10 backoffice.
 
 ## Getting started
 
-This package is supported on Umbraco 8.7+ and Umbraco V9.0+
+UmbNav V2.X only supports Umbraco 10+
+
+Use UmbNav V1.X for Umbraco V8 and V9
 
 ### Features
 
@@ -26,13 +26,15 @@ This package is supported on Umbraco 8.7+ and Umbraco V9.0+
 - Add custom CSS classes to each menu item in the backoffice
 - Display the property editor as full width in the back office (Hide the label)
 - Add an image to a menu item
-- TagHelper for Umbraco V9
+- TagHelper
 - GetLinkHtml extension for Umbraco V8 and V9
 - Add label items
 
 ### Installation
 
-UmbNav is available from [Our Umbraco (V8 only)](https://our.umbraco.com/packages/backoffice-extensions/umbnav), [NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web), or as a manual download directly from GitHub.
+UmbNav is available from [NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web), or as a manual download directly from GitHub.
+
+**The deprecation of using Ids between V1 and V2 is a breaking change, so if you are using Ids then you will required to rebuild your menu after upgrading**
 
 #### NuGet package repository
 To [install UI from NuGet](https://www.nuget.org/packages/Our.Umbraco.UmbNav.Web), run the following command in your instance of Visual Studio.
@@ -57,16 +59,6 @@ After installing the package, you will have a new property editor called UmbNav 
 
 Check out the integration guide [integration guide](docs/integration-guide.md) to learn how to embed the package in your site.
 
-# Migration from MegaNavV8
-
-It is possible to migrate from [MegaNavV8](https://github.com/AaronSadlerUK/Umbraco.MegaNavV8) to UmbNav.
-
-First create a DataType for UmbNav with at minimum the same settings as your old MegaNavV8 property.
-
-Then edit your property in the document type, and then change the DataType to use your newly created UmbNav DataType, (if your using models builder you will need to regenerate these at this point), visit the location of your menu in the content section and then `Save and Publish`.
-
-Finally you will need to update your views to work with the new model.
-
 ### Screenshots
 
 ![](https://raw.githubusercontent.com/AaronSadlerUK/Our.Umbraco.UmbNav/develop/Screenshots/UmbNav.1.jpeg)
@@ -89,7 +81,7 @@ This project is maintained by [Aaron Sadler](https://aaronsadler.uk) and contrib
 
 ## License
 
-Copyright &copy; 2021 [UmbHost Limited](https://umbhost.net), and other contributors
+Copyright &copy; 2022 [UmbHost Limited](https://umbhost.net), and other contributors
 
 Licensed under the MIT License.
 
