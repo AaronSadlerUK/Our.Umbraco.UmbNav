@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net50;net472;net60</TargetFrameworks>
+		<TargetFrameworks>net60</TargetFrameworks>
 		<ContentTargetFolders>content</ContentTargetFolders>
 
 		<Product>Our.Umbraco.UmbNav.Core</Product>
 		<PackageId>Our.Umbraco.UmbNav.Core</PackageId>
 		<Title>UmbNav Core</Title>
 		<Description>A flexible, draggable link picker for constructing site navigation menus, big or small, in Umbraco</Description>
-		<PackageTags>umbraco, umbraco-cms, UmbNav, UmbNav-V8</PackageTags>
+		<PackageTags>umbraco, umbraco-cms, UmbNav</PackageTags>
 		<RepositoryUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageIcon>UmbNav-Logo.png</PackageIcon>
@@ -16,28 +16,25 @@
 		<PackageProjectUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</PackageProjectUrl>
 		<Authors>Aaron Sadler</Authors>
 		<Company>UmbHost Limited</Company>
-		<Copyright>2021 UmbHost Limited</Copyright>
+		<Copyright>2022 UmbHost Limited</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-
+		<AssemblyVersion>2.0.0</AssemblyVersion>
+		<Version>$(AssemblyVersion)</Version>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>Initial Release</PackageReleaseNotes>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
-		<PackageReference Include="UmbracoCms.Core" version="8.7.0" />
-		<PackageReference Include="UmbracoCms.Web" version="8.7.0" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net50'">
-		<PackageReference Include="Umbraco.Cms.Web.Website" version="9.0.0" />
-		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="9.0.0" />
-	</ItemGroup>
-
 	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
-		<PackageReference Include="Umbraco.Cms.Web.Website" version="9.0.0" />
-		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="9.0.0" />
+		<PackageReference Include="Umbraco.Cms.Web.Website" version="10.0.0" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="10.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	  <None Include="..\UmbNav-Logo.png">
 	    <Pack>True</Pack>
 	    <PackagePath></PackagePath>
@@ -45,7 +42,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
 	</ItemGroup>
 
 	<!-- Workaround for this bug (replace the analyzer name with the one you need to exclude (filename only, no extension) -->

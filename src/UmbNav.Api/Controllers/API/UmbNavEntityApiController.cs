@@ -1,25 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UmbNavConstants = UmbNav.Core.UmbNavConstants;
-#if NETCOREAPP
-using Umbraco.Cms.Core;
+﻿using Umbraco.Cms.Core;
 using Microsoft.AspNetCore.Mvc;
+using UmbNav.Api.Extensions;
 using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
 using Umbraco.Extensions;
-#else
-
-using System.Net;
-using System.Net.Http;
-using Umbraco.Core;
-using Umbraco.Core.Services;
-using Umbraco.Web;
-using Umbraco.Web.Editors;
-using Umbraco.Web.Mvc;
-using Umbraco.Web.PublishedCache;
-#endif
 
 namespace UmbNav.Api.Controllers.API
 {
@@ -35,80 +21,59 @@ namespace UmbNav.Api.Controllers.API
             _publishedSnapshotAccessor = publishedSnapshotAccessor;
         }
 
-#if NETCOREAPP
-        public IActionResult GetById(string id, string culture = null)
-#else
-        public HttpResponseMessage GetById(string id, string culture = null)
-#endif
+        public IActionResult GetById(string id, string? culture = null)
         {
-            var udiList = new List<Udi>();
-#if NETCOREAPP
-            var udi = UdiParser.Parse(id);
-#else
-        var udi = Udi.Parse(id);
-#endif
-            udiList.Add(udi);
-            var entity = _contentService.GetByIds(udiList).FirstOrDefault();
-
-            if (entity != null)
+            if (culture == "undefined")
             {
-                string entityName = entity.Name;
-                string entityUrl = "#";
+                culture = null;
+            }
+            var isUdi = UdiParser.TryParse(id, out var udi);
 
-                if (entity.Published)
+            if (isUdi && udi != null)
+            {
+                var entity = _contentService.GetById(udi);
+
+                if (entity != null)
                 {
-#if NETCOREAPP
-                    if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
-                    {
-                        var publishedEntity = publishedSnapshot.Content.GetById(entity.Key);
+                    string? entityName = entity.Name ?? string.Empty;
+                    string entityUrl = "#";
 
-                        if (publishedEntity != null)
+                    if (entity.Published)
+                    {
+                        if (_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot))
                         {
-                            entityName = publishedEntity.Name(culture);
-                            entityUrl = publishedEntity.Url(culture);
+                            if (publishedSnapshot is { Content: { } })
+                            {
+                                var publishedEntity = publishedSnapshot.Content.GetById(entity.Key);
+
+                                if (publishedEntity != null)
+                                {
+                                    entityName = publishedEntity.Name(culture);
+                                    entityUrl = publishedEntity.Url(culture);
+                                }
+                            }
                         }
                     }
-#else
-                    var publishedEntity = _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(entity.Key);
 
-                    if (publishedEntity != null)
+                    var menuItem = new
                     {
-                        if (culture == "undefined")
-                        {
-                            entityName = publishedEntity.Name;
-                            entityUrl = publishedEntity.Url();
-                        }
-                        else
-                        {
-                            entityName = publishedEntity.Name(culture);
-                            entityUrl = publishedEntity.Url(culture);
-                        }
-                    }
-#endif
+                        id = entity.Id,
+                        udi = entity.GetUdi(),
+                        key = entity.Key,
+                        name = entityName,
+                        icon = entity.ContentType.Icon,
+                        url = entityUrl,
+                        published = entity.Published,
+                        naviHide = entity.HasProperty("umbracoNaviHide") && entity.GetValue<bool>("umbracoNaviHide") ||
+                                   entity.HasProperty("umbracoNavihide") && entity.GetValue<bool>("umbracoNavihide"),
+                        culture
+                    };
+
+                    return Ok(menuItem);
                 }
-
-                var menuItem = new
-                {
-                    id = entity.Id,
-                    udi = entity.GetUdi(),
-                    key = entity.Key,
-                    name = entityName,
-                    icon = entity.ContentType.Icon,
-                    url = entityUrl,
-                    published = entity.Published,
-                    naviHide = entity.HasProperty("umbracoNaviHide") && entity.GetValue<bool>("umbracoNaviHide") ||
-                               entity.HasProperty("umbracoNavihide") && entity.GetValue<bool>("umbracoNavihide"),
-                    culture = culture
-                };
-
-#if NETCOREAPP
-                return Ok(menuItem);
-#else
-                return Request.CreateResponse(HttpStatusCode.OK, menuItem);
-#endif
             }
 
-            return null;
+            return BadRequest();
         }
     }
 }
