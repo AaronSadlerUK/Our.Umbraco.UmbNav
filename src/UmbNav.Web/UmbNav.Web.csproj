@@ -3,6 +3,25 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<StaticWebAssetBasePath>App_Plugins/UmbNav</StaticWebAssetBasePath>
+		<Product>Our.Umbraco.UmbNav.Web</Product>
+		<PackageId>Our.Umbraco.UmbNav.Web</PackageId>
+		<Title>UmbNav Web</Title>
+		<Description>A flexible, draggable link picker for constructing site navigation menus, big or small, in Umbraco</Description>
+		<PackageTags>umbraco, umbraco-cms, UmbNav</PackageTags>
+		<RepositoryUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</RepositoryUrl>
+		<RepositoryType>Git</RepositoryType>
+		<PackageIcon>UmbNav-Logo.png</PackageIcon>
+		<PackageIconUrl />
+		<PackageProjectUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</PackageProjectUrl>
+		<Authors>Aaron Sadler</Authors>
+		<Company>UmbHost Limited</Company>
+		<Copyright>2022 UmbHost Limited</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<AssemblyVersion>2.0.0</AssemblyVersion>
+		<Version>$(AssemblyVersion)</Version>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>Initial Release</PackageReleaseNotes>
 	</PropertyGroup>
 
 
@@ -15,8 +34,24 @@
     <PackageReference Include="Umbraco.Cms.Core" Version="10.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\UmbNav-Logo.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\UmbNav.Api\UmbNav.Api.csproj" />
+	  <ProjectReference Include="..\UmbNav.Core\UmbNav.Core.csproj" />
+	</ItemGroup>
 
 </Project>
