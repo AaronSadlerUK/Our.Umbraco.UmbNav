@@ -24,6 +24,10 @@ namespace UmbNav.Api.Controllers.API
 
         public IActionResult GetById(string id, string culture = null)
         {
+            if (culture == "undefined")
+            {
+                culture = null;
+            }
             var udiList = new List<Udi>();
             var udi = UdiParser.Parse(id);
             udiList.Add(udi);
