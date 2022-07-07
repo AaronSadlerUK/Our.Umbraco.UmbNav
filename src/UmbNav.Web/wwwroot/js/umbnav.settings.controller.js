@@ -110,12 +110,12 @@
         // clone the current target so we don't accidentally update the caller's model while manipulating $scope.model.target
         $scope.model.target = Utilities.copy(dialogOptions.currentTarget);
         // if we have a node ID, we fetch the current node to build the form data
-        if ($scope.model.target.id || $scope.model.target.udi) {
-            // will be either a udi or an int
-            var id = $scope.model.target.udi ? $scope.model.target.udi : $scope.model.target.id;
+        if ($scope.model.target.udi) {
+            // will be a udi
+            var id = $scope.model.target.udi;
             if ($scope.model.target.udi) {
                 // extract the entity type from the udi and set target.isMedia accordingly
-                var udi = udiParser.parse(id);
+                var udi = udiParser.parse($scope.model.target.udi);
                 if (udi && udi.entityType === 'media') {
                     $scope.model.target.isMedia = true;
                 } else {
@@ -154,8 +154,8 @@
         vm.hideLoggedOut = $scope.model.target.hideLoggedOut;
         vm.includeChildren = $scope.model.target.includeChildNodes;
         vm.displayAsLabel = $scope.model.target.displayAsLabel;
-        vm.showNoopener = $scope.model.target.noopener === 'noopener' && ($scope.model.target.id === undefined || $scope.model.target.udi === undefined);
-        vm.showNoreferrer = $scope.model.target.noreferrer === 'noreferrer' && ($scope.model.target.id === undefined || $scope.model.target.udi === undefined);
+        vm.showNoopener = $scope.model.target.noopener === 'noopener' && $scope.model.target.udi === undefined;
+        vm.showNoreferrer = $scope.model.target.noreferrer === 'noreferrer' && $scope.model.target.udi === undefined;
     } else if (dialogOptions.anchors) {
         $scope.anchorValues = dialogOptions.anchors;
     }
@@ -175,17 +175,16 @@
         }
         $scope.currentNode = args.node;
         $scope.currentNode.selected = true;
-        $scope.model.target.id = args.node.id;
         $scope.model.target.udi = args.node.udi;
         $scope.model.target.name = args.node.name;
-        if (args.node.id < 0) {
-            $scope.model.target.url = '/';
-        } else {
-            entityResource.getUrlAndAnchors(args.node.id).then(function (resp) {
-                $scope.anchorValues = resp.anchorValues;
-                $scope.model.target.url = resp.url;
-            });
-        }
+        //if (args.node.id < 0) {
+        //    $scope.model.target.url = '/';
+        //} else {
+        //    entityResource.getUrlAndAnchors(args.node.id).then(function (resp) {
+        //        $scope.anchorValues = resp.anchorValues;
+        //        $scope.model.target.url = resp.url;
+        //    });
+        //}
         if (!Utilities.isUndefined($scope.model.target.isMedia)) {
             delete $scope.model.target.isMedia;
         }
@@ -212,7 +211,6 @@
                 dataTypeKey: dialogOptions.dataTypeKey,
                 submit: function submit(model) {
                     var media = model.selection[0];
-                    $scope.model.target.id = media.id;
                     $scope.model.target.udi = media.udi;
                     $scope.model.target.isMedia = true;
                     $scope.model.target.name = media.name;

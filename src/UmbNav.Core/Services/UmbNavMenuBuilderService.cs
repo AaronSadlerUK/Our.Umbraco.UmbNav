@@ -72,7 +72,7 @@ namespace UmbNav.Core.Services
                         children = item.Children.ToList();
                     }
 
-                    if (item.Udi != null || item.Key != Guid.Empty || item.Id > 0)
+                    if (item.Udi != null || item.Key != Guid.Empty)
                     {
                         IPublishedContent umbracoContent = null;
                         string currentCulture = null;
@@ -89,11 +89,6 @@ namespace UmbNav.Core.Services
                                 {
                                     currentCulture = publishedSnapshot.Content.GetById(item.Key)?.GetCultureFromDomains();
                                     umbracoContent = publishedSnapshot.Content.GetById(item.Key);
-                                }
-                                else
-                                {
-                                    currentCulture = publishedSnapshot.Content.GetById(item.Id)?.GetCultureFromDomains();
-                                    umbracoContent = publishedSnapshot.Content.GetById(item.Id);
                                 }
                             }
                         }
@@ -140,7 +135,6 @@ namespace UmbNav.Core.Services
                                     children.AddRange(umbracoContent.Children.Where(x => x.IsVisible() || x.HasProperty("umbracoNavihide") && x.Value<bool>("umbracoNavihide")).Select(child => new UmbNavItem
                                     {
                                         Title = child.Name,
-                                        Id = child.Id,
                                         Key = child.Key,
                                         Udi = new GuidUdi("document", child.Key),
                                         ItemType = UmbNavItemType.Content,
@@ -154,7 +148,6 @@ namespace UmbNav.Core.Services
                                     children.AddRange(umbracoContent.Children.Select(child => new UmbNavItem
                                     {
                                         Title = child.Name,
-                                        Id = child.Id,
                                         Key = child.Key,
                                         Udi = new GuidUdi("document", child.Key),
                                         ItemType = UmbNavItemType.Content,
@@ -220,10 +213,6 @@ namespace UmbNav.Core.Services
                 else if (item.Key != Guid.Empty)
                 {
                     return publishedSnapshot.Media.GetById(item.Key);
-                }
-                else if (item.Id != default)
-                {
-                    return publishedSnapshot.Media.GetById(item.Id);
                 }
             }
             return null;

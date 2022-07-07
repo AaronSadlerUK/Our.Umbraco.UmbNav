@@ -130,7 +130,6 @@
                     model.target.noreferrer = false;
                     model.target.includeChildren = false;
                     model.target.udi = null;
-                    model.target.id = null;
                 } else {
                     model.target.description = model.target.url + model.target.anchor;
                     if (model.target.anchor && model.target.anchor[0] !== '?' && model.target.anchor[0] !== '#') {
@@ -179,7 +178,6 @@
         }
 
         return {
-            id: data.id,
             udi: data.udi,
             key: data.key,
             name: data.name,
