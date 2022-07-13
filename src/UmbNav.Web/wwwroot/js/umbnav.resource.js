@@ -2,6 +2,10 @@
     return {
         getById: function (id, culture) {
 
+            if (culture === "undefined") {
+                culture = null;
+            }
+
             return $http.get("backoffice/UmbNav/UmbNavEntityApi/GetById?id=" + id + "&culture=" + culture)
                 .then(function (response) {
                         var item = response.data;
