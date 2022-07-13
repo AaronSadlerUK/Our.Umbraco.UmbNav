@@ -10,7 +10,7 @@ resources:
   repositories:
   - repository: self
     type: git
-    ref: main
+    ref: umbraco-v8-v9
 jobs:
 - job: Job_1
   displayName: Agent job 1
