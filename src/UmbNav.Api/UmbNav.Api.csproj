@@ -19,10 +19,10 @@
 		<Copyright>2022 UmbHost Limited</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<AssemblyVersion>2.0.0</AssemblyVersion>
+		<AssemblyVersion>2.0.1</AssemblyVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+		<PackageReleaseNotes>Fixes an issue with the link description showing as a '#' in the backoffice</PackageReleaseNotes>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
