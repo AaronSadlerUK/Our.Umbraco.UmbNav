@@ -41,10 +41,6 @@ namespace UmbNav.Api.Controllers.API
         public HttpResponseMessage GetById(string id, string culture = null)
 #endif
         {
-            if (culture == "undefined")
-            {
-                culture = null;
-            }
             var udiList = new List<Udi>();
 #if NETCOREAPP
             var udi = UdiParser.Parse(id);
