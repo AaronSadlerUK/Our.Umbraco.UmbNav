@@ -18,10 +18,10 @@
 		<Copyright>2022 UmbHost Limited</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<AssemblyVersion>2.0.1</AssemblyVersion>
+		<AssemblyVersion>2.0.2</AssemblyVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Bumps minimum dependency version for Our.UmbNav.Api to 2.0.1</PackageReleaseNotes>
+		<PackageReleaseNotes>Fixed issue with null culture</PackageReleaseNotes>
 	</PropertyGroup>
 
 
@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.6" />
-    <PackageReference Include="Our.Umbraco.UmbNav.Api" Version="2.0.1" />
+    <PackageReference Include="Our.Umbraco.UmbNav.Api" Version="2.0.2" />
     <PackageReference Include="Our.Umbraco.UmbNav.Core" Version="2.0.0" />
     <PackageReference Include="Umbraco.Cms.Core" Version="10.0.0" />
   </ItemGroup>
