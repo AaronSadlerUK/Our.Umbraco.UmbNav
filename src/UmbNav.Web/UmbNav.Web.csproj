@@ -7,7 +7,7 @@
 		<PackageId>Our.Umbraco.UmbNav.Web</PackageId>
 		<Title>UmbNav Web</Title>
 		<Description>A flexible, draggable link picker for constructing site navigation menus, big or small, in Umbraco</Description>
-		<PackageTags>umbraco, umbraco-cms, UmbNav</PackageTags>
+		<PackageTags>umbraco, umbraco-cms, UmbNav,umbraco-marketplace</PackageTags>
 		<RepositoryUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageIcon>UmbNav-Logo.png</PackageIcon>
@@ -18,10 +18,10 @@
 		<Copyright>2022 UmbHost Limited</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<AssemblyVersion>2.0.2</AssemblyVersion>
+		<AssemblyVersion>2.0.3</AssemblyVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Fixed issue with null culture</PackageReleaseNotes>
+		<PackageReleaseNotes>Added umbraco-marketplace tag</PackageReleaseNotes>
 	</PropertyGroup>
 
 
