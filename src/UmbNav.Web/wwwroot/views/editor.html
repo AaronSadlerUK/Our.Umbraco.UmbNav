@@ -28,6 +28,12 @@
 
         </div>
 
+        <!--<ul id="items">
+            <li>item 1</li>
+            <li>item 2</li>
+            <li>item 3</li>
+        </ul>-->
+
         <!-- add nav items -->
         <a href="" class="umb-node-preview-add" data-nodrag ng-click="add()" prevent-default>
             <localize key="umbnav_addItem"></localize>
@@ -86,7 +92,11 @@
             <li ng-repeat="item in item.children" ui-tree-node data-collapsed="{{item.collapsed}}" data-expand-on-hover="{{vm.expandOnHover}}" ng-include="'nav_item_template.html'"></li>
 
         </ol>
-
     </script>
 
 </div>
+
+<!--<script>
+    var el = document.getElementById('items');
+    var sortable = Sortable.create(el);
+</script>-->

@@ -18,10 +18,10 @@
 		<Copyright>2022 UmbHost Limited</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<AssemblyVersion>2.0.3</AssemblyVersion>
+		<AssemblyVersion>2.0.4</AssemblyVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Added umbraco-marketplace tag</PackageReleaseNotes>
+		<PackageReleaseNotes>Fixed backoffice UI</PackageReleaseNotes>
 	</PropertyGroup>
 
 
