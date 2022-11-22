@@ -15,7 +15,8 @@ internal class UmbNavManifestFilter : IManifestFilter
                 "/App_Plugins/UmbNav/js/umbnav.settings.controller.js",
                 "/App_Plugins/UmbNav/js/umbnav.controller.js",
                 "/App_Plugins/UmbNav/js/umbnav.resource.js",
-                "/App_Plugins/UmbNav/js/angular-ui-tree.js"
+                "/App_Plugins/UmbNav/js/angular-ui-tree.js",
+                "/App_Plugins/UmbNav/js/sortable.js"
             },
             Stylesheets = new[]
             {
