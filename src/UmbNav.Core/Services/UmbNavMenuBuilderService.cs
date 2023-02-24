@@ -38,8 +38,11 @@ namespace UmbNav.Core.Services
                 var currentPublishedContentKey = Guid.Empty;
                 if (_umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext))
                 {
-                    var currentPublishedContent = umbracoContext.PublishedRequest.PublishedContent;
-                    currentPublishedContentKey = currentPublishedContent.Key;
+                    var currentPublishedContent = umbracoContext.PublishedRequest?.PublishedContent;
+                    if (currentPublishedContent != null)
+                    {
+                        currentPublishedContentKey = currentPublishedContent.Key;
+                    }
                 }
 
                 foreach (var item in umbNavItems)
