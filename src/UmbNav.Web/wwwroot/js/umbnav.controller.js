@@ -177,6 +177,10 @@
             icon = "icon-link";
         }
 
+        if (data.title == (null || "")) {
+            data.title = data.name;
+        }
+
         return {
             udi: data.udi,
             key: data.key,

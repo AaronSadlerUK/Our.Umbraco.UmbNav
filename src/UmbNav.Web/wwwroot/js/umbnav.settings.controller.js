@@ -109,6 +109,9 @@
     if (dialogOptions.currentTarget) {
         // clone the current target so we don't accidentally update the caller's model while manipulating $scope.model.target
         $scope.model.target = Utilities.copy(dialogOptions.currentTarget);
+        if ($scope.model.target.title == (null || "" || undefined)) {
+            $scope.model.target.title = $scope.model.target.name;
+        }
         // if we have a node ID, we fetch the current node to build the form data
         if ($scope.model.target.udi) {
             // will be a udi
@@ -177,6 +180,7 @@
         $scope.currentNode.selected = true;
         $scope.model.target.udi = args.node.udi;
         $scope.model.target.name = args.node.name;
+        $scope.model.target.title = args.node.name;
         //if (args.node.id < 0) {
         //    $scope.model.target.url = '/';
         //} else {
