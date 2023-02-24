@@ -37,12 +37,15 @@ namespace UmbNav.Core.Services
                 var isLoggedIn = _httpContextAccessor.HttpContext.User != null && _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
                 var currentPublishedContentKey = Guid.Empty;
                 if (_umbracoContextAccessor.TryGetUmbracoContext(out var umbracoContext))
+                {
+                    var currentPublishedContent = umbracoContext.PublishedRequest?.PublishedContent;
+                    if (currentPublishedContent != null)
                     {
-                        var currentPublishedContent = umbracoContext.PublishedRequest.PublishedContent;
                         currentPublishedContentKey = currentPublishedContent.Key;
                     }
+                }
 
-                    foreach (var item in umbNavItems)
+                foreach (var item in umbNavItems)
                 {
                     if (item.HideLoggedIn && isLoggedIn || item.HideLoggedOut && !isLoggedIn)
                     {
@@ -59,6 +62,12 @@ namespace UmbNav.Core.Services
                         item.Noreferrer = null;
                         item.IncludeChildNodes = false;
                         item.Udi = null;
+                        item.Key = Guid.Empty;
+
+                        if (string.IsNullOrEmpty(item.Title) && !string.IsNullOrEmpty(item.Name))
+                        {
+                            item.Title = item.Name;
+                        }
 
                         //if (!item.DisplayAsLabel)
                         //{ 
