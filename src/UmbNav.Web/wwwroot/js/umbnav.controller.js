@@ -16,11 +16,20 @@
         // retreive the saved items
         vm.items = $scope.model.value;
 
+        angular.forEach(vm.items,
+            function (value, key) {
+                value.n_id = key;
+                value.n_parentid = 0;
+                value.n_order_num = key;
+            });
+
         // get updated entities for content
         getItemEntities(vm.items);
     }
 
     //vm.items populated by this point
+    //We want to initialise the tree now
+    initTree();
 
     $scope.add = function () {
         openSettings(null, function (navItem) {
@@ -184,6 +193,8 @@
         }
 
         return {
+            n_id: vm.items.length,
+            n_parentid: 0,
             udi: data.udi,
             key: data.key,
             name: data.name,
@@ -209,6 +220,47 @@
             itemType: data.itemType,
             displayAsLabel: data.displayAsLabel
         }
+    }
+
+    function initTree()
+    {
+        debugger;
+        vm.tree = new PickleTree({
+            c_target: 'div_tree',
+            rowCreateCallback: (node) => {
+                //console.log(node)
+            },
+            switchCallback: (node) => {
+                //console.log(node)
+            },
+            drawCallback: () => {
+                //console.log('tree drawed ..');
+            },
+            dragCallback: (node) => {
+                console.log(node);
+            },
+            dropCallback: (node) => {
+                //retuns node with new parent and old parent in 'old_parent' key!!
+                console.log(node);
+            },
+            c_config: {
+                //start as folded or unfolded
+                foldedStatus: false,
+                //for logging
+                logMode: false,
+                //for switch element
+                switchMode: true,
+                //for automaticly select childs
+                autoChild: true,
+                //for automaticly select parents
+                autoParent: true,
+                //for drag / drop
+                drag: true,
+                //for ordering
+                order: true
+            },
+            c_data: vm.items
+        });
     }
 }
 
