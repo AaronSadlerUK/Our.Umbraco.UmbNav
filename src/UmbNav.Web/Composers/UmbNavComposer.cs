@@ -9,6 +9,8 @@ namespace UmbNav.Web.Composers
         public void Compose(IUmbracoBuilder builder)
         {
             builder.ManifestFilters().Append<UmbNavManifestFilter>();
+
+            builder.AddUmbNav();
         }
     }
 }

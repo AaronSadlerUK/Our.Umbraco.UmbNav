@@ -20,6 +20,8 @@
         getItemEntities(vm.items);
     }
 
+    //vm.items populated by this point
+
     $scope.add = function () {
         openSettings(null, function (navItem) {
             // add item to scope
@@ -213,3 +215,4 @@
 angular.module("umbraco").controller("Our.UmbNav.Controller", UmbNav);
 
 app.requires.push("ui.tree");
+//app.requires.push("PickleTree")
