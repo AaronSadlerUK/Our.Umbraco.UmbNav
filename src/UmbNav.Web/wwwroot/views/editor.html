@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/App_Plugins/umbnav/css/pickletree.css"/>
 <div ng-controller="Our.UmbNav.Controller as vm" class="" ng-class="{'umbnav-editor':!vm.wideMode, 'umbnav-editor--wide':vm.wideMode}">
     <div class="umbnav-editor-buttons" ng-show="showExpandCollapseButtons() || vm.showTopAddButton">
         <span ng-show="showExpandCollapseButtons()">
@@ -28,7 +27,8 @@
         </ol>
 
     </div>-->
-
+        
+        Tree
         <div id="div_tree"></div>
 
         <!--<ul id="items">
@@ -42,125 +42,6 @@
         </a>
 
     </ng-form>
-    
-    <!--<script src="/App_Plugins/umbnav/js/pickletree.js"></script>-->
-    <script>
-        const tree = new PickleTree({
-            c_target: 'div_tree',
-            rowCreateCallback: (node) => {
-                //console.log(node)
-            },
-            switchCallback: (node) => {
-                //console.log(node)
-            },
-            drawCallback: () => {
-                //console.log('tree drawed ..');
-            },
-            dragCallback: (node) => {
-                console.log(node);
-            },
-            dropCallback: (node) => {
-                //retuns node with new parent and old parent in 'old_parent' key!!
-                console.log(node);
-            },
-            c_config: {
-                //start as folded or unfolded
-                foldedStatus: false,
-                //for logging
-                logMode: false,
-                //for switch element
-                switchMode: true,
-                //for automaticly select childs
-                autoChild: true,
-                //for automaticly select parents
-                autoParent: true,
-                //for drag / drop
-                drag: true,
-                //for ordering
-                order: true
-            },
-            c_data: [{
-                n_id: 1,
-                n_title: 'falan1',
-                n_parentid: 0,
-                n_order_num: 0,
-                n_checked: true,
-                n_elements: [{
-                    icon: 'fa fa-edit',
-                    title: 'Edit',
-                    //context button click event
-                    onClick: (node) => {
-                        console.log('edit - ' + node.id);
-                    }
-                }, {
-                    icon: 'fa fa-trash',
-                    title: 'Delete',
-                    onClick: (node) => {
-                        console.log('delete - ' + node.id);
-                    }
-                }],
-            }, {
-                n_id: 2,
-                n_title: 'falan2',
-                n_order_num: 0,
-                n_parentid: 0
-            }, {
-                n_id: 3,
-                n_title: 'falan3',
-                n_parentid: 0,
-                n_order_num: 0,
-            }, {
-                n_id: 4,
-                n_order_num: 0,
-                n_title: 'falan1-1',
-                n_parentid: 1
-            }, {
-                n_id: 5,
-                n_order_num: 0,
-                n_title: 'falan1-2',
-                n_parentid: 1
-            }, {
-                n_id: 10,
-                n_order_num: 0,
-                n_title: 'falan1-2-1',
-                n_parentid: 5
-            }, {
-                n_id: 11,
-                n_order_num: 0,
-                n_title: 'falan1-2-1-1',
-                n_parentid: 10
-            }, {
-                n_id: 6,
-                n_order_num: 0,
-                n_title: 'falan2-1',
-                n_parentid: 2
-            }, {
-                n_id: 7,
-                n_order_num: 0,
-                n_title: 'falan2-2',
-                n_parentid: 2
-            }, {
-                n_id: 8,
-                n_order_num: 0,
-                n_title: 'falan2-3',
-                n_parentid: 2
-            }, {
-                n_id: 9,
-                n_order_num: 0,
-                n_title: 'falan1-2-2',
-                n_parentid: 5
-            }]
-        });
-        /*for (let i = 0; i < 3; i++) {
-            tree.createNode('Falan_' + i, i);
-            for (let t = 0; t < 3; t++) {
-                tree.createNode('Falan1_' + t + i, t + '_' + i + '_sub1', [], tree.getNode('node_' + i));
-                for (let j = 0; j < 3; j++) {
-                    tree.createNode('Falan1_' + t + i, t + '_' + i + '_sub2', [], tree.getNode('node_' + t + '_' + i + '_sub1'));
-                }
-            }
-        }*/
-    </script>
 
     <!-- repeatable nav item template -->
     <script type="text/ng-template" id="nav_item_template.html">

@@ -7,6 +7,7 @@ namespace UmbNav.Web
         public static IUmbracoBuilder AddUmbNav(this IUmbracoBuilder builder)
         {
             builder.BackOfficeAssets()
+                .Append<PickleTreeCssFile>()
                 .Append<PickletreeJsFile>();
 
             return builder;

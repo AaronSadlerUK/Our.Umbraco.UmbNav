@@ -5,6 +5,7 @@
     vm.allowChildNodes = Object.toBoolean(!dialogOptions.config.hideIncludeChildren);
     vm.showTopAddButton = Object.toBoolean(dialogOptions.config.showTopAddButton);
     vm.items = [];
+    vm.pickleItems = [];
 
     if (dialogOptions.config.expandOnHoverTimeout > 0) {
         vm.expandOnHover = dialogOptions.config.expandOnHoverTimeout;
@@ -14,13 +15,25 @@
 
     if (!_.isEmpty($scope.model.value)) {
         // retreive the saved items
-        vm.items = $scope.model.value;
+        vm.items = angular.forEach($scope.model.value,
+            function (value, key) {
+                buildNavItem(value, key)
+            });
+        angular.forEach(vm.items,
+            function (value, key) {
+                vm.pickleItems.push(value.pickle);
+            });
+
+
+        debugger;
 
         // get updated entities for content
-        getItemEntities(vm.items);
+        //getItemEntities(vm.items);
     }
 
     //vm.items populated by this point
+
+    initPickleTree();
 
     $scope.add = function () {
         openSettings(null, function (navItem) {
@@ -163,56 +176,103 @@
         editorService.open(settingsEditor);
     }
 
-    function buildNavItem(data) {
-        var url;
-        if (data.anchor) {
-            url = data.url + data.anchor;
-        } else {
-            url = data.url;
-        }
+    function buildNavItem(data, key) {
+        //debugger;
 
-        var icon = data.icon;
-        if (data.itemType === 'nolink') {
-            icon = "icon-tag";
+        //var url;
+        //if (data.anchor) {
+        //    url = data.url + data.anchor;
+        //} else {
+        //    url = data.url;
+        //}
 
-        } else if (data.icon == null) {
-            icon = "icon-link";
-        }
+        //var icon = data.icon;
+        //if (data.itemType === 'nolink') {
+        //    icon = "icon-tag";
 
-        if (data.title == (null || "")) {
-            data.title = data.name;
+        //} else if (data.icon == null) {
+        //    icon = "icon-link";
+        //}
+
+        //if (data.title == (null || "")) {
+        //    data.title = data.name;
+        //}
+
+        data.pickle = {
+            n_id: key + 1,
+            n_title: data.name,
+            n_parentid: 0
         }
 
         return {
-            udi: data.udi,
-            key: data.key,
-            name: data.name,
-            description: url,
-            collapsed: data.collapsed,
-            title: data.title,
-            target: data.target,
-            noopener: data.noopener,
-            noreferrer: data.noreferrer,
-            hideLoggedIn: data.hideLoggedIn,
-            hideLoggedOut: data.hideLoggedOut,
-            customClasses: data.customClasses,
-            imageUrl: data.imageUrl,
-            image: data.image,
-            anchor: data.anchor,
-            url: url,
-            children: data.children || [],
-            icon: icon,
-            published: data.published,
-            naviHide: data.naviHide,
-            culture: data.culture,
-            includeChildNodes: data.includeChildren,
-            itemType: data.itemType,
-            displayAsLabel: data.displayAsLabel
+            //udi: data.udi,
+            //key: data.key,
+            //name: data.name,
+            //description: url,
+            //collapsed: data.collapsed,
+            //title: data.title,
+            //target: data.target,
+            //noopener: data.noopener,
+            //noreferrer: data.noreferrer,
+            //hideLoggedIn: data.hideLoggedIn,
+            //hideLoggedOut: data.hideLoggedOut,
+            //customClasses: data.customClasses,
+            //imageUrl: data.imageUrl,
+            //image: data.image,
+            //anchor: data.anchor,
+            //url: url,
+            //children: data.children || [],
+            //icon: icon,
+            //published: data.published,
+            //naviHide: data.naviHide,
+            //culture: data.culture,
+            //includeChildNodes: data.includeChildren,
+            //itemType: data.itemType,
+            //displayAsLabel: data.displayAsLabel
         }
+    }
+
+    function initPickleTree() {
+        debugger;
+        const tree = new PickleTree({
+            c_target: 'div_tree',
+            rowCreateCallback: (node) => {
+                //console.log(node)
+            },
+            switchCallback: (node) => {
+                //console.log(node)
+            },
+            drawCallback: () => {
+                //console.log('tree drawed ..');
+            },
+            dragCallback: (node) => {
+                console.log(node);
+            },
+            dropCallback: (node) => {
+                //retuns node with new parent and old parent in 'old_parent' key!!
+                console.log(node);
+            },
+            c_config: {
+                //start as folded or unfolded
+                foldedStatus: false,
+                //for logging
+                logMode: false,
+                //for switch element
+                switchMode: false,
+                //for automaticly select childs
+                autoChild: true,
+                //for automaticly select parents
+                autoParent: true,
+                //for drag / drop
+                drag: true,
+                //for ordering
+                order: true
+            },
+            c_data: vm.pickleItems
+        });
     }
 }
 
 angular.module("umbraco").controller("Our.UmbNav.Controller", UmbNav);
 
 app.requires.push("ui.tree");
-//app.requires.push("PickleTree")
