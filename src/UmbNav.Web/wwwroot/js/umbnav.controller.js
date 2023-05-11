@@ -6,6 +6,7 @@
     vm.showTopAddButton = Object.toBoolean(dialogOptions.config.showTopAddButton);
     vm.items = [];
     vm.pickleItems = [];
+    vm.tree;
 
     if (dialogOptions.config.expandOnHoverTimeout > 0) {
         vm.expandOnHover = dialogOptions.config.expandOnHoverTimeout;
@@ -37,8 +38,29 @@
 
     $scope.add = function () {
         openSettings(null, function (navItem) {
+            let new_node = vm.tree.createNode({
+                //n_value: 5,
+                n_title: navItem.name,
+                n_id: navItem.id,
+                n_elements: [{
+                    icon: 'fa fa-edit', // icon class
+                    title: 'Edit',
+                    onClick: (node) => {
+                        console.log('edit - ' + node.id);
+                    }
+                }, {
+                    icon: 'fa fa-trash',
+                    title: 'Delete',
+                    onClick: (node) => {
+                        console.log('delete - ' + node.id);
+                    }
+                }],
+                //n_elements: [],
+                //n_parent: vm.tree.getNode(4),
+                //n_checkStatus: false
+            });
             // add item to scope
-            vm.items.push(buildNavItem(navItem));
+            //vm.pickleItems.push(buildNavItem(navItem));
         });
     };
 
@@ -176,6 +198,17 @@
         editorService.open(settingsEditor);
     }
 
+    function addItem(data, key) {
+        let new_node = tree.createNode({
+            n_value: 5,
+            n_title: 'Item 5',
+            n_id: 5,
+            n_elements: [],
+            n_parent: tree.getNode(4),
+            n_checkStatus: false
+        });
+    }
+
     function buildNavItem(data, key) {
         //debugger;
 
@@ -199,9 +232,22 @@
         //}
 
         data.pickle = {
-            n_id: key + 1,
+            //n_id: key + 1,
             n_title: data.name,
-            n_parentid: 0
+            n_parentid: 0,
+            n_elements: [{
+                icon: 'fa fa-edit', // icon class
+                title: 'Edit',
+                onClick: (node) => {
+                    console.log('edit - ' + node.id);
+                }
+            }, {
+                icon: 'fa fa-trash',
+                title: 'Delete',
+                onClick: (node) => {
+                    console.log('delete - ' + node.id);
+                }
+            }],
         }
 
         return {
@@ -234,7 +280,7 @@
 
     function initPickleTree() {
         debugger;
-        const tree = new PickleTree({
+        vm.tree = new PickleTree({
             c_target: 'div_tree',
             rowCreateCallback: (node) => {
                 //console.log(node)
