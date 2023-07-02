@@ -49,6 +49,7 @@ namespace UmbNav.Core.Services
                 {
                     if (item.HideLoggedIn && isLoggedIn || item.HideLoggedOut && !isLoggedIn)
                     {
+                        removeItems.Add(item);
                         continue;
                     }
 
