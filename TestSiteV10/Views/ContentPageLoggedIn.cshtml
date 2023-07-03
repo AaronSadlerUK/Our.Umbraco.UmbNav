@@ -1,0 +1,36 @@
+﻿@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@using Umbraco.Extensions
+@using Umbraco.Cms.Core.Security
+@using Umbraco.Cms.Web.Website.Controllers
+@using TestSiteV10.Controllers
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ContentPage>
+@inject IMemberManager MemberManager;
+@{
+    Layout = "master.cshtml";
+    var currentMember = await MemberManager.GetCurrentMemberAsync();
+}
+
+@Html.Partial("~/Views/Partials/SectionHeader.cshtml")
+
+<section class="section">
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Is Logged In: @MemberManager.IsLoggedIn()</h2>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <nav class="nav-bar nav-bar--list">
+                @Html.Partial("~/Views/Partials/Navigation/SubNavigation.cshtml")
+            </nav>
+        </div>
+
+        <div class="col-md-9">
+            <article>
+                @Html.GetGridHtml(Model, "bodyText", "bootstrap3-fluid")
+            </article>
+        </div>
+    </div>
+
+</section>
