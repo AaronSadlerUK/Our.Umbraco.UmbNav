@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -15,13 +15,13 @@
 		<PackageProjectUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</PackageProjectUrl>
 		<Authors>Aaron Sadler</Authors>
 		<Company>UmbHost Limited</Company>
-		<Copyright>2022 UmbHost Limited</Copyright>
+		<Copyright>2023 UmbHost Limited</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<AssemblyVersion>2.0.4</AssemblyVersion>
+		<AssemblyVersion>2.0.7</AssemblyVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Fixed backoffice UI</PackageReleaseNotes>
+		<PackageReleaseNotes>Fixes member visiblity</PackageReleaseNotes>
 	</PropertyGroup>
 
 
