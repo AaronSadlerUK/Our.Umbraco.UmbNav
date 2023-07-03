@@ -16,13 +16,13 @@
 		<PackageProjectUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</PackageProjectUrl>
 		<Authors>Aaron Sadler</Authors>
 		<Company>UmbHost Limited</Company>
-		<Copyright>2022 UmbHost Limited</Copyright>
+		<Copyright>2023 UmbHost Limited</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<AssemblyVersion>2.0.0</AssemblyVersion>
+		<AssemblyVersion>2.0.2</AssemblyVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+		<PackageReleaseNotes>Fixes member visiblity</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
