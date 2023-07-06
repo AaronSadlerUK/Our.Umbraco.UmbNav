@@ -16,6 +16,8 @@ namespace UmbNav.Core.TagHelpers
         public string Culture { get; set; }
         public string LabelTagName { get; set; } = "span";
         public string ActiveClass { get; set; }
+        public bool IsActiveAncestorCheck { get; set; } = false;
+        public IPublishedContent CurrentPage { get; set; } = null;
         private bool IsLabel { get { return MenuItem.ItemType == UmbNavItemType.Label; } }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -33,7 +35,14 @@ namespace UmbNav.Core.TagHelpers
                 output.AddClass(MenuItem.CustomClasses, HtmlEncoder.Default);
             }
 
-            if (!string.IsNullOrEmpty(ActiveClass) && MenuItem.IsActive)
+            if (!string.IsNullOrEmpty(ActiveClass) && CurrentPage != null && IsActiveAncestorCheck)
+            {
+                if (MenuItem.IsActive(CurrentPage, true))
+                {
+                    output.AddClass(ActiveClass, HtmlEncoder.Default);
+                }
+            }
+            else if (!string.IsNullOrEmpty(ActiveClass) && MenuItem.IsActive)
             {
                 output.AddClass(ActiveClass, HtmlEncoder.Default);
             }

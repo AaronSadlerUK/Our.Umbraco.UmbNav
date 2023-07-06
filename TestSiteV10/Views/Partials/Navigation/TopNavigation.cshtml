@@ -1,4 +1,5 @@
 ﻿@using UmbNav.Core.Models
+@using UmbNav.Core.Extensions
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @{
     var site = Model.Root();
@@ -12,5 +13,6 @@
 }*@
 @foreach (var item in umbNav)
 {
-    <umbnavitem menu-item="item" active-class="nav-link--active" class="nav-link"></umbnavitem>
+    @*<umbnavitem menu-item="item" active-class="nav-link--active" class="nav-link"></umbnavitem>*@
+    <a class="nav-link @Html.If(item.IsActive(Model, true), " nav-link--active")" href="@item.Url()">@item.Name</a>
 }
