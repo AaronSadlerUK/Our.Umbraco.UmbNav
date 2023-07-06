@@ -18,10 +18,10 @@
 		<Copyright>2023 UmbHost Limited</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<AssemblyVersion>2.0.7</AssemblyVersion>
+		<AssemblyVersion>2.0.8</AssemblyVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Fixes member visiblity</PackageReleaseNotes>
+		<PackageReleaseNotes>Added IsActive extension with ancestor check</PackageReleaseNotes>
 	</PropertyGroup>
 
 

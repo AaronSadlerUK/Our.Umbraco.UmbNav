@@ -19,10 +19,10 @@
 		<Copyright>2023 UmbHost Limited</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<AssemblyVersion>2.0.2</AssemblyVersion>
+		<AssemblyVersion>2.0.3</AssemblyVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Fixes member visiblity</PackageReleaseNotes>
+		<PackageReleaseNotes>Added IsActive extension with ancestor check</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">

@@ -121,5 +121,23 @@ namespace UmbNav.Core.Extensions
 
             return item.Url;
         }
+
+        public static bool IsActive(this UmbNavItem item, IPublishedContent currentPage, bool checkAncestors = false)
+        {
+            if (item.Key == currentPage.Key)
+            {
+                return true;
+            }
+
+            if (checkAncestors)
+            {
+                if (item.Content.IsAncestorOrSelf(currentPage) && item.Content != currentPage.Root())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

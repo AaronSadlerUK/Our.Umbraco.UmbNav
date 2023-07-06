@@ -75,6 +75,7 @@ namespace UmbNav.Core.Models
         [JsonProperty("itemType")] internal string MenuItemType { get; set; } = "link";
 
         [JsonIgnore]
+        [Obsolete("If you need to check ancestors, use the IsActive() extension instead")]
         public bool IsActive { get; set; }
 
         [JsonProperty("displayAsLabel")]
