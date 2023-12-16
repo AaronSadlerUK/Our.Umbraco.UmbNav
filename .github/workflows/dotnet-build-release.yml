@@ -74,16 +74,16 @@ jobs:
       - name: Push to GitHub Nuget Repo
         if: ${{ github.event_name != 'pull_request' }}
         run: |
-          dotnet nuget push ./build.out/UmbNav.Web.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://nuget.pkg.github.com/umbhost/index.json --api-key ${{ github.token }}
-          dotnet nuget push ./build.out/UmbNav.Core.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://nuget.pkg.github.com/umbhost/index.json --api-key ${{ github.token }}
-          dotnet nuget push ./build.out/UmbNav.Api.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://nuget.pkg.github.com/umbhost/index.json --api-key ${{ github.token }}
+          dotnet nuget push ./build.out/Our.Umbraco.UmbNav.Web.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://nuget.pkg.github.com/umbhost/index.json --api-key ${{ github.token }}
+          dotnet nuget push ./build.out/Our.Umbraco.UmbNav.Core.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://nuget.pkg.github.com/umbhost/index.json --api-key ${{ github.token }}
+          dotnet nuget push ./build.out/Our.Umbraco.UmbNav.Api.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://nuget.pkg.github.com/umbhost/index.json --api-key ${{ github.token }}
 
       - name: Push to UmbHost Nuget Repo
         if: ${{ github.event_name != 'pull_request' }}
         run: |
-          dotnet nuget push ./build.out/UmbNav.Web.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
-          dotnet nuget push ./build.out/UmbNav.Core.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
-          dotnet nuget push ./build.out/UmbNav.Api.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+          dotnet nuget push ./build.out/Our.Umbraco.UmbNav.Web.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+          dotnet nuget push ./build.out/Our.Umbraco.UmbNav.Core.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+          dotnet nuget push ./build.out/Our.Umbraco.UmbNav.Api.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
 
 
       - name: Create Release
@@ -91,9 +91,9 @@ jobs:
         with:
           name: ${{steps.gitversion.outputs.fullSemVer}}
           tag_name: ${{steps.gitversion.outputs.fullSemVer}}
-          prerelease: false
+          prerelease: true
           generate_release_notes: true
           files: |
-            ./build.out/UmbNav.Web.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg
-            ./build.out/UmbNav.Core.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg
-            ./build.out/UmbNav.Api.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg
+            ./build.out/Our.Umbraco.UmbNav.Web.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg
+            ./build.out/Our.Umbraco.UmbNav.Core.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg
+            ./build.out/Our.Umbraco.UmbNav.Api.${{steps.gitversion.outputs.nuGetVersionV2}}.nupkg
