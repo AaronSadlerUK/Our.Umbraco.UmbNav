@@ -14,6 +14,31 @@ namespace UmbNav.Core.ValueConnectors
     /// <seealso cref="IValueConnector" />
     public class UmbNavValueConnector : IValueConnector
     {
+#if NET8_0_OR_GREATER
+            public string ToArtifact(object value, IPropertyType propertyType, ICollection<ArtifactDependency> dependencies, IContextCache contextCache)
+            {
+                if (AppSettingsManager.GetDisableUmbracoCloudSync())
+                    return null;
+
+                var svalue = value as string;
+                if (string.IsNullOrWhiteSpace(svalue) || !svalue.DetectIsJson())
+                {
+                    return svalue;
+                }
+
+                var rootLinks = ParseLinks(JArray.Parse(svalue), dependencies);
+
+                return rootLinks.ToString(Formatting.None);
+            }
+
+            public object FromArtifact(string value, IPropertyType propertyType, object currentValue, IContextCache contextCache)
+            {
+                if (AppSettingsManager.GetDisableUmbracoCloudSync())
+                    return null;
+
+                return value;
+            }
+#else
         public string ToArtifact(object value, IPropertyType propertyType, ICollection<ArtifactDependency> dependencies)
         {
             if (AppSettingsManager.GetDisableUmbracoCloudSync())
@@ -37,6 +62,7 @@ namespace UmbNav.Core.ValueConnectors
 
             return value;
         }
+#endif
 
         public IEnumerable<string> PropertyEditorAliases => new[] { UmbNavConstants.PropertyEditorAlias };
 
