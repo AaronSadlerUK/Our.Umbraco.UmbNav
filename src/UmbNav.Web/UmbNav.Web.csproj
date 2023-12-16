@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net70;net80</TargetFrameworks>
 		<StaticWebAssetBasePath>App_Plugins/UmbNav</StaticWebAssetBasePath>
+		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 		<Product>Our.Umbraco.UmbNav.Web</Product>
 		<PackageId>Our.Umbraco.UmbNav.Web</PackageId>
 		<Title>UmbNav Web</Title>

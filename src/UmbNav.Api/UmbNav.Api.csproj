@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net60;net70;net80</TargetFrameworks>
 		<ContentTargetFolders>content</ContentTargetFolders>
-
+		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 		<Product>Our.Umbraco.UmbNav.Api</Product>
 		<PackageId>Our.Umbraco.UmbNav.Api</PackageId>
 		<Title>UmbNav Api</Title>
