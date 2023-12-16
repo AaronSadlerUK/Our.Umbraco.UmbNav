@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net60</TargetFrameworks>
+		<TargetFrameworks>net60;net70;net80</TargetFrameworks>
 		<ContentTargetFolders>content</ContentTargetFolders>
 
 		<Product>Our.Umbraco.UmbNav.Api</Product>
@@ -35,6 +35,11 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'net70'">
 		<PackageReference Include="Umbraco.Cms.Web.Website" version="11.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="11.0.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net80'">
+		<PackageReference Include="Umbraco.Cms.Web.Website" version="13.0.0" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="13.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

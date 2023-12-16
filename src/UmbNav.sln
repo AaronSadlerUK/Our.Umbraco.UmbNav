@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbNav.Web", "UmbNav.Web\Um
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSiteV11", "..\TestSiteV11\TestSiteV11.csproj", "{D184C5B8-2844-4702-95EC-27295CC15012}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSiteV13", "..\TestSiteV13\TestSiteV13.csproj", "{C0CE6030-0059-4EAF-9ED0-FF59A6554708}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{D184C5B8-2844-4702-95EC-27295CC15012}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D184C5B8-2844-4702-95EC-27295CC15012}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D184C5B8-2844-4702-95EC-27295CC15012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0CE6030-0059-4EAF-9ED0-FF59A6554708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0CE6030-0059-4EAF-9ED0-FF59A6554708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0CE6030-0059-4EAF-9ED0-FF59A6554708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0CE6030-0059-4EAF-9ED0-FF59A6554708}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

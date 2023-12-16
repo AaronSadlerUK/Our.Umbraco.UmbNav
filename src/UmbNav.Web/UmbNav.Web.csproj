@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFrameworks>net6.0;net70;net80</TargetFrameworks>
 		<StaticWebAssetBasePath>App_Plugins/UmbNav</StaticWebAssetBasePath>
 		<Product>Our.Umbraco.UmbNav.Web</Product>
 		<PackageId>Our.Umbraco.UmbNav.Web</PackageId>
@@ -29,12 +29,20 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.6" />
-    <!--<PackageReference Include="Our.Umbraco.UmbNav.Api" Version="2.0.2" />
-    <PackageReference Include="Our.Umbraco.UmbNav.Core" Version="2.0.0" />-->
-    <PackageReference Include="Umbraco.Cms.Core" Version="10.0.0" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.6" />
+		<PackageReference Include="Umbraco.Cms.Core" version="10.0.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net70'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
+		<PackageReference Include="Umbraco.Cms.Core" version="11.0.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net80'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
+		<PackageReference Include="Umbraco.Cms.Core" version="13.0.0" />
+	</ItemGroup>
 
 	<ItemGroup>
     <Folder Include="wwwroot\" />
