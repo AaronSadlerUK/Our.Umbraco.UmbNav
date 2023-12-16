@@ -1,0 +1,25 @@
+<Project>
+    <PropertyGroup>
+		<VersionPrefix>1.0.0</VersionPrefix>
+		<Authors>Aaron Sadler</Authors>
+		<Company>UmbHost Limited</Company>
+
+		<PackageIconUrl></PackageIconUrl>
+		<PackageProjectUrl>https://umbcheckout.net</PackageProjectUrl>
+		<PackageTags>umbraco-marketplace;umbraco;ecommerce;umbcheckout;</PackageTags>
+
+		<RepositoryUrl>https://github.com/UmbHost/UmbCheckout</RepositoryUrl>
+
+		<Copyright>(c) 2023 UmbHost Limited</Copyright>
+
+		<PackageIcon>icon.png</PackageIcon>
+
+		<PackageReleaseNotes>
+		</PackageReleaseNotes>
+
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>false</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+</Project>
