@@ -26,17 +26,20 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.Website" version="10.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="10.0.0" />
 	</ItemGroup>
 
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net70'">
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.Website" version="11.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="11.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net80'">
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.Website" version="13.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="13.0.0" />
 	</ItemGroup>
