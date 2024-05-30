@@ -84,6 +84,11 @@ namespace UmbNav.Core.Services
                     var children = new List<UmbNavItem>();
                     if (item.Children != null && item.Children.Any())
                     {
+                        foreach (var child in item.Children)
+                        {
+                            child.Parent = item;
+                        }
+
                         children = item.Children.ToList();
                     }
 

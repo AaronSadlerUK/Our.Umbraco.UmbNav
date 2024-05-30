@@ -40,6 +40,9 @@ namespace UmbNav.Core.Models
         public IEnumerable<UmbNavItem> Children { get; set; }
 
         [JsonIgnore]
+        public UmbNavItem Parent { get; set; }
+
+        [JsonIgnore]
         public IPublishedContent Content { get; set; }
 
         [JsonIgnore]
