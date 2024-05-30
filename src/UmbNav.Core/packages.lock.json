@@ -14,7 +14,7 @@
       },
       "Umbraco.Cms.Web.BackOffice": {
         "type": "Direct",
-        "requested": "[10.0.0, )",
+        "requested": "[10.0.0, 11.0.0)",
         "resolved": "10.0.0",
         "contentHash": "OwAgBm/0QhHWTjdfnlO5X7a0n99FVsNSs0G0kQcFL0vX7UaniS6ii2FofizMPyK/LMqfY2phGtt8TzzYh13Uiw==",
         "dependencies": {
@@ -28,7 +28,7 @@
       },
       "Umbraco.Cms.Web.Website": {
         "type": "Direct",
-        "requested": "[10.0.0, )",
+        "requested": "[10.0.0, 11.0.0)",
         "resolved": "10.0.0",
         "contentHash": "f2x3OXEsitYGGJ53I52FiyaUgyeGJ4wy18e6Jr2GQylKonqSKl+bWGu0PJ/3f5VEwYY4gT0sO/9WEj9zs21Ozg==",
         "dependencies": {
@@ -2258,7 +2258,7 @@
       },
       "Umbraco.Cms.Web.BackOffice": {
         "type": "Direct",
-        "requested": "[11.0.0, )",
+        "requested": "[11.0.0, 13.0.0)",
         "resolved": "11.0.0",
         "contentHash": "P4RJ0a83FgXM8cOCsZkap7dtRfrsR91UVwT0BI7JxHm99HdZ+T53J20EZ1+KtVXU4BaNzKwcRIG6CY19zl7uLA==",
         "dependencies": {
@@ -2272,7 +2272,7 @@
       },
       "Umbraco.Cms.Web.Website": {
         "type": "Direct",
-        "requested": "[11.0.0, )",
+        "requested": "[11.0.0, 13.0.0)",
         "resolved": "11.0.0",
         "contentHash": "HBkwHjRw7x/iiskh74BbO+hjSMt+yH9Q6b0581aItbtPYtJXtHLYxy/MyKy5hkseMG+3HyIviZHxxwGsWfnjXw==",
         "dependencies": {
@@ -4357,7 +4357,7 @@
       },
       "Umbraco.Cms.Web.BackOffice": {
         "type": "Direct",
-        "requested": "[13.0.0, )",
+        "requested": "[13.0.0, 14.0.0)",
         "resolved": "13.0.0",
         "contentHash": "QtWAvGHnx9XRM2t+QiAt8IMaroCEVxSnl4TD17PjDWOCIMUebtoI0YPVyrrs01O63h9587c+eFIZh6YMWJyDZg==",
         "dependencies": {
@@ -4368,7 +4368,7 @@
       },
       "Umbraco.Cms.Web.Website": {
         "type": "Direct",
-        "requested": "[13.0.0, )",
+        "requested": "[13.0.0, 14.0.0)",
         "resolved": "13.0.0",
         "contentHash": "EFpo37/hVP53sRZddETv1ozfG87FbboUWjlthqvQVgC1LrLVFB0ozGwnOrcdSad70wGfSqP7OboapWloYwpqRA==",
         "dependencies": {

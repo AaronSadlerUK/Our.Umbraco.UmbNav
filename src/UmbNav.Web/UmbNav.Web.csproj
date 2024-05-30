@@ -33,19 +33,19 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.6" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
-		<PackageReference Include="Umbraco.Cms.Core" version="10.0.0" />
+		<PackageReference Include="Umbraco.Cms.Core" version="[10.0.0, 11)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net70'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
-		<PackageReference Include="Umbraco.Cms.Core" version="11.0.0" />
+		<PackageReference Include="Umbraco.Cms.Core" version="[11.0.0, 13)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net80'">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
-		<PackageReference Include="Umbraco.Cms.Core" version="13.0.0" />
+		<PackageReference Include="Umbraco.Cms.Core" version="[13.0.0, 14)" />
 	</ItemGroup>
 
 	<ItemGroup>

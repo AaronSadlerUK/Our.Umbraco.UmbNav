@@ -2298,16 +2298,16 @@
         "type": "Project",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[6.0.6, )",
-          "Umbraco.Cms.Web.BackOffice": "[10.0.0, )",
-          "Umbraco.Cms.Web.Website": "[10.0.0, )"
+          "Umbraco.Cms.Web.BackOffice": "[10.0.0, 11.0.0)",
+          "Umbraco.Cms.Web.Website": "[10.0.0, 11.0.0)"
         }
       },
       "Our.Umbraco.UmbNav.Core": {
         "type": "Project",
         "dependencies": {
           "System.Configuration.ConfigurationManager": "[6.0.0, )",
-          "Umbraco.Cms.Web.BackOffice": "[10.0.0, )",
-          "Umbraco.Cms.Web.Website": "[10.0.0, )"
+          "Umbraco.Cms.Web.BackOffice": "[10.0.0, 11.0.0)",
+          "Umbraco.Cms.Web.Website": "[10.0.0, 11.0.0)"
         }
       }
     },
@@ -2338,7 +2338,7 @@
       },
       "Umbraco.Cms.Core": {
         "type": "Direct",
-        "requested": "[11.0.0, )",
+        "requested": "[11.0.0, 13.0.0)",
         "resolved": "11.0.0",
         "contentHash": "IkVx8W8Ey4Ca6Jkjgy3XGy8Y/Ui7lX0Q+X4LaUws6oReFfwMokwLX4eK9IvuVyerkxE0Hz94dh/OqOjziv/XPw==",
         "dependencies": {
@@ -4468,16 +4468,16 @@
         "type": "Project",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[7.0.0, )",
-          "Umbraco.Cms.Web.BackOffice": "[11.0.0, )",
-          "Umbraco.Cms.Web.Website": "[11.0.0, )"
+          "Umbraco.Cms.Web.BackOffice": "[11.0.0, 13.0.0)",
+          "Umbraco.Cms.Web.Website": "[11.0.0, 13.0.0)"
         }
       },
       "Our.Umbraco.UmbNav.Core": {
         "type": "Project",
         "dependencies": {
           "System.Configuration.ConfigurationManager": "[7.0.0, )",
-          "Umbraco.Cms.Web.BackOffice": "[11.0.0, )",
-          "Umbraco.Cms.Web.Website": "[11.0.0, )"
+          "Umbraco.Cms.Web.BackOffice": "[11.0.0, 13.0.0)",
+          "Umbraco.Cms.Web.Website": "[11.0.0, 13.0.0)"
         }
       }
     },
@@ -4508,7 +4508,7 @@
       },
       "Umbraco.Cms.Core": {
         "type": "Direct",
-        "requested": "[13.0.0, )",
+        "requested": "[13.0.0, 14.0.0)",
         "resolved": "13.0.0",
         "contentHash": "0/ODOagfKr4Rhwfc6s8WjexXI3n9bnFzUR1GFHiSs4C24dZFDJzdSgrRSuFl1ZoqzIkt3VP815WAEQm66D+SVw==",
         "dependencies": {
@@ -6658,16 +6658,16 @@
         "type": "Project",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "[8.0.0, )",
-          "Umbraco.Cms.Web.BackOffice": "[13.0.0, )",
-          "Umbraco.Cms.Web.Website": "[13.0.0, )"
+          "Umbraco.Cms.Web.BackOffice": "[13.0.0, 14.0.0)",
+          "Umbraco.Cms.Web.Website": "[13.0.0, 14.0.0)"
         }
       },
       "Our.Umbraco.UmbNav.Core": {
         "type": "Project",
         "dependencies": {
           "System.Configuration.ConfigurationManager": "[8.0.0, )",
-          "Umbraco.Cms.Web.BackOffice": "[13.0.0, )",
-          "Umbraco.Cms.Web.Website": "[13.0.0, )"
+          "Umbraco.Cms.Web.BackOffice": "[13.0.0, 14.0.0)",
+          "Umbraco.Cms.Web.Website": "[13.0.0, 14.0.0)"
         }
       }
     }
