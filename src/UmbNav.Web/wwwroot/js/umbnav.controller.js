@@ -118,6 +118,7 @@
             hideIncludeChildren: dialogOptions.config.hideIncludeChildren,
             allowLabels: dialogOptions.config.allowLabels,
             allowDisplayAsLabel: dialogOptions.config.allowDisplayAsLabel,
+            allowMenuItemDescriptions: dialogOptions.config.allowMenuItemDescriptions,
             currentTarget: item,
             submit: function (model) {
 
