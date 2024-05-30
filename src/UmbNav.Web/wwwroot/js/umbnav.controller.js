@@ -188,6 +188,7 @@
             description: url,
             collapsed: data.collapsed,
             title: data.title,
+            menuitemdescription: data.menuitemdescription,
             target: data.target,
             noopener: data.noopener,
             noreferrer: data.noreferrer,

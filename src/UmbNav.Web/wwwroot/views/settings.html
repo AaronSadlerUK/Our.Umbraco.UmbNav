@@ -128,6 +128,13 @@
                                    ng-model="model.target.title"
                                    ng-required="!model.target.name" />
                         </umb-control-group>
+                        <umb-control-group label="@umbnav_description">
+                            <textarea
+                                   localize="placeholder"
+                                   placeholder="@umbnav_descriptionPlaceholder"
+                                   class="umb-property-editor umb-textstring"
+                                   ng-model="model.target.menuitemdescription"></textarea>
+                        </umb-control-group>
                     </div>
                 </umb-box-content>
             </umb-box>

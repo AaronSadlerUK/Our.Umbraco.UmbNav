@@ -21,6 +21,9 @@ namespace UmbNav.Core.Models
         [JsonProperty("title")]
         public string Title { get; set; }
 
+        [JsonProperty("menuitemdescription")]
+        public string Description { get; set; }
+
         [JsonProperty("target")]
         public string Target { get; set; }
 
