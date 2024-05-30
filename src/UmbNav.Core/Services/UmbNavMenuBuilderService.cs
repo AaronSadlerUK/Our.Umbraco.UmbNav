@@ -28,7 +28,7 @@ namespace UmbNav.Core.Services
         }
 
         public IEnumerable<UmbNavItem> BuildMenu(IEnumerable<UmbNavItem> items, int level = 0, bool removeNaviHideItems = false,
-            bool removeNoopener = false, bool removeNoreferrer = false, bool removeIncludeChildNodes = false)
+            bool removeNoopener = false, bool removeNoreferrer = false, bool removeIncludeChildNodes = false, bool allowMenuItemDescriptions = false)
         {
             var umbNavItems = items.ToList();
             var removeItems = new List<UmbNavItem>();
@@ -68,6 +68,11 @@ namespace UmbNav.Core.Services
                         if (string.IsNullOrEmpty(item.Title) && !string.IsNullOrEmpty(item.Name))
                         {
                             item.Title = item.Name;
+                        }
+
+                        if (!allowMenuItemDescriptions)
+                        {
+                            item.Description = null;
                         }
 
                         //if (!item.DisplayAsLabel)

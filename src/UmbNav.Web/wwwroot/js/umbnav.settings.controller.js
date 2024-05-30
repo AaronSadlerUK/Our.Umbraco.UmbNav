@@ -82,6 +82,7 @@
     $scope.showCustomClasses = $scope.model.allowCustomClasses === true;
     $scope.showImageIcon = $scope.model.allowImageIcon === true;
     $scope.allowLabels = $scope.model.allowLabels === true;
+    $scope.allowMenuItemDescriptions = $scope.model.allowMenuItemDescriptions === true;
     $scope.showAdvancedBlock = showAdvanced();
     if (!$scope.allowLabels) {
         $scope.model.target.itemType = 'link';

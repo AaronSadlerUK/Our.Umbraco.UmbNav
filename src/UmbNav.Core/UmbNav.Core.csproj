@@ -16,7 +16,7 @@
 		<PackageProjectUrl>https://github.com/AaronSadlerUK/Our.Umbraco.UmbNav</PackageProjectUrl>
 		<Authors>Aaron Sadler</Authors>
 		<Company>UmbHost Limited</Company>
-		<Copyright>2023 UmbHost Limited</Copyright>
+		<Copyright>$([System.DateTime]::Now.ToString(`yyyy`)) UmbHost Limited</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<AssemblyVersion>2.0.3</AssemblyVersion>
