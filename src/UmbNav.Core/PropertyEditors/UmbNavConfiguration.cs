@@ -46,5 +46,9 @@ namespace UmbNav.Core.PropertyEditors
 
         [ConfigurationField("showTopAddButton", "Show \"Add Item\" Button", "boolean", Description = "Show the \"Add Item\" button above the nav items in the editor")]
         public bool ShowTopAddButton { get; set; } = true;
+
+        [ConfigurationField("allowMenuItemDescriptions", "Allow Menu Item Descriptions", "boolean",
+            Description = "Add a text field to the menu item to contain a description")]
+        public bool AllowMenuItemDescriptions { get; set; } = false;
     }
 }

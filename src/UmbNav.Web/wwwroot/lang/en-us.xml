@@ -25,6 +25,8 @@
 		<key alias="label">Label</key>
 		<key alias="menuItem">Menu Item</key>
 		<key alias="title">Title</key>
+		<key alias="description">Description</key>
+		<key alias="descriptionPlaceholder">Enter a description...</key>
 		<key alias="itemType">Menu Item Type</key>
 		<key alias="linkTypeDescription">Select menu item type</key>
 		<key alias="displayAsLabel">Display as label</key>

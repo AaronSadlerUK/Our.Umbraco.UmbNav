@@ -21,6 +21,9 @@ namespace UmbNav.Core.Models
         [JsonProperty("title")]
         public string Title { get; set; }
 
+        [JsonProperty("menuitemdescription")]
+        public string Description { get; set; }
+
         [JsonProperty("target")]
         public string Target { get; set; }
 
@@ -35,6 +38,9 @@ namespace UmbNav.Core.Models
 
         [JsonProperty("children")]
         public IEnumerable<UmbNavItem> Children { get; set; }
+
+        [JsonIgnore]
+        public UmbNavItem Parent { get; set; }
 
         [JsonIgnore]
         public IPublishedContent Content { get; set; }

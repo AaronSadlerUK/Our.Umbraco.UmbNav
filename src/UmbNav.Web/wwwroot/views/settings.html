@@ -66,7 +66,12 @@
                                    ng-model="model.target.title"
                                    ng-required="!model.target.name" />
                         </umb-control-group>
-
+                        <umb-control-group label="@umbnav_description" ng-if="allowMenuItemDescriptions === true">
+                            <textarea localize="placeholder"
+                                      placeholder="@umbnav_descriptionPlaceholder"
+                                      class="umb-property-editor umb-textstring"
+                                      ng-model="model.target.menuitemdescription"></textarea>
+                        </umb-control-group>
                         <umb-control-group ng-if="showTarget && model.target.itemType == 'link'" label="@content_target">
                             <umb-checkbox model="vm.openInNewWindow"
                                           on-change="vm.toggleOpenInNewWindow(model, value)"
@@ -128,6 +133,13 @@
                                    ng-model="model.target.title"
                                    ng-required="!model.target.name" />
                         </umb-control-group>
+                        <umb-control-group label="@umbnav_description" ng-if="allowMenuItemDescriptions">
+                            <textarea localize="placeholder"
+                                      placeholder="@umbnav_descriptionPlaceholder"
+                                      class="umb-property-editor umb-textstring"
+                                      ng-model="model.target.menuitemdescription"></textarea>
+                        </umb-control-group>
+                        Show Description: {{allowMenuItemDescriptions}}
                     </div>
                 </umb-box-content>
             </umb-box>
