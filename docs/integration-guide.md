@@ -13,6 +13,7 @@ The following properties are available in the `UmbNavItem` class:
 | Udi               | GuidUdi           | The node UDI of the selected content item. For external linking nav items this will be null |
 | Key               | Guid           | The node Key of the selected content item. For external linking nav items this will be 00000000-0000-0000-0000-000000000000 |
 | Title             | String            | The link title, often the node name |
+| Description       | String            | The link description |
 | Target            | String            | The link target |
 | Noopener          | String          	| noopener if set in the backoffice |
 | Noreferrer        | String         	| noreferrer  if set in the backoffice |
@@ -21,6 +22,7 @@ The following properties are available in the `UmbNavItem` class:
 | QueryString       | String            | The link querystring / anchor |
 | Level             | Int               | The level in the overall navigation that the current item sits at |
 | Content           | IPublishedContent | The IPublishedContent for the selected content item. For external linking nav items this will be null |
+| Parent            | UmbNavItem        | The parent UmbNavItem item |
 | Children          | List              | The picked child / sub items for the current item |
 | Culture           | String            | The link culture
 | CustomClasses     | String            | Any CSS classes set in the backoffice
