@@ -42,6 +42,9 @@
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
 		<PackageReference Include="Umbraco.Cms.Web.Website" version="[13.0.0, 14)" />
 		<PackageReference Include="Umbraco.Cms.Web.BackOffice" version="[13.0.0, 14)" />
+		<PackageReference Include="Umbraco.Deploy.Core">
+		  <Version>13.2.2</Version>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>

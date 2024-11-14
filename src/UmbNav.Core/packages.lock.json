@@ -4375,6 +4375,15 @@
           "Umbraco.Cms.Web.Common": "[13.0.0, 14.0.0)"
         }
       },
+      "Umbraco.Deploy.Core": {
+        "type": "Direct",
+        "requested": "[13.2.2, )",
+        "resolved": "13.2.2",
+        "contentHash": "VkMnccua9o9MZFizUPY1t7Vy28/ORvbKVGMfAD960ia9eeFeLuTLWxR2jw7izRq59sylrKX+chypY914JNuvXA==",
+        "dependencies": {
+          "Umbraco.Cms.Core": "[13.0.0, 14.0.0)"
+        }
+      },
       "Asp.Versioning.Abstractions": {
         "type": "Transitive",
         "resolved": "7.0.0",
