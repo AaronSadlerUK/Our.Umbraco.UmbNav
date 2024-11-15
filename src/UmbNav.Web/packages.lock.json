@@ -6654,6 +6654,14 @@
         "resolved": "15.0.0",
         "contentHash": "YSDIkxq44VMy2N3jBTwJBJ/ZjGyuyb0GRyfQAUIma07dCHIbjXgKXjZaAxVa6ik3XTqgcyATvwYJL0EBtAClwA=="
       },
+      "Umbraco.Deploy.Core": {
+        "type": "Transitive",
+        "resolved": "13.2.2",
+        "contentHash": "VkMnccua9o9MZFizUPY1t7Vy28/ORvbKVGMfAD960ia9eeFeLuTLWxR2jw7izRq59sylrKX+chypY914JNuvXA==",
+        "dependencies": {
+          "Umbraco.Cms.Core": "[13.0.0, 14.0.0)"
+        }
+      },
       "Our.Umbraco.UmbNav.Api": {
         "type": "Project",
         "dependencies": {
@@ -6667,7 +6675,8 @@
         "dependencies": {
           "System.Configuration.ConfigurationManager": "[8.0.0, )",
           "Umbraco.Cms.Web.BackOffice": "[13.0.0, 14.0.0)",
-          "Umbraco.Cms.Web.Website": "[13.0.0, 14.0.0)"
+          "Umbraco.Cms.Web.Website": "[13.0.0, 14.0.0)",
+          "Umbraco.Deploy.Core": "[13.2.2, )"
         }
       }
     }
