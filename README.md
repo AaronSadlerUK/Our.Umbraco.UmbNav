@@ -4,6 +4,7 @@
 
 ![Umbraco Cloud Badge](https://img.shields.io/badge/Works%20on-Umbraco%20Cloud-3544b1)
 
+THIS REPOSITORY IS FOR UMBRACO V13, FOR UMBRACO V17+ PLEASE GO HERE ---> [https://github.com/UmbHost/Umbraco.Community.Forms.uCaptcha](https://github.com/AaronSadlerUK/Umbraco.Community.UmbNav) <---
 
 UmbNav adds a drag and drop menu builder to the Umbraco V10 backoffice.
 
